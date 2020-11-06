@@ -12,8 +12,10 @@ export default function App() {
   return (
     <>
       <CssBaseline />
-      <Header siteTitle="Hello" />
-      <Router />
+      <Header />
+      <Container maxWidth="lg">
+        <Router />
+      </Container>
     </>
   );
   return (
