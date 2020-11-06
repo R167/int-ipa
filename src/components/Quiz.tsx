@@ -3,7 +3,7 @@ import Typography from "@material-ui/core/Typography";
 import { RouteComponentProps } from "react-router";
 import { useManifest } from "../Manifest";
 
-import normalize from "../normalize";
+import normalize from "../utils/normalize";
 
 interface MatchParams {
   klass: string;

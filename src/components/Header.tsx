@@ -96,9 +96,10 @@ const Header = () => {
         <ListSubheader>Classes</ListSubheader>
         {loading && <Loading />}
         {result &&
-          result.classes.map(({ name, folder }, i) => (
-            <ListLink key={`class-list-${i}`} to={`/class/${folder}`} text={name} />
-          ))}
+          result.classes.map(
+            ({ name, folder, hidden }, i) =>
+              !hidden && <ListLink key={`class-list-${i}`} to={`/class/${folder}`} text={name} />
+          )}
       </List>
     </div>
   );

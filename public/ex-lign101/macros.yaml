@@ -1,0 +1,26 @@
+# Macros are comprised of a key and a list of options. You can then
+# use this key anywhere you'd normally use a standard IPA symbol. By convention,
+# all macros start with an underscore.
+#
+# A key with a list as its values
+#   _key:
+#     - option1
+#     - option2
+#     - option3
+_ej:
+  - ej
+  - eɪ
+_oj:
+  - oj
+  - oɪ
+_ch:
+  - tʃ
+  - t͡ʃ
+_j:
+  - dʒ
+  - d͡ʒ
+
+# rhotics
+_əɹ:
+  - əɹ
+  - ɚ

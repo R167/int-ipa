@@ -19,7 +19,7 @@ word1:
     2:
         "ɔ": Correct
         "o": "In some dialects, /o/ occurs here, but for this class, use /ɔ/"
-        ["oʊ","ow"]: "In some dialects, /o/ occurs here, but certainly not the full diphthong.  Try again!"
+        ["oʊ","ow"]: "In some dialects, /o/ occurs here, but certainly not the full diphthong. Try again!"
         "u": "Say 'boo', now 'horse'.  Is your tongue in the same place?"
     3:
         "ɹ": Correct

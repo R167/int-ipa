@@ -7,6 +7,7 @@ const MANIFEST_FILE = "/manifest.yaml";
 export interface Class {
   name: string;
   folder: string;
+  hidden?: boolean;
 }
 
 export type ClassList = Class[];
