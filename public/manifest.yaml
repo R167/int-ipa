@@ -1,3 +1,5 @@
+# This is the manifest file that describes all classes for this
+
 classes:
   - name: LIGN 101
     folder: ex-lign101

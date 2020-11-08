@@ -1,0 +1,8 @@
+# A list of tasks that need to be run.
+
+tasks:
+  - name: Your first assignment!
+    # optional field
+    description: This is a "getting to know you" style assignment
+    file: assignment1.yaml
+    hidden: false
