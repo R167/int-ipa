@@ -3,26 +3,12 @@ import { useAsync, UseAsyncReturn } from "react-async-hook";
 import YAML from "yaml";
 import { MANIFEST_FILE } from "./constants";
 
-export interface Class {
-  name: string;
-  folder: string;
-  hidden?: boolean;
-}
-
-export type ClassList = Class[];
-
-export interface ManifestType {
-  classes: ClassList;
-}
+import { ManifestType } from "./utils/parsers";
 
 const ManifestContext = React.createContext<UseAsyncReturn<ManifestType, never[]> | null>(null);
 
 const fetchManifest = async (): Promise<ManifestType> => {
-  const req = await fetch(MANIFEST_FILE, {
-    method: "GET",
-    credentials: "include",
-    mode: "no-cors",
-  });
+  const req = await fetch(MANIFEST_FILE);
   const body = await req.text();
   return YAML.parse(body, { prettyErrors: true });
 };
@@ -31,7 +17,7 @@ export const useManifest = () => {
   const asyncManifest = useContext(ManifestContext);
   if (!asyncManifest) {
     // Absurd
-    throw "Error: you must create an initial manifest object";
+    throw new Error("Error: you must create an initial manifest object");
   }
   return asyncManifest;
 };

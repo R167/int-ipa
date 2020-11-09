@@ -1,12 +1,12 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
 import { RouteComponentProps } from "react-router";
-import { Class, useManifest } from "../Manifest";
+import { useManifest } from "../Manifest";
 
-import normalize from "../utils/normalize";
-
-import Player from "./Player";
 import { useAsync } from "react-async-hook";
+import { fileUrl, TASK_FILE } from "../constants";
+import YAML from "yaml";
+import { Typography } from "@material-ui/core";
+import TaskList from "./TaskList";
 
 interface MatchParams {
   klass: string;
@@ -14,45 +14,88 @@ interface MatchParams {
 
 interface Props extends RouteComponentProps<MatchParams> {}
 
-const fetchClassTasks = async (klass: Class | undefined) => {
-  if (!klass) {
+const fetchClassTasks = async (classId: string) => {
+  if (!classId) {
     // Absurd. klass will actually always be defined
     console.log("empty class");
     return;
   }
-  const url = `/${klass.folder}/tasks.yaml`;
+  const url = fileUrl(classId, TASK_FILE);
 
   const req = await fetch(url);
+  const body = await req.text();
 
-  return null;
+  return YAML.parse(body, { prettyErrors: true });
 };
 
+interface StatusProps {
+  msg: string;
+  error?: boolean;
+}
+
+const Status = ({ msg, error }: StatusProps) => (
+  <Typography variant="h3" component="h1" gutterBottom align="center">
+    {error && "Error: "}
+    {msg}
+  </Typography>
+);
 const ClassPage = (props: Props) => {
   const classId = props.match.params.klass;
 
-  const { result: manifest, loading: classLoading } = useManifest();
-  const klass = manifest?.classes?.find(({ folder }) => classId === folder);
-  const classTasks = useAsync(fetchClassTasks, [klass]);
+  const manifest = useManifest();
+  const klass = manifest?.result?.classes?.find(({ folder }) => classId === folder);
+  // classTasks can begin loading before we confirm classId
+  const classTasks = useAsync(fetchClassTasks, [classId]);
 
-  if (klass) {
+  /**
+   * Cases:
+   * if classTasks.result : Good
+   * while loading class && manifest: Class name
+   * while loading manifest: Loading...
+   * if (classTasks.error) : "cannot load class X"
+   *
+   */
+
+  if (classTasks.result) {
+    const { title, description, tasks } = classTasks.result;
     return (
-      <Typography variant="h4" component="h1" gutterBottom>
-        {normalize("tʃt͡ʃd͡ʒəɹɚa˞")} my class is {klass.name}
-        <Player folder="ex-lign101" sound="horse.wav" />
-      </Typography>
+      <div>
+        <div>
+          <Typography variant="h3" component="h1" gutterBottom align="center">
+            {title}
+          </Typography>
+          <Typography variant="subtitle1" gutterBottom align="center">
+            {description}
+          </Typography>
+        </div>
+        <Typography variant="h5" gutterBottom>
+          Assignments:
+        </Typography>
+        <TaskList tasks={tasks} path={props.location.pathname} />
+      </div>
     );
-  } else if (classLoading) {
+  } else if (classTasks.loading && klass) {
     return (
-      <Typography variant="h4" component="h1" gutterBottom>
+      <div>
+        <Typography variant="h4" component="h1" gutterBottom align="center">
+          Loading {klass.name}...
+        </Typography>
+      </div>
+    );
+  } else if (manifest.loading || classTasks.loading) {
+    return (
+      <Typography variant="h4" component="h1" gutterBottom align="center">
         Loading...
       </Typography>
     );
+  } else if (classTasks.error) {
+    if (klass) {
+      return <Status error msg="Cannot load class task file" />;
+    } else {
+      return <Status error msg="No such class exists" />;
+    }
   } else {
-    return (
-      <Typography variant="h4" component="h1" gutterBottom>
-        Error...
-      </Typography>
-    );
+    return <Status error msg="Unreachable state???" />;
   }
 };
 

@@ -22,30 +22,30 @@
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
 
-    <!-- This is a very special level of hell now. I don't know why safari won't correctly use the roboto diacritics -->
-    <!-- <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-    />
+    <!--
+      This preload syntax is designed to begin loading our fonts but not block loading anything else.
+      There's a special hack of rel="preload stylesheet". This is because Firefox (currently) does not
+      support preload, so this will cause it to fallback to the stylesheet method.
+    -->
     <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap&text=t%CA%83t%CD%A1%CA%83d%CD%A1%CA%92%C9%99%C9%B9%C9%99%CB%9Ea%CB%9E%20my%20class%20is%20LIGN%20101"
-    /> -->
-    <!-- This preload syntax is designed to begin loading our fonts but not block loading anything else -->
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      rel="preload stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;500;700&display=swap"
       as="style"
-      onload="this.rel='stylesheet';this.onload=null"
+      onload="this.rel='stylesheet';this.onload=null;"
     />
-    <link
-      rel="preload"
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap&text=t%CA%83t%CD%A1%CA%83d%CD%A1%CA%92%C9%99%C9%B9%C9%99%CB%9Ea%CB%9E%20my%20class%20is%20LIGN%20101"
-      as="style"
-      onload="this.rel='stylesheet';this.onload=null"
-    />
+    <!-- Manually specify the Roboto font here. We need this for IPA symbols to work correctly -->
+    <style>
+      @font-face {
+        font-family: "Roboto";
+        font-style: normal;
+        font-weight: 400;
+        font-display: swap;
+        src: local("Roboto"), local("Roboto-Regular"),
+          url(%PUBLIC_URL%/assets/Roboto-Regular.woff2) format("woff2");
+      }
+    </style>
 
-    <link rel="preload" href="/manifest.yaml" as="fetch" />
+    <link rel="preload" href="%PUBLIC_URL%/assets/Roboto-Regular.woff2" as="font" />
     <title>Int IPA</title>
   </head>
   <body>

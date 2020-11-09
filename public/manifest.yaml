@@ -4,3 +4,8 @@ classes:
   - name: LIGN 101
     folder: ex-lign101
     hidden: false
+
+  # Demonstrate a "hidden" class
+  - name: Hidden class
+    folder: none
+    hidden: true

@@ -4,6 +4,8 @@ const CANONICAL_FORMS = new Map([
   ["ʤ", "d͡ʒ"],
   ["ɚ", "ə˞"],
   ["ɝ", "ɜ˞"],
+  // coerce an exclamation point to postalveolar click
+  ["!", "ǃ"],
 ]);
 
 const NORM = "NFKD";
