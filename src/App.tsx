@@ -9,14 +9,6 @@ import { createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
 import { useMediaQuery } from "@material-ui/core";
 
-import KonamiCode from "konami-code";
-
-const konami = new KonamiCode();
-
-konami.listen(() => {
-  alert("Hello, world!");
-});
-
 const lightTheme = createMuiTheme({
   palette: {
     // type: "dark",
