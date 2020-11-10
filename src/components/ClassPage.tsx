@@ -3,7 +3,7 @@ import { RouteComponentProps } from "react-router";
 import { useManifest } from "../Manifest";
 
 import { useAsync } from "react-async-hook";
-import { fileUrl, TASK_FILE } from "../constants";
+import { TASK_FILE, fileUrl } from "../constants";
 import YAML from "yaml";
 import { Typography } from "@material-ui/core";
 import TaskList from "./TaskList";

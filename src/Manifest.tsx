@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useAsync, UseAsyncReturn } from "react-async-hook";
+import { UseAsyncReturn, useAsync } from "react-async-hook";
 import YAML from "yaml";
 import { MANIFEST_FILE } from "./constants";
 

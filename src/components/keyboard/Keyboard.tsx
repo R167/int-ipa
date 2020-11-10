@@ -4,6 +4,8 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import Pulmonics from "./Pulmonics";
 import { Clickable } from "./common";
 
+import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
+
 interface Props extends Clickable {}
 
 const Keyboard = (props: Props) => {
@@ -15,6 +17,10 @@ const Keyboard = (props: Props) => {
         Consonants (Pulmonics)
       </Typography>
       <Pulmonics onClick={onClick} />
+      <Typography variant="caption" align="center" component="p">
+        Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas denote
+        articulations judged impossible.
+      </Typography>
     </Box>
   );
 };

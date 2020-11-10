@@ -7,7 +7,8 @@ import Header from "./components/Header";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
-import { useMediaQuery } from "@material-ui/core";
+import { Box, makeStyles, useMediaQuery } from "@material-ui/core";
+import { NOTCH_LEFT, NOTCH_RIGHT } from "./utils/styles";
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -33,9 +34,18 @@ const darkTheme = createMuiTheme({
   },
 });
 
+const useStyles = makeStyles({
+  notchPadding: {
+    paddingLeft: NOTCH_LEFT,
+    paddingRight: NOTCH_RIGHT,
+  },
+});
+
 const DARK_KEY = "useDarkMode";
 
 export default function App() {
+  const classes = useStyles();
+
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
   const [dark, setDark] = React.useState<boolean | null>(() => {
     const value = window.localStorage.getItem(DARK_KEY);
@@ -58,9 +68,11 @@ export default function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header darkMode={darkMode} changeDarkMode={changeDarkMode} />
-      <Container maxWidth="lg">
-        <Router />
-      </Container>
+      <Box className={classes.notchPadding}>
+        <Container maxWidth="lg">
+          <Router />
+        </Container>
+      </Box>
     </ThemeProvider>
   );
 }

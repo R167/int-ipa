@@ -1,4 +1,4 @@
-import { darken, lighten, fade, Theme } from "@material-ui/core/styles";
+import { Theme, darken, fade, lighten } from "@material-ui/core/styles";
 
 export interface Clickable {
   onClick?: (char: string) => void;

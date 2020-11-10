@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import Typography from "@material-ui/core/Typography";
 import ClassPage from "./components/ClassPage";

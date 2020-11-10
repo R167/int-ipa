@@ -1,44 +1,44 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import React, { useCallback, useState } from "react";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import {
-  Drawer,
-  List,
-  Divider,
-  ListItemIcon,
-  ListItem,
-  ListItemText,
   AppBar,
-  Toolbar,
+  Box,
+  Divider,
+  Drawer,
+  Grid,
   IconButton,
-  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
   ListSubheader,
   Switch,
+  Toolbar,
+  Typography,
   withStyles,
-  Box,
-  Grid,
 } from "@material-ui/core";
 
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 
-import { Link, useLocation, matchPath } from "react-router-dom";
+import { Link, matchPath, useLocation } from "react-router-dom";
 
 import { useManifest } from "../Manifest";
 import LinearProgress from "@material-ui/core/LinearProgress";
-import { blueGrey, grey } from "@material-ui/core/colors";
+import { grey } from "@material-ui/core/colors";
+import { NOTCH_LEFT, NOTCH_RIGHT } from "../utils/styles";
 
 const DRAWER_WIDTH = 275;
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    listTitle: {
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-      paddingLeft: theme.spacing(2),
-      paddingRight: theme.spacing(2),
-    },
-  })
-);
+const useStyles = makeStyles({
+  notch: {
+    marginLeft: "env(safe-area-inset-left, 0)",
+  },
+  appBarPadding: {
+    paddingLeft: NOTCH_LEFT,
+    paddingRight: NOTCH_RIGHT,
+  },
+});
 
 const Loading = ({ error }: { error?: boolean }) => (
   <>
@@ -109,11 +109,6 @@ const Header = (props: Props) => {
     [props.changeDarkMode]
   );
 
-  const location = useLocation();
-  useEffect(() => {
-    closeDrawer();
-  }, [location]);
-
   const list = (
     <Box role="presentation" width="100%">
       {/* <Typography className={classes.listTitle} variant="h6">
@@ -148,6 +143,7 @@ const Header = (props: Props) => {
           alignItems="flex-start"
           height="100%"
           overflow="hidden"
+          className={classes.notch}
         >
           {list}
           <Box width="100%" mb={2}>
@@ -164,7 +160,7 @@ const Header = (props: Props) => {
         </Box>
       </Drawer>
 
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appBarPadding}>
         <Toolbar>
           <IconButton onClick={openDrawer} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
