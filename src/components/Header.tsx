@@ -13,6 +13,7 @@ import {
   ListItemText,
   ListSubheader,
   Switch,
+  Theme,
   Toolbar,
   Typography,
   withStyles,
@@ -26,19 +27,16 @@ import { Link, matchPath, useLocation } from "react-router-dom";
 import { useManifest } from "../Manifest";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { grey } from "@material-ui/core/colors";
-import { NOTCH_LEFT, NOTCH_RIGHT } from "../utils/styles";
+import { notchGutters } from "../utils/styles";
 
 const DRAWER_WIDTH = 275;
 
-const useStyles = makeStyles({
-  notch: {
-    marginLeft: "env(safe-area-inset-left, 0)",
+const useStyles = makeStyles((theme: Theme) => ({
+  itemGutters: {
+    paddingLeft: `max(env(safe-area-inset-left, 0px), ${theme.spacing(2)}px)`,
   },
-  appBarPadding: {
-    paddingLeft: NOTCH_LEFT,
-    paddingRight: NOTCH_RIGHT,
-  },
-});
+  gutters: notchGutters(theme),
+}));
 
 const Loading = ({ error }: { error?: boolean }) => (
   <>
@@ -50,6 +48,7 @@ const Loading = ({ error }: { error?: boolean }) => (
 );
 
 interface ListLinkProps {
+  gutters: string;
   to: string;
   text: string;
   exact?: boolean;
@@ -58,12 +57,12 @@ interface ListLinkProps {
 
 const ListLink = (props: ListLinkProps) => {
   const { pathname } = useLocation();
-  const { to, text, icon, exact } = props;
+  const { to, text, icon, exact, gutters } = props;
 
   const selected = !!matchPath(pathname, { path: to, exact: exact });
 
   return (
-    <ListItem button component={Link} to={to} selected={selected}>
+    <ListItem button component={Link} to={to} selected={selected} classes={{ gutters: gutters }}>
       {icon && <ListItemIcon>{icon}</ListItemIcon>}
       <ListItemText primary={text} />
     </ListItem>
@@ -116,17 +115,24 @@ const Header = (props: Props) => {
       </Typography>
       <Divider /> */}
       <List>
-        <ListLink to="/" text="Home" icon={<HomeIcon />} exact />
+        <ListLink to="/" text="Home" icon={<HomeIcon />} exact gutters={classes.itemGutters} />
       </List>
       <Divider />
       <List>
-        <ListSubheader>Classes</ListSubheader>
+        <ListSubheader classes={{ gutters: classes.itemGutters }}>Classes</ListSubheader>
         {error && <Loading error />}
         {loading && <Loading />}
         {result &&
           result.classes.map(
             ({ name, folder, hidden }, i) =>
-              !hidden && <ListLink key={`class-list-${i}`} to={`/class/${folder}`} text={name} />
+              !hidden && (
+                <ListLink
+                  key={`class-list-${i}`}
+                  to={`/class/${folder}`}
+                  text={name}
+                  gutters={classes.itemGutters}
+                />
+              )
           )}
       </List>
     </Box>
@@ -143,7 +149,6 @@ const Header = (props: Props) => {
           alignItems="flex-start"
           height="100%"
           overflow="hidden"
-          className={classes.notch}
         >
           {list}
           <Box width="100%" mb={2}>
@@ -160,8 +165,8 @@ const Header = (props: Props) => {
         </Box>
       </Drawer>
 
-      <AppBar position="static" className={classes.appBarPadding}>
-        <Toolbar>
+      <AppBar position="static">
+        <Toolbar classes={{ gutters: classes.gutters }}>
           <IconButton onClick={openDrawer} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>

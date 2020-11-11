@@ -7,8 +7,8 @@ import Header from "./components/Header";
 import { ThemeProvider } from "@material-ui/styles";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
-import { Box, makeStyles, useMediaQuery } from "@material-ui/core";
-import { NOTCH_LEFT, NOTCH_RIGHT } from "./utils/styles";
+import { Box, Theme, makeStyles, useMediaQuery } from "@material-ui/core";
+import { notchGutters } from "./utils/styles";
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -34,12 +34,23 @@ const darkTheme = createMuiTheme({
   },
 });
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   notchPadding: {
-    paddingLeft: NOTCH_LEFT,
-    paddingRight: NOTCH_RIGHT,
+    // paddingLeft: NOTCH_LEFT,
+    // paddingRight: NOTCH_RIGHT,
+    paddingBottom: "env(safe-area-inset-bottom, 0px)",
   },
-});
+  // Copied from source
+  // https://github.com/mui-org/material-ui/blob/v4.11.0/packages/material-ui/src/Container/Container.js
+  containerRoot: {
+    width: "100%",
+    marginLeft: "auto",
+    boxSizing: "border-box",
+    marginRight: "auto",
+    display: "block", // Fix IE 11 layout when used with main.
+    ...notchGutters(theme),
+  },
+}));
 
 const DARK_KEY = "useDarkMode";
 
@@ -69,7 +80,7 @@ export default function App() {
       <CssBaseline />
       <Header darkMode={darkMode} changeDarkMode={changeDarkMode} />
       <Box className={classes.notchPadding}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" classes={{ root: classes.containerRoot }}>
           <Router />
         </Container>
       </Box>

@@ -40,7 +40,7 @@
     ],
     "rules": {
       "sort-imports": [
-        "error",
+        "warn",
         {
           "ignoreDeclarationSort": true
         }

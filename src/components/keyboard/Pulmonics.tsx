@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   symbol: {
-    fontSize: "1.6rem",
+    fontSize: "1.65rem",
   },
   sideBorder: {
     borderLeft: `1px solid ${borderColor(theme)}`,
@@ -49,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
   },
   caps: {
     textTransform: "capitalize",
-    padding: "6px",
+    padding: "6px 5.5px",
   },
   header: {
     borderLeft: `1px solid ${borderColor(theme)}`,

@@ -4,7 +4,7 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import Pulmonics from "./Pulmonics";
 import { Clickable } from "./common";
 
-import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
+// import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 interface Props extends Clickable {}
 
