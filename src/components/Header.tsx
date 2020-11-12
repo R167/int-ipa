@@ -21,6 +21,7 @@ import {
 
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
+import KeyboardIcon from "@material-ui/icons/Keyboard";
 
 import { Link, matchPath, useLocation } from "react-router-dom";
 
@@ -111,11 +112,7 @@ const Header = (props: Props) => {
   );
 
   const list = (
-    <Box role="presentation" width="100%">
-      {/* <Typography className={classes.listTitle} variant="h6">
-        Int IPA
-      </Typography>
-      <Divider /> */}
+    <Box width="100%">
       <List>
         <ListLink to="/" text="Home" icon={<HomeIcon />} exact gutters={classes.itemGutters} />
       </List>
@@ -137,6 +134,17 @@ const Header = (props: Props) => {
               )
           )}
       </List>
+      <Divider />
+      <List>
+        <ListSubheader classes={{ gutters: classes.itemGutters }}>Tools</ListSubheader>
+        <ListLink
+          to="/type"
+          text="IPA Keyboard"
+          icon={<KeyboardIcon />}
+          exact
+          gutters={classes.itemGutters}
+        />
+      </List>
     </Box>
   );
 
@@ -151,6 +159,7 @@ const Header = (props: Props) => {
           alignItems="flex-start"
           height="100%"
           overflow="hidden"
+          role="presentation"
         >
           {list}
           <Box width="100%" mb={2}>

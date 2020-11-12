@@ -36,11 +36,15 @@ function reducer(state: State, action: Actions): State {
   console.log(cursor);
   switch (action.type) {
     case "delete":
-      return {
-        ...state,
-        cursor: cursor > 0 ? cursor - 1 : cursor,
-        value: value.slice(0, cursor - 1) + value.slice(cursor, value.length),
-      };
+      if (cursor === 0) {
+        return state;
+      } else {
+        return {
+          ...state,
+          cursor: cursor - 1,
+          value: value.slice(0, cursor - 1) + value.slice(cursor, value.length),
+        };
+      }
     case "append":
       return {
         ...state,
@@ -66,10 +70,9 @@ const TypeIPA = () => {
 
   const { cursor } = state;
 
+  // minor side effect: the textbox is auto selected on page load which is kinda alright
   useEffect(() => {
-    if (cursor) {
-      inputRef?.current?.setSelectionRange(cursor, cursor);
-    }
+    inputRef?.current?.setSelectionRange(cursor, cursor);
   }, [cursor]);
 
   return (
