@@ -1,22 +1,23 @@
-import { Typography } from "@material-ui/core";
+import { Box, Typography, Link } from "@material-ui/core";
 import React from "react";
-
-import Keyboard from "./keyboard/Keyboard";
+import { Link as RLink } from "react-router-dom";
 
 const Homepage = () => {
-  const [name, setName] = React.useState("");
-
   return (
-    <div>
-      <Typography variant="h4" component="h1" gutterBottom>
-        Create React App v4-beta example with TypeScript↗ d͡ʒitɐ˞ ◌˞n̪d̥{name}
+    <Box paddingY={2}>
+      <Typography align="center" variant="h3" component="h1" gutterBottom>
+        Welcome to Int IPA
       </Typography>
-      <Keyboard
-        onClick={(char) => {
-          setName(name + char);
-        }}
-      />
-    </div>
+      <Typography variant="h5" component="p">
+        This is just some place holder text right now. I'm not really sure what you want on this
+        page. One possible option is a self description, etc. I don't really know. Here's a link to
+        the{" "}
+        <Link component={RLink} to="/type" color="secondary">
+          the IPA keyboard
+        </Link>
+        .
+      </Typography>
+    </Box>
   );
 };
 

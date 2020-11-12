@@ -77,27 +77,30 @@ const TypeIPA = () => {
 
   return (
     <div>
-      <Grid container alignItems="center" justify="center" spacing={2}>
-        <Grid item xs={10} md={8}>
-          <TextField
-            id="filled-multiline-flexible"
-            multiline
-            fullWidth
-            rowsMax={4}
-            inputRef={inputRef}
-            value={state.value}
-            onChange={setValue}
-            variant="outlined"
-            inputProps={{ spellCheck: "false" }}
-          />
+      <Box paddingY={2}>
+        <Grid container alignItems="center" justify="center" spacing={2}>
+          <Grid item xs={10} md={8}>
+            <TextField
+              id="filled-multiline-flexible"
+              multiline
+              fullWidth
+              rowsMax={4}
+              inputRef={inputRef}
+              value={state.value}
+              onChange={setValue}
+              variant="outlined"
+              inputProps={{ spellCheck: "false" }}
+              label="Type IPA"
+              color="secondary"
+            />
+          </Grid>
+          <Grid>
+            <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
+              <BackspaceOutlinedIcon />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid>
-          <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
-            <BackspaceOutlinedIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-      <Box mb={1} />
+      </Box>
       <Keyboard onClick={keyboardClick} />
     </div>
   );
