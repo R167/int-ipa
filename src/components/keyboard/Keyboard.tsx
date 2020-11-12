@@ -26,7 +26,7 @@ const Keyboard = (props: Props) => {
           </Typography>
         </Box>
       </Grid>
-      <Grid item xs={12} md={6}>
+      <Grid item xs={12} md={6} /*g={5}*/>
         <Box component={Paper} p={1} width="auto">
           <Typography variant="h6" component="p" gutterBottom>
             Consonants (Non-pulmonics)
