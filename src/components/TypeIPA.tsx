@@ -1,11 +1,4 @@
-import React, {
-  useReducer,
-  useCallback,
-  useRef,
-  RefObject,
-  MutableRefObject,
-  useEffect,
-} from "react";
+import React, { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
 import { Box, Grid, IconButton, TextField } from "@material-ui/core";
 
 import Keyboard from "./keyboard/Keyboard";

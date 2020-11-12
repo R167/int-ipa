@@ -29,13 +29,9 @@ const Keyboard = (props: Props) => {
       <Grid item xs={12} md={6}>
         <Box component={Paper} p={1} width="auto">
           <Typography variant="h6" component="p" gutterBottom>
-            Consonants (Pulmonics)
+            Consonants (Non-pulmonics)
           </Typography>
           <NonPulmonics onClick={onClick} />
-          <Typography variant="caption" align="center" component="p">
-            Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas
-            denote articulations judged impossible.
-          </Typography>
         </Box>
       </Grid>
     </Grid>

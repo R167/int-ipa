@@ -1,4 +1,4 @@
-import { Box, Typography, Link } from "@material-ui/core";
+import { Box, Link, Typography } from "@material-ui/core";
 import React from "react";
 import { Link as RLink } from "react-router-dom";
 
