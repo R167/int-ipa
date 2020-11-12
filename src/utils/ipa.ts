@@ -50,13 +50,38 @@ export const PULMONICS = [
   [IMP, IMP, IMP, IMP, NUL, NUL, NUL, "l", NUL, NUL, NUL, "ɭ", NUL, "ʎ", NUL, "ʟ", NUL, NUL, IMP, IMP, IMP, IMP]
 ] as const;
 
-export const CLICKS = {
-  bilabial: "ʘ",
-  dental: "ǀ",
-  postalveolar: "ǃ",
-  palatoalveolar: "ǂ",
-  "alveolar lateral": "ǁ",
-};
-export const IMPLOSIVES = { bilabial: "ɓ", dental: "ɗ", palatal: "ʄ", velar: "ɠ", uvular: "ʛ" };
+export const CLICKS = new Map([
+  ["ʘ", "Bilabial"],
+  ["ǀ", "Dental"],
+  ["ǃ", "(Post)alveolar"],
+  ["ǂ", "Palatoalveolar"],
+  ["ǁ", "Alveolar lateral"],
+]);
 
+export const IMPLOSIVES = new Map([
+  ["ɓ", "Bilabial"],
+  ["ɗ", "Dental/alveolar"],
+  ["ʄ", "Palatal"],
+  ["ɠ", "Velar"],
+  ["ʛ", "Uvular"],
+]);
+
+// U+02BC
 export const EJECTIVE = "ʼ";
+
+export const EJECTIVES = new Map([
+  ["ʼ", "Examples:"],
+  ["pʼ", "Bilabial"],
+  ["tʼ", "Dental/alveolar"],
+  ["kʼ", "Velar"],
+  ["sʼ", "Alveolar fricative"],
+]);
+
+export const OTHERS = new Map([
+  ["ʍ", "voiceless labial-velar fricative"],
+  ["w", "voiced labial-velar approximant"],
+  ["ɥ", "voiced labial-palatal approximant"],
+  ["ʜ", "voiceless epiglottal fricative"],
+  ["ʢ", "voiced epiglottal fricative"],
+  ["ʡ", "epiglottal plosive"],
+]);

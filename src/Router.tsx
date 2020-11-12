@@ -1,15 +1,16 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 
-import Typography from "@material-ui/core/Typography";
 import ClassPage from "./components/ClassPage";
 import Homepage from "./components/Homepage";
+import TypeIPA from "./components/TypeIPA";
 
 const Router = () => {
   return (
     <Switch>
-      <Route path="/class/:klass" component={ClassPage} />
+      <Route path="/type" exact component={TypeIPA} />
       <Route path="/" exact component={Homepage} />
+      <Route path="/class/:klass" component={ClassPage} />
     </Switch>
   );
 };

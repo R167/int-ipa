@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from "react";
-import { createStyles, makeStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import {
   AppBar,
   Box,
@@ -92,6 +92,8 @@ const Header = (props: Props) => {
   const [drawer, setDrawer] = useState(false);
   const classes = useStyles();
 
+  const { changeDarkMode } = props;
+
   const { result, loading, error } = useManifest();
 
   const openDrawer = useCallback(() => {
@@ -103,9 +105,9 @@ const Header = (props: Props) => {
 
   const toggleDarkMode = useCallback(
     (event) => {
-      props.changeDarkMode(event.target.checked);
+      changeDarkMode(event.target.checked);
     },
-    [props.changeDarkMode]
+    [changeDarkMode]
   );
 
   const list = (
