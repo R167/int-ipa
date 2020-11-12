@@ -11,7 +11,6 @@ import { Box, Grid, IconButton, TextField } from "@material-ui/core";
 import Keyboard from "./keyboard/Keyboard";
 
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-import { cursorTo } from "readline";
 
 interface Action<T> {
   type: T;
@@ -48,7 +47,7 @@ function reducer(state: State, action: Actions): State {
     case "append":
       return {
         ...state,
-        cursor: cursor + 1,
+        cursor: cursor + value.length,
         value: value.slice(0, cursor) + action.value + value.slice(cursor, value.length),
       };
     case "set":

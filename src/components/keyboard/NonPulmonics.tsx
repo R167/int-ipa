@@ -16,6 +16,7 @@ import { CLICKS, EJECTIVES, IMPLOSIVES } from "../../utils/ipa";
 
 const useStyles = makeStyles((theme) => ({
   symbol: {
+    userSelect: "none",
     fontSize: "1.65rem",
     cursor: "pointer",
     "&:hover": {
@@ -29,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
   caps: {
     textTransform: "capitalize",
     padding: "6px 5.5px",
+  },
+  descr: {
+    paddingLeft: "4px",
+    fontSize: "0.8rem",
+    verticalAlign: "middle",
   },
   header: {
     borderLeft: `1px solid ${borderColor(theme)}`,
@@ -47,14 +53,17 @@ const NonPulmonics = (props: Props) => {
     const ejectives = Array.from(EJECTIVES.entries());
     const implosives = Array.from(IMPLOSIVES.entries());
 
-    return clicks.map((click, i) => [click, ejectives[i], implosives[i]]);
+    return clicks.map((click, i) => [click, implosives[i], ejectives[i]]);
   }, [CLICKS, EJECTIVES, IMPLOSIVES]);
 
   const Cell = React.useCallback(
     ({ symbol, name }: { symbol: string; name: string }) => {
       return (
-        <TableCell align="center" className={clsx(classes.symbol)} padding="none">
-          {symbol}
+        <TableCell
+          className={clsx(classes.symbol, classes.sideBorder)}
+          onClick={() => onClick(symbol)}
+        >
+          {symbol} <span className={classes.descr}>{name}</span>
         </TableCell>
       );
     },
