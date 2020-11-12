@@ -40,7 +40,7 @@ function reducer(state: State, action: Actions): State {
     case "append":
       return {
         ...state,
-        cursor: cursor + value.length,
+        cursor: cursor + action.value.length,
         value: value.slice(0, cursor) + action.value + value.slice(cursor, value.length),
       };
     case "set":
