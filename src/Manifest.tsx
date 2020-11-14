@@ -8,6 +8,7 @@ import { ManifestType } from "./utils/parsers";
 const ManifestContext = React.createContext<UseAsyncReturn<ManifestType, never[]> | null>(null);
 
 const fetchManifest = async (): Promise<ManifestType> => {
+  // TODO: Change to force fetch even when cached
   const req = await fetch(MANIFEST_FILE);
   const body = await req.text();
   return YAML.parse(body, { prettyErrors: true });

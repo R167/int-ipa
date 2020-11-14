@@ -1,51 +1,11 @@
-import React, { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
+import React from "react";
 import { Box, Grid, IconButton, InputAdornment, TextField, makeStyles } from "@material-ui/core";
 
 import Keyboard from "./keyboard/Keyboard";
 
+import useKeyboard from "./keyboard/useKeyboard";
+
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-
-interface Action<T> {
-  type: T;
-}
-
-interface ValueAction<T> extends Action<T> {
-  type: T;
-  value: string;
-}
-
-type Actions = Action<"delete"> | ValueAction<"append"> | ValueAction<"set">;
-interface State {
-  cursor: number;
-  value: string;
-  ref: RefObject<HTMLInputElement>;
-}
-
-function reducer(state: State, action: Actions): State {
-  const { value } = state;
-  // make broad assumptions about never having a large cursor selection
-  const cursor = state.ref?.current?.selectionStart || 0;
-  switch (action.type) {
-    case "delete":
-      if (cursor === 0) {
-        return state;
-      } else {
-        return {
-          ...state,
-          cursor: cursor - 1,
-          value: value.slice(0, cursor - 1) + value.slice(cursor, value.length),
-        };
-      }
-    case "append":
-      return {
-        ...state,
-        cursor: cursor + action.value.length,
-        value: value.slice(0, cursor) + action.value + value.slice(cursor, value.length),
-      };
-    case "set":
-      return { ...state, value: action.value };
-  }
-}
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -60,24 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TypeIPA = () => {
   const classes = useStyles();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const [state, dispatch] = useReducer(reducer, { cursor: 0, value: "", ref: inputRef });
-  const keyboardClick = useCallback((char: string) => dispatch({ type: "append", value: char }), [
-    dispatch,
-  ]);
-  const setValue = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "set", value: e.target.value }),
-    [dispatch]
-  );
-  const deleteClick = useCallback(() => dispatch({ type: "delete" }), [dispatch]);
-
-  const { cursor } = state;
-
-  useEffect(() => {
-    inputRef?.current?.setSelectionRange(cursor, cursor);
-    // I tried both ways (leaving the text focused or not) and blur was a better experience
-    inputRef?.current?.blur();
-  }, [cursor]);
+  const { handleKeyboard, handleDelete, setValue, value, ref } = useKeyboard();
 
   return (
     <div>
@@ -87,8 +30,8 @@ const TypeIPA = () => {
             <TextField
               id="filled-multiline-flexible"
               fullWidth
-              inputRef={inputRef}
-              value={state.value}
+              inputRef={ref}
+              value={value}
               onChange={setValue}
               variant="outlined"
               inputProps={{ spellCheck: "false", style: { lineHeight: "3" } }}
@@ -97,7 +40,7 @@ const TypeIPA = () => {
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
-                    <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
+                    <IconButton aria-label="delete" color="secondary" onClick={handleDelete}>
                       <BackspaceOutlinedIcon />
                     </IconButton>
                   </InputAdornment>
@@ -107,7 +50,7 @@ const TypeIPA = () => {
           </Grid>
         </Grid>
       </Box>
-      <Keyboard onClick={keyboardClick} />
+      <Keyboard onClick={handleKeyboard} />
     </div>
   );
 };
