@@ -1,5 +1,5 @@
 import React, { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
-import { Box, Grid, IconButton, makeStyles, TextField } from "@material-ui/core";
+import { Box, Grid, IconButton, TextField, makeStyles, InputAdornment } from "@material-ui/core";
 
 import clsx from "clsx";
 
@@ -26,6 +26,7 @@ interface State {
 function reducer(state: State, action: Actions): State {
   const { value } = state;
   // make broad assumptions about never having a large cursor selection
+  console.log(state.ref?.current?.selectionStart);
   const cursor = state.ref?.current?.selectionStart || 0;
   switch (action.type) {
     case "delete":
@@ -57,10 +58,6 @@ const useStyles = makeStyles((theme) => ({
   search: {
     backgroundColor: theme.palette.background.default,
     borderRadius: "8px",
-  },
-  deleteKey: {
-    borderTopLeftRadius: "2px",
-    borderBottomLeftRadius: "2px",
   },
 }));
 
@@ -100,12 +97,16 @@ const TypeIPA = () => {
               inputProps={{ spellCheck: "false", style: { lineHeight: "3" } }}
               label="Type IPA"
               color="secondary"
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
+                      <BackspaceOutlinedIcon />
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
             />
-          </Grid>
-          <Grid item className={clsx(classes.search, classes.deleteKey)}>
-            <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
-              <BackspaceOutlinedIcon />
-            </IconButton>
           </Grid>
         </Grid>
       </Box>

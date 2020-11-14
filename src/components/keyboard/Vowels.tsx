@@ -4,7 +4,7 @@ import { Clickable, borderColor } from "./common";
 
 import { Box, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { Coords, VowelLiteral, VOWELS, VOWEL_FRONTEDNESS, VOWEL_HEIGHTS } from "../../utils/ipa";
+import { Coords, VOWELS, VOWEL_FRONTEDNESS, VOWEL_HEIGHTS, VowelLiteral } from "../../utils/ipa";
 
 import { ReactComponent as Trapezium } from "./trapezium.svg";
 
