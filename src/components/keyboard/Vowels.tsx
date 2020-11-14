@@ -85,7 +85,10 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   vowelPos: {
-    padding: theme.spacing(0, 1.5),
+    padding: theme.spacing(0, 2),
+  },
+  vowelHeight: {
+    padding: theme.spacing(0.5, 0),
   },
 }));
 
@@ -160,7 +163,7 @@ const Vowels = (props: Props) => {
       <Grid container className={classes.fullHeight} wrap="nowrap">
         <Grid item>
           <Grid container direction="column" className={clsx(classes.fullHeight)}>
-            <Typography variant="h6" component="p">
+            <Typography variant="body1" component="p">
               &#8203;
             </Typography>
             <Grid item xs>
@@ -168,10 +171,10 @@ const Vowels = (props: Props) => {
                 container
                 direction="column"
                 justify="space-between"
-                className={clsx(classes.fullHeight)}
+                className={clsx(classes.fullHeight, classes.vowelHeight)}
               >
                 {VOWEL_HEIGHTS.map((height) => (
-                  <Typography variant="h6" component="p">
+                  <Typography variant="body1" component="p">
                     {height}
                   </Typography>
                 ))}
@@ -184,7 +187,7 @@ const Vowels = (props: Props) => {
             <Grid item>
               <Grid container justify="space-between" className={classes.vowelPos}>
                 {VOWEL_FRONTEDNESS.map((pos) => (
-                  <Typography variant="h6" component="p">
+                  <Typography variant="body1" component="p">
                     {pos}
                   </Typography>
                 ))}
