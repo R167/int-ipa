@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
   outerQuad: {
     padding: theme.spacing(1, 3),
-    fontSize: "1.6rem",
+    fontSize: "1.5rem",
     position: "relative",
     height: "100%",
     minHeight: "275px",
@@ -106,7 +106,9 @@ const Vowels = (props: Props) => {
       if (typeof vowels === "string") {
         return (
           <Box className={clsx(classes.element, classes.paperBack)} style={vowelCoords(coords)}>
-            <div className={clsx(classes.mid, classes.symbol)}>{vowels}</div>
+            <div className={clsx(classes.mid, classes.symbol)} onClick={() => onClick(vowels)}>
+              {vowels}
+            </div>
           </Box>
         );
       } else {
@@ -118,10 +120,16 @@ const Vowels = (props: Props) => {
             style={vowelCoords(coords)}
           >
             {center}
-            <div className={clsx(classes.unrounded, classes.symbol, classes.paperBack)}>
+            <div
+              className={clsx(classes.unrounded, classes.symbol, classes.paperBack)}
+              onClick={() => onClick(vowels[0])}
+            >
               {vowels[0]}
             </div>
-            <div className={clsx(classes.rounded, classes.symbol, classes.paperBack)}>
+            <div
+              className={clsx(classes.rounded, classes.symbol, classes.paperBack)}
+              onClick={() => onClick(vowels[1])}
+            >
               {vowels[1]}
             </div>
           </Box>
@@ -149,11 +157,11 @@ const Vowels = (props: Props) => {
 
   return (
     <Box id="vowelQuad" className={classes.root}>
-      <Grid container className={classes.fullHeight}>
+      <Grid container className={classes.fullHeight} wrap="nowrap">
         <Grid item>
           <Grid container direction="column" className={clsx(classes.fullHeight)}>
             <Typography variant="h6" component="p">
-              Vowels
+              &#8203;
             </Typography>
             <Grid item xs>
               <Grid

@@ -37,7 +37,7 @@ const Keyboard = (props: Props) => {
       </Grid>
       <Grid item xs={12} md={6}>
         <Box component={Paper} p={1} width="auto">
-          <Vowels />
+          <Vowels onClick={onClick} />
         </Box>
       </Grid>
     </Grid>

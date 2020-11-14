@@ -42,7 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   symbol: {
     userSelect: "none",
-    fontSize: "1.6rem",
+    fontSize: "1.5rem",
   },
   sideBorder: {
     borderLeft: `1px solid ${borderColor(theme)}`,

@@ -17,7 +17,7 @@ import { CLICKS, EJECTIVES, IMPLOSIVES } from "../../utils/ipa";
 const useStyles = makeStyles((theme) => ({
   symbol: {
     userSelect: "none",
-    fontSize: "1.6rem",
+    fontSize: "1.5rem",
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
