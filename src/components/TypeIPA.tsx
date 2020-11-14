@@ -26,7 +26,6 @@ interface State {
 function reducer(state: State, action: Actions): State {
   const { value } = state;
   // make broad assumptions about never having a large cursor selection
-  console.log(state.ref?.current?.selectionStart);
   const cursor = state.ref?.current?.selectionStart || 0;
   switch (action.type) {
     case "delete":
