@@ -9,7 +9,10 @@ import { Coords, VowelLiteral, VOWELS, VOWEL_FRONTEDNESS, VOWEL_HEIGHTS } from "
 import { ReactComponent as Trapezium } from "./trapezium.svg";
 
 const useStyles = makeStyles((theme) => ({
-  root: {},
+  root: {
+    width: "100%",
+    height: "100%",
+  },
   outerQuad: {
     padding: theme.spacing(1, 3),
     fontSize: "1.6rem",
@@ -81,7 +84,9 @@ const useStyles = makeStyles((theme) => ({
   fullHeight: {
     height: "100%",
   },
-  vowelHeight: {},
+  vowelPos: {
+    padding: theme.spacing(0, 1.5),
+  },
 }));
 
 interface Props extends Clickable {}
@@ -143,34 +148,39 @@ const Vowels = (props: Props) => {
   );
 
   return (
-    <Box width="100%" id="vowelQuad" className={classes.root}>
-      <Grid container direction="column" className={classes.fullHeight}>
+    <Box id="vowelQuad" className={classes.root}>
+      <Grid container className={classes.fullHeight}>
         <Grid item>
-          <Grid container justify="space-between">
-            {VOWEL_FRONTEDNESS.map((pos) => (
-              <Typography variant="h6" component="p">
-                {pos}
-              </Typography>
-            ))}
+          <Grid container direction="column" className={clsx(classes.fullHeight)}>
+            <Typography variant="h6" component="p">
+              Vowels
+            </Typography>
+            <Grid item xs>
+              <Grid
+                container
+                direction="column"
+                justify="space-between"
+                className={clsx(classes.fullHeight)}
+              >
+                {VOWEL_HEIGHTS.map((height) => (
+                  <Typography variant="h6" component="p">
+                    {height}
+                  </Typography>
+                ))}
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs>
-          <Grid container className={classes.fullHeight}>
+          <Grid container direction="column" className={classes.fullHeight}>
             <Grid item>
-              <div className={classes.fullHeight}>
-                <Grid
-                  container
-                  direction="column"
-                  justify="space-between"
-                  className={clsx(classes.fullHeight, classes.vowelHeight)}
-                >
-                  {VOWEL_HEIGHTS.map((height) => (
-                    <Typography variant="h6" component="p">
-                      {height}
-                    </Typography>
-                  ))}
-                </Grid>
-              </div>
+              <Grid container justify="space-between" className={classes.vowelPos}>
+                {VOWEL_FRONTEDNESS.map((pos) => (
+                  <Typography variant="h6" component="p">
+                    {pos}
+                  </Typography>
+                ))}
+              </Grid>
             </Grid>
             <Grid item xs>
               {vowelChart}
