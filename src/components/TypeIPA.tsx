@@ -76,10 +76,10 @@ const TypeIPA = () => {
 
   const { cursor } = state;
 
-  // minor side effect: the textbox is auto selected on page load which is kinda alright
-  // Actually, this really needs to be fixed, but I'm also not totally sure how
   useEffect(() => {
     inputRef?.current?.setSelectionRange(cursor, cursor);
+    // I tried both ways (leaving the text focused or not) and blur was a better experience
+    inputRef?.current?.blur();
   }, [cursor]);
 
   return (
@@ -90,7 +90,6 @@ const TypeIPA = () => {
             <TextField
               id="filled-multiline-flexible"
               fullWidth
-              rowsMax={4}
               inputRef={inputRef}
               value={state.value}
               onChange={setValue}
