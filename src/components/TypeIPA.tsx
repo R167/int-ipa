@@ -1,7 +1,5 @@
 import React, { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
-import { Box, Grid, IconButton, TextField, makeStyles, InputAdornment } from "@material-ui/core";
-
-import clsx from "clsx";
+import { Box, Grid, IconButton, InputAdornment, TextField, makeStyles } from "@material-ui/core";
 
 import Keyboard from "./keyboard/Keyboard";
 

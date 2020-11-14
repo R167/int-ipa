@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo } from "react";
 import clsx from "clsx";
-import { Clickable, borderColor } from "./common";
+import { Clickable } from "./common";
 
 import { Box, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -136,7 +136,7 @@ const Vowels = (props: Props) => {
         );
       }
     },
-    [classes]
+    [classes, onClick]
   );
 
   const vowelChart = useMemo(
