@@ -65,6 +65,12 @@ export default function App() {
     [setDark]
   );
 
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== "production") {
+      document.title = `${process.env.NODE_ENV.slice(0, 3)} - ${document.title}`;
+    }
+  }, []);
+
   const darkMode = dark === null ? prefersDarkMode : dark;
 
   const theme = React.useMemo(() => createMuiTheme(darkMode ? darkTheme : lightTheme), [darkMode]);

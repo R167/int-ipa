@@ -49,7 +49,6 @@ const useStyles = makeStyles((theme) => ({
     borderRight: `1px solid ${borderColor(theme)}`,
   },
   caps: {
-    textTransform: "capitalize",
     padding: "6px 5.5px",
   },
   header: {

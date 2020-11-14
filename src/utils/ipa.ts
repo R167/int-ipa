@@ -2,31 +2,31 @@
  * Places of articulation
  */
 export const PLACES = [
-  "bilabial",
-  "labiodental",
-  "dental",
-  "alveolar",
-  "postalveolar",
-  "retroflex",
-  "palatal",
-  "velar",
-  "uvular",
-  "pharyngeal",
-  "glottal",
+  "Bilabial",
+  "Labiodental",
+  "Dental",
+  "Alveolar",
+  "Postalveolar",
+  "Retroflex",
+  "Palatal",
+  "Velar",
+  "Uvular",
+  "Pharyngeal",
+  "Glottal",
 ] as const;
 
 /**
  * Manners of articulation
  */
 export const MANNERS = [
-  "plosive",
-  "nasal",
-  "trill",
-  "tap",
-  "fricative",
-  "lateral fricative",
-  "approximant",
-  "lateral approximant",
+  "Plosive",
+  "Nasal",
+  "Trill",
+  "Tap",
+  "Fricative",
+  "Lateral fricative",
+  "Approximant",
+  "Lateral approximant",
 ] as const;
 
 export type PlaceOfArt = typeof PLACES[number];
@@ -85,3 +85,54 @@ export const OTHERS = new Map([
   ["ʢ", "voiced epiglottal fricative"],
   ["ʡ", "epiglottal plosive"],
 ]);
+
+export const VOWEL_HEIGHTS = ["Close", "Close-mid", "Open-mid", "Open"] as const;
+export const VOWEL_FRONTEDNESS = ["Front", "Central", "Back"] as const;
+
+export type VowelLiteral = readonly [string, string] | string;
+export type Coords = readonly [number, number];
+
+type VowelCoords = readonly (readonly [VowelLiteral, Coords])[];
+
+/**
+ * Associative array of Vowel pairs and ~coordinates
+ *
+ * Coords are specified on the range [0, 1]
+ * x = frontedness
+ * y = height
+ *
+ * Upper left (close front) is origin. Everything is translated afterwards to be
+ * in the trapezium shape
+ */
+// prettier-ignore
+export const VOWELS: VowelCoords = [
+  // Close vowels
+  [["i", "y"], [0, 0]],
+  [["ɨ", "ʉ"], [0.5, 0]],
+  [["ɯ", "u"], [1, 0]],
+
+  // Near close vowels
+  [["ɪ", "ʏ"], [0.2, 1/6]],
+  [["", "ʊ"], [0.75, 1/6]],
+
+  // Close-mid
+  [["e", "ø"], [0, 1/3]],
+  [["ɘ", "ɵ"], [0.5, 1/3]],
+  [["ɤ", "o"], [1, 1/3]],
+
+  // Mid
+  ["ə", [0.5, 0.5]],
+
+  // Open-mid
+  [["ɛ", "œ"], [0, 2/3]],
+  [["ɜ", "ɞ"], [0.5, 2/3]],
+  [["ʌ", "ɔ"], [1, 2/3]],
+
+  // Near-open
+  [["æ", ""], [0, 5/6]],
+  ["ɐ", [0.5, 5/6]],
+
+  // Open
+  [["a", "ɶ"], [0, 1]],
+  [["ɑ", "ɒ"], [1, 1]],
+];

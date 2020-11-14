@@ -25,7 +25,6 @@ function reducer(state: State, action: Actions): State {
   const { value } = state;
   // make broad assumptions about never having a large cursor selection
   const cursor = state.ref?.current?.selectionStart || 0;
-  console.log(cursor);
   switch (action.type) {
     case "delete":
       if (cursor === 0) {
@@ -71,17 +70,16 @@ const TypeIPA = () => {
     <div>
       <Box paddingY={2}>
         <Grid container alignItems="center" justify="center" spacing={2}>
-          <Grid item xs={10} md={8}>
+          <Grid item xs md={8}>
             <TextField
               id="filled-multiline-flexible"
-              multiline
               fullWidth
               rowsMax={4}
               inputRef={inputRef}
               value={state.value}
               onChange={setValue}
               variant="outlined"
-              inputProps={{ spellCheck: "false" }}
+              inputProps={{ spellCheck: "false", style: { lineHeight: "3" } }}
               label="Type IPA"
               color="secondary"
             />

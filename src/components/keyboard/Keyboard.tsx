@@ -4,6 +4,7 @@ import { Box, Grid, Paper, Typography } from "@material-ui/core";
 import Pulmonics from "./Pulmonics";
 import { Clickable } from "./common";
 import NonPulmonics from "./NonPulmonics";
+import Vowels from "./Vowels";
 
 // import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
@@ -32,6 +33,11 @@ const Keyboard = (props: Props) => {
             Consonants (Non-pulmonics)
           </Typography>
           <NonPulmonics onClick={onClick} />
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={6}>
+        <Box component={Paper} p={1} width="auto">
+          <Vowels />
         </Box>
       </Grid>
     </Grid>
