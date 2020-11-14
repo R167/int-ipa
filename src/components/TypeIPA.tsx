@@ -1,5 +1,7 @@
 import React, { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
-import { Box, Grid, IconButton, TextField } from "@material-ui/core";
+import { Box, Grid, IconButton, makeStyles, TextField } from "@material-ui/core";
+
+import clsx from "clsx";
 
 import Keyboard from "./keyboard/Keyboard";
 
@@ -47,7 +49,23 @@ function reducer(state: State, action: Actions): State {
   }
 }
 
+const useStyles = makeStyles((theme) => ({
+  sticky: {
+    position: "sticky",
+    top: "-8px",
+  },
+  search: {
+    backgroundColor: theme.palette.background.default,
+    borderRadius: "8px",
+  },
+  deleteKey: {
+    borderTopLeftRadius: "2px",
+    borderBottomLeftRadius: "2px",
+  },
+}));
+
 const TypeIPA = () => {
+  const classes = useStyles();
   const inputRef = useRef<HTMLInputElement>(null);
   const [state, dispatch] = useReducer(reducer, { cursor: 0, value: "", ref: inputRef });
   const keyboardClick = useCallback((char: string) => dispatch({ type: "append", value: char }), [
@@ -68,9 +86,9 @@ const TypeIPA = () => {
 
   return (
     <div>
-      <Box paddingY={2}>
+      <Box paddingY={2} className={classes.sticky}>
         <Grid container alignItems="center" justify="center" spacing={2}>
-          <Grid item xs md={8}>
+          <Grid item xs md={8} className={classes.search}>
             <TextField
               id="filled-multiline-flexible"
               fullWidth
@@ -84,7 +102,7 @@ const TypeIPA = () => {
               color="secondary"
             />
           </Grid>
-          <Grid>
+          <Grid item className={clsx(classes.search, classes.deleteKey)}>
             <IconButton aria-label="delete" color="secondary" onClick={deleteClick}>
               <BackspaceOutlinedIcon />
             </IconButton>
