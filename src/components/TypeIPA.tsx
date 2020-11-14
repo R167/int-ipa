@@ -77,6 +77,7 @@ const TypeIPA = () => {
   const { cursor } = state;
 
   // minor side effect: the textbox is auto selected on page load which is kinda alright
+  // Actually, this really needs to be fixed, but I'm also not totally sure how
   useEffect(() => {
     inputRef?.current?.setSelectionRange(cursor, cursor);
   }, [cursor]);
