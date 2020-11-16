@@ -45,11 +45,7 @@ const NonPulmonics = (props: Props) => {
   const { onClick = () => {} } = props;
 
   const sounds = React.useMemo(() => {
-    const clicks = Array.from(CLICKS.entries());
-    const implosives = Array.from(IMPLOSIVES.entries());
-    const ejectives = Array.from(EJECTIVES.entries());
-
-    return clicks.map((click, i) => [click, implosives[i], ejectives[i]]);
+    return CLICKS.map((click, i) => [click, IMPLOSIVES[i], EJECTIVES[i]]);
   }, []);
 
   const Cell = React.useCallback(
@@ -99,4 +95,4 @@ const NonPulmonics = (props: Props) => {
   );
 };
 
-export default NonPulmonics;
+export default React.memo(NonPulmonics);

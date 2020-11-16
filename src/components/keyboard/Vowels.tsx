@@ -205,4 +205,4 @@ const Vowels = (props: Props) => {
   );
 };
 
-export default Vowels;
+export default React.memo(Vowels);

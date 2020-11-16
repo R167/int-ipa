@@ -68,4 +68,4 @@ const Diacritics = (props: Clickable) => {
   );
 };
 
-export default Diacritics;
+export default React.memo(Diacritics);

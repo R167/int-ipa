@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useReducer, useRef } from "react";
+import { RefObject, useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 
 interface Action<T> {
   type: T;
@@ -51,20 +51,23 @@ function reducer(state: State, action: Actions): State {
 
 const useKeyboard = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [{ cursor, value }, dispatch] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
     cursor: 0,
     value: "",
     ref: inputRef,
   });
 
-  const handleKeyboard = useCallback((char: string) => dispatch({ type: "append", value: char }), [
-    dispatch,
-  ]);
+  const { cursor, value } = state;
+
+  const handleKeyboard = useMemo(
+    () => (char: string) => dispatch({ type: "append", value: char }),
+    []
+  );
   const setValue = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "set", value: e.target.value }),
-    [dispatch]
+    []
   );
-  const handleDelete = useCallback(() => dispatch({ type: "delete" }), [dispatch]);
+  const handleDelete = useCallback(() => dispatch({ type: "delete" }), []);
 
   useEffect(() => {
     // Current hypothesis is that the value can end up getting updated after the element

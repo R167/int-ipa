@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import clsx from "clsx";
 import { Clickable, borderColor } from "./common";
@@ -13,7 +13,7 @@ import {
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { IMPOSSIBLE, MANNERS, PLACES, PULMONICS } from "../../utils/ipa";
+import { IMPOSSIBLE, MANNERS, NOT_USED, PLACES, PULMONICS } from "../../utils/ipa";
 
 const useStyles = makeStyles((theme) => ({
   voiceless: {
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
   impossible: {
     backgroundColor: theme.palette.action.disabledBackground,
     color: "transparent",
+    cursor: "default",
     "&:hover": {
       backgroundColor: theme.palette.action.disabledBackground,
     },
@@ -50,6 +51,9 @@ const useStyles = makeStyles((theme) => ({
   },
   caps: {
     padding: "6px 5.5px",
+    // "td&": {
+    //   padding: "0px 5.5px",
+    // },
   },
   header: {
     borderLeft: `1px solid ${borderColor(theme)}`,
@@ -63,7 +67,8 @@ const Pulmonics = (props: Props) => {
   const classes = useStyles();
   const { onClick } = props;
   const clickCallback = React.useCallback(
-    (char) => (char !== IMPOSSIBLE || undefined) && onClick && (() => onClick(char)),
+    (char) =>
+      (char !== IMPOSSIBLE && char !== NOT_USED && onClick && (() => onClick(char))) || undefined,
     [onClick]
   );
 
@@ -130,4 +135,4 @@ const Pulmonics = (props: Props) => {
   );
 };
 
-export default Pulmonics;
+export default React.memo(Pulmonics);

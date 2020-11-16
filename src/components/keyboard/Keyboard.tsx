@@ -6,6 +6,7 @@ import { Clickable } from "./common";
 import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
 // import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
@@ -14,16 +15,33 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     height: "100%",
   },
+  childOrder: {
+    // Allow reordering the children of this element.
+    // This has the additional benefit of allowing an "IPA" setting
+    ...orderChildren(1, 3, 2, 4),
+    [theme.breakpoints.up("lg")]: orderChildren(1, 2, 3, 4),
+  },
 }));
+
+const orderChildren = (...children: number[]) => {
+  let styles: CSSProperties = { "& > *": { order: 100 } };
+  children.forEach((child, i) => {
+    styles[`& > :nth-child(${i + 1})`] = { order: child };
+  });
+  return styles;
+};
 
 interface Props extends Clickable {}
 
+/**
+ * Accepts an onClick option. This is assumed to be memoized.
+ */
 const Keyboard = (props: Props) => {
   const classes = useStyles();
   const { onClick } = props;
 
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} className={classes.childOrder}>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
           <Typography variant="h6" component="p" gutterBottom>
@@ -61,4 +79,4 @@ const Keyboard = (props: Props) => {
   );
 };
 
-export default Keyboard;
+export default React.memo(Keyboard);

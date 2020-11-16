@@ -41,7 +41,7 @@ const TypeIPA = () => {
           <Grid item xs md={8} className={classes.search}>
             <TextField
               InputLabelProps={{ className: classes.label }}
-              id="filled-multiline-flexible"
+              id="ipa-typer"
               fullWidth
               inputRef={ref}
               value={value}
@@ -63,6 +63,7 @@ const TypeIPA = () => {
                     </IconButton>
                   </InputAdornment>
                 ),
+                // startAdornment: <InputAdornment position="start">{value}</InputAdornment>,
               }}
             />
           </Grid>

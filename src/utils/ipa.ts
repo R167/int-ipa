@@ -50,32 +50,32 @@ export const PULMONICS = [
   [IMP, IMP, IMP, IMP, NUL, NUL, NUL, "l", NUL, NUL, NUL, "ɭ", NUL, "ʎ", NUL, "ʟ", NUL, NUL, IMP, IMP, IMP, IMP]
 ] as const;
 
-export const CLICKS = new Map([
+export const CLICKS = [
   ["ʘ", "Bilabial"],
   ["ǀ", "Dental"],
   ["ǃ", "(Post)alveolar"],
   ["ǂ", "Palatoalveolar"],
   ["ǁ", "Alveolar lateral"],
-]);
+] as const;
 
-export const IMPLOSIVES = new Map([
+export const IMPLOSIVES = [
   ["ɓ", "Bilabial"],
   ["ɗ", "Dental/alveolar"],
   ["ʄ", "Palatal"],
   ["ɠ", "Velar"],
   ["ʛ", "Uvular"],
-]);
+] as const;
 
 // U+02BC
 export const EJECTIVE = "ʼ";
 
-export const EJECTIVES = new Map([
+export const EJECTIVES = [
   ["ʼ", "Examples:"],
   ["pʼ", "Bilabial"],
   ["tʼ", "Dental/alveolar"],
   ["kʼ", "Velar"],
   ["sʼ", "Alveolar fricative"],
-]);
+] as const;
 
 export const FILLER = "◌";
 

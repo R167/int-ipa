@@ -1,6 +1,6 @@
 import YAML from "yaml";
 
-interface Task {
+interface TaskDef {
   task: string;
   author: string;
   title: string;
