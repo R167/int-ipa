@@ -51,16 +51,14 @@ function reducer(state: State, action: Actions): State {
 
 const useKeyboard = () => {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [state, dispatch] = useReducer(reducer, {
+  const [{ cursor, value }, dispatch] = useReducer(reducer, {
     cursor: 0,
     value: "",
     ref: inputRef,
   });
 
-  const { cursor, value } = state;
-
-  const handleKeyboard = useMemo(
-    () => (char: string) => dispatch({ type: "append", value: char }),
+  const handleKeyboard = useCallback(
+    (char: string) => dispatch({ type: "append", value: char }),
     []
   );
   const setValue = useCallback(
