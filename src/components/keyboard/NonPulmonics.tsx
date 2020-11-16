@@ -16,27 +16,24 @@ import { CLICKS, EJECTIVES, IMPLOSIVES } from "../../utils/ipa";
 
 const useStyles = makeStyles((theme) => ({
   symbol: {
+    padding: theme.spacing(0.75, 1),
+    textAlign: "center",
     userSelect: "none",
     fontSize: "1.5rem",
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
-  },
-  sideBorder: {
     borderLeft: `1px solid ${borderColor(theme)}`,
-    borderRight: `1px solid ${borderColor(theme)}`,
-  },
-  caps: {
-    textTransform: "capitalize",
-    padding: "6px 5.5px",
   },
   descr: {
-    paddingLeft: "4px",
     fontSize: "0.8rem",
     verticalAlign: "middle",
+    padding: theme.spacing(0, 0.5),
+    borderRight: `1px solid ${borderColor(theme)}`,
   },
   header: {
+    padding: theme.spacing(0.75, 1.5),
     borderLeft: `1px solid ${borderColor(theme)}`,
     borderRight: `1px solid ${borderColor(theme)}`,
   },
@@ -59,12 +56,12 @@ const NonPulmonics = (props: Props) => {
   const Cell = React.useCallback(
     ({ symbol, name }: { symbol: string; name: string }) => {
       return (
-        <TableCell
-          className={clsx(classes.symbol, classes.sideBorder)}
-          onClick={() => onClick(symbol)}
-        >
-          {symbol} <span className={classes.descr}>{name}</span>
-        </TableCell>
+        <>
+          <TableCell className={classes.symbol} onClick={() => onClick(symbol)}>
+            {symbol}
+          </TableCell>
+          <TableCell className={classes.descr}>{name}</TableCell>
+        </>
       );
     },
     [classes, onClick]
@@ -73,15 +70,18 @@ const NonPulmonics = (props: Props) => {
   return (
     <TableContainer>
       <Table size="small" aria-label="Consonants (Pulmonics)">
+        <colgroup span={2}></colgroup>
+        <colgroup span={2}></colgroup>
+        <colgroup span={2}></colgroup>
         <TableHead>
           <TableRow>
-            <TableCell align="center" className={classes.header}>
+            <TableCell align="center" className={classes.header} colSpan={2}>
               Clicks
             </TableCell>
-            <TableCell align="center" className={classes.header}>
+            <TableCell align="center" className={classes.header} colSpan={2}>
               Voiced implosives
             </TableCell>
-            <TableCell align="center" className={classes.header}>
+            <TableCell align="center" className={classes.header} colSpan={2}>
               Ejectives
             </TableCell>
           </TableRow>

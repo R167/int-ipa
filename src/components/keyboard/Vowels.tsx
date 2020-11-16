@@ -74,6 +74,7 @@ const useStyles = makeStyles((theme) => ({
       zIndex: "-1",
       left: "0",
       content: "''",
+      borderRadius: "3px",
       position: "absolute",
       display: "inline-block",
       width: "1.2em",
