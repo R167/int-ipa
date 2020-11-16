@@ -66,6 +66,9 @@ const useKeyboard = () => {
   );
   const handleDelete = useCallback(() => dispatch({ type: "delete" }), [dispatch]);
 
+  // TODO: Figure out why this is ~50% glitchy in chrome
+  // Current hypothesis is that the value can end up getting updated after the element
+  // changes. If this happens, then
   useEffect(() => {
     inputRef?.current?.setSelectionRange(cursor, cursor);
     // I tried both ways (leaving the text focused or not) and blur was a better experience
