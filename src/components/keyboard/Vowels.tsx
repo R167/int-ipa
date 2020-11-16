@@ -117,6 +117,7 @@ const Vowels = (props: Props) => {
         );
       } else {
         const noCenter = vowels.join("").length < 2;
+        // Zero width space or dot
         const center = noCenter ? "\u00A0" : "•";
         return (
           <Box

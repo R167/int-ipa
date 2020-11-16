@@ -77,14 +77,16 @@ export const EJECTIVES = new Map([
   ["sʼ", "Alveolar fricative"],
 ]);
 
-export const OTHERS = new Map([
+export const FILLER = "◌";
+
+export const OTHERS = [
   ["ʍ", "voiceless labial-velar fricative"],
   ["w", "voiced labial-velar approximant"],
   ["ɥ", "voiced labial-palatal approximant"],
   ["ʜ", "voiceless epiglottal fricative"],
   ["ʢ", "voiced epiglottal fricative"],
   ["ʡ", "epiglottal plosive"],
-]);
+];
 
 export const VOWEL_HEIGHTS = ["Close", "Close-mid", "Open-mid", "Open"] as const;
 export const VOWEL_FRONTEDNESS = ["Front", "Central", "Back"] as const;
@@ -135,4 +137,53 @@ export const VOWELS: VowelCoords = [
   // Open
   [["a", "ɶ"], [0, 1]],
   [["ɑ", "ɒ"], [1, 1]],
+];
+
+export const STRESS = "ˈ";
+export const SECONDARY_STRESS = "ˌ";
+
+interface Diacritic {
+  ipa: string;
+  description: string;
+  examples: string[];
+  width?: number;
+}
+
+export type DiacriticsList = readonly Diacritic[];
+
+export const DIACRITICS: DiacriticsList = [
+  { ipa: "\u0325", description: "Voiceless", examples: ["n", "d"] },
+  { ipa: "\u032C", description: "Voiced", examples: ["s", "t"] },
+  { ipa: "\u02B0", description: "Aspirated", examples: ["t", "d"] },
+  { ipa: "\u0339", description: "More rounded", examples: ["ɔ"] },
+  { ipa: "\u031C", description: "Less rounded", examples: ["ɔ"] },
+  { ipa: "\u031F", description: "Advanced", examples: ["u"] },
+  { ipa: "\u0320", description: "Retracted", examples: ["e"] },
+  { ipa: "\u0308", description: "Centralized", examples: ["e"] },
+  { ipa: "\u033D", description: "Mid-centralized", examples: ["e"] },
+  { ipa: "\u0329", description: "Syllabic", examples: ["n"] },
+  { ipa: "\u032F", description: "Non-syllabic", examples: ["n"] },
+  { ipa: "\u02DE", description: "Rhoticity", examples: ["ə", "a"] },
+  { ipa: "\u0324", description: "Breathy voiced", examples: ["b", "a"] },
+  { ipa: "\u0330", description: "Creaky voiced", examples: ["b", "a"] },
+  { ipa: "\u033C", description: "Linguolabial", examples: ["t", "d"] },
+  { ipa: "\u02B7", description: "Labialized", examples: ["t", "d"] },
+  { ipa: "\u02B2", description: "Palatalized", examples: ["t", "d"] },
+  { ipa: "\u02E0", description: "Velarized", examples: ["t", "d"] },
+  { ipa: "\u02E4", description: "Pharyngealized", examples: ["t", "d"] },
+
+  { ipa: "\u032A", description: "Dental", examples: ["t", "d"] },
+  { ipa: "\u033A", description: "Apical", examples: ["t", "d"] },
+  { ipa: "\u033B", description: "Laminal", examples: ["t", "d"] },
+  { ipa: "\u0303", description: "Nasalized", examples: ["e"] },
+  { ipa: "\u207F", description: "Nasal release", examples: ["d"] },
+  { ipa: "\u02E1", description: "Lateral release", examples: ["d"] },
+  { ipa: "\u031A", description: "No audible release", examples: ["d"] },
+
+  { ipa: "\u0334", description: "Velarized or pharyngealized", examples: ["l"], width: 2 },
+
+  { ipa: "\u031D", description: "Raised", examples: ["e"] },
+  { ipa: "\u031E", description: "Lowered", examples: ["e"] },
+  { ipa: "\u0318", description: "Advanced tongue root", examples: ["e"] },
+  { ipa: "\u0319", description: "Retracted tongue root", examples: ["e"] },
 ];

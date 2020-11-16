@@ -9,6 +9,7 @@ import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
+    zIndex: 10,
     position: "sticky",
     top: "-8px",
   },

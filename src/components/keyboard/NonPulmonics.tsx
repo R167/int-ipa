@@ -1,6 +1,5 @@
 import React from "react";
 
-import clsx from "clsx";
 import { Clickable, borderColor } from "./common";
 
 import {

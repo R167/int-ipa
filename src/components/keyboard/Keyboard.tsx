@@ -1,10 +1,11 @@
 import React from "react";
-import { Box, Grid, makeStyles, Paper, Typography } from "@material-ui/core";
+import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
 import { Clickable } from "./common";
 import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
+import Diacritics from "./Diacritics";
 
 // import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
@@ -46,6 +47,14 @@ const Keyboard = (props: Props) => {
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
           <Vowels onClick={onClick} />
+        </Paper>
+      </Grid>
+      <Grid item xs={12} md={8}>
+        <Paper className={classes.paper}>
+          <Typography variant="h6" component="p" gutterBottom>
+            Diacritics
+          </Typography>
+          <Diacritics onClick={onClick} />
         </Paper>
       </Grid>
     </Grid>
