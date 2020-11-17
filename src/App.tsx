@@ -12,11 +12,11 @@ import { notchGutters } from "./utils/styles";
 
 const lightTheme = createMuiTheme({
   palette: {
-    // type: "dark",
-    secondary: {
+    type: "light",
+    primary: {
       main: blue[900],
     },
-    primary: {
+    secondary: {
       main: indigo[700],
     },
   },
@@ -25,10 +25,10 @@ const lightTheme = createMuiTheme({
 const darkTheme = createMuiTheme({
   palette: {
     type: "dark",
-    secondary: {
+    primary: {
       main: blue[500],
     },
-    primary: {
+    secondary: {
       main: indigo[700],
     },
   },

@@ -101,6 +101,9 @@ const vowelCoords = ([x, y]: Coords): { left: string; top: string } => {
   return { left: `${val * 100}%`, top: `${y * 100}%` };
 };
 
+/**
+ * Vowel chart
+ */
 const Vowels = (props: Props) => {
   const classes = useStyles();
   const { onClick = () => {} } = props;

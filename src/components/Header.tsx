@@ -176,7 +176,7 @@ const Header = (props: Props) => {
         </Box>
       </Drawer>
 
-      <AppBar position="static">
+      <AppBar position="static" color="secondary">
         <Toolbar classes={{ gutters: classes.gutters }}>
           <IconButton onClick={openDrawer} edge="start" color="inherit" aria-label="menu">
             <MenuIcon />
