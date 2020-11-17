@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useMemo, useReducer, useRef } from "react";
+import { RefObject, useCallback, useDebugValue, useLayoutEffect, useReducer, useRef } from "react";
 
 interface Action<T> {
   type: T;
@@ -61,23 +61,27 @@ const useKeyboard = () => {
     (char: string) => dispatch({ type: "append", value: char }),
     []
   );
-  const setValue = useCallback(
+  const handleType = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "set", value: e.target.value }),
     []
   );
   const handleDelete = useCallback(() => dispatch({ type: "delete" }), []);
+  const setValue = useCallback((val: string) => dispatch({ type: "set", value: val }), []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Current hypothesis is that the value can end up getting updated after the element
     // changes. If this happens, then chrome ends up with the cursor stuck at 0 ~half the time
-    setTimeout(() => {
-      // I tried both ways (leaving the text focused or not) and blur was a better experience
-      inputRef?.current?.setSelectionRange(cursor, cursor);
-      inputRef?.current?.blur();
-    }, 0);
+    // Edit: Still broken.
+    // setTimeout(() => {
+    // I tried both ways (leaving the text focused or not) and blur was a better experience
+    inputRef?.current?.setSelectionRange(cursor, cursor);
+    inputRef?.current?.blur();
+    // }, 0);
   }, [cursor]);
 
-  return { handleKeyboard, handleDelete, setValue, value, ref: inputRef };
+  useDebugValue({ cursor: cursor, value: value });
+
+  return { handleKeyboard, handleDelete, handleType, setValue, value, ref: inputRef };
 };
 
 export default useKeyboard;

@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
   },
   symbol: {
+    userSelect: "none",
     textAlign: "center",
     cursor: "pointer",
     fontSize: "1.5rem",

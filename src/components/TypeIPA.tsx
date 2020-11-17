@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 import { Box, Grid, IconButton, InputAdornment, TextField, makeStyles } from "@material-ui/core";
 
 import Keyboard from "./keyboard/Keyboard";
@@ -32,7 +32,18 @@ const useStyles = makeStyles((theme) => ({
 
 const TypeIPA = () => {
   const classes = useStyles();
-  const { handleKeyboard, handleDelete, setValue, value, ref } = useKeyboard();
+  const { handleKeyboard, handleDelete, handleType, value, ref } = useKeyboard();
+
+  // const [header, setHeader] = useState("");
+  // const handleEnter = useCallback(
+  //   (e) => {
+  //     if (e.key === "Enter") {
+  //       setHeader(header + value);
+  //       setValue("");
+  //     }
+  //   },
+  //   [header, value]
+  // );
 
   return (
     <div>
@@ -45,7 +56,7 @@ const TypeIPA = () => {
               fullWidth
               inputRef={ref}
               value={value}
-              onChange={setValue}
+              onChange={handleType}
               variant="outlined"
               inputProps={{
                 spellCheck: "false",
@@ -63,8 +74,19 @@ const TypeIPA = () => {
                     </IconButton>
                   </InputAdornment>
                 ),
-                // startAdornment: <InputAdornment position="start">{value}</InputAdornment>,
+                // This was initially just a test for making sure the concept works for the real form
+                // startAdornment: header && (
+                //   <InputAdornment
+                //     disablePointerEvents
+                //     disableTypography
+                //     position="start"
+                //     classes={{ positionStart: classes.noRightMargin }}
+                //   >
+                //     {header}
+                //   </InputAdornment>
+                // ),
               }}
+              // onKeyPress={handleEnter}
             />
           </Grid>
         </Grid>

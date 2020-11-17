@@ -8,7 +8,7 @@ interface Props {
 
 const Task = (props: Props) => {
   const { taskFile } = props;
-  const { handleKeyboard, handleDelete, setValue, value, ref } = useKeyboard();
+  const { handleKeyboard, handleDelete, handleType, setValue, value, ref } = useKeyboard();
 
   return <Typography>{taskFile}</Typography>;
 };
