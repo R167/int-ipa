@@ -20,6 +20,8 @@ function reducer(state: State, action: Actions): State {
   const { value } = state;
   // make broad assumptions about never having a large cursor selection
   const cursor = state.ref?.current?.selectionStart || 0;
+  // console.log({ src: "ref", cursor: state.ref?.current?.selectionStart });
+  // console.log({ src: "reducer", cursor: cursor });
   const cursorAfter = state.ref?.current?.selectionEnd || cursor;
   switch (action.type) {
     case "delete":
@@ -69,13 +71,19 @@ const useKeyboard = () => {
   const setValue = useCallback((val: string) => dispatch({ type: "set", value: val }), []);
 
   useLayoutEffect(() => {
+    // console.log(inputRef?.current?.selectionStart);
+    // console.log(cursor);
     // Current hypothesis is that the value can end up getting updated after the element
     // changes. If this happens, then chrome ends up with the cursor stuck at 0 ~half the time
     // Edit: Still broken.
     // setTimeout(() => {
     // I tried both ways (leaving the text focused or not) and blur was a better experience
+    // console.log(inputRef?.current?.value);
+    inputRef?.current?.focus(); // This might be the magic bullet
     inputRef?.current?.setSelectionRange(cursor, cursor);
     inputRef?.current?.blur();
+    // console.log(inputRef?.current?.selectionStart);
+    // console.log(cursor);
     // }, 0);
   }, [cursor]);
 
