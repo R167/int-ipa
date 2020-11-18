@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#000000" />
     <meta name="description" content="Interactive IPA transcription tool" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/assets/apple-touch-icon.png" />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="manifest" href="%PUBLIC_URL%/assets/manifest.json" />
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -34,6 +34,7 @@
       onload="this.rel='stylesheet';this.onload=null;"
     />
     <!-- Manually specify the Roboto font here. We need this for IPA symbols to work correctly -->
+    <link rel="preload" href="%PUBLIC_URL%/assets/Roboto-Regular.woff2" as="font" />
     <style>
       @font-face {
         font-family: "Roboto";
@@ -44,8 +45,6 @@
           url(%PUBLIC_URL%/assets/Roboto-Regular.woff2) format("woff2");
       }
     </style>
-
-    <link rel="preload" href="%PUBLIC_URL%/assets/Roboto-Regular.woff2" as="font" />
     <title>Int IPA</title>
   </head>
   <body>

@@ -39,7 +39,7 @@ const TaskList = (props: Props) => {
                   flexWrap="wrap"
                 >
                   <Box>
-                    <Typography color="secondary" gutterBottom>
+                    <Typography color="primary" gutterBottom>
                       {task.name}
                     </Typography>
                     <Typography variant="body2" gutterBottom>
@@ -49,7 +49,7 @@ const TaskList = (props: Props) => {
                   <Box display="flex" justifyContent="flex-end" alignItems="flex-end" width="100%">
                     <Button
                       component={Link}
-                      color="primary"
+                      color="secondary"
                       variant="contained"
                       to={taskLink(path, task.file)}
                     >

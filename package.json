@@ -31,7 +31,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
-    "fix": "eslint --fix ./src"
+    "fix": "eslint --fix ./src",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
@@ -72,6 +73,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^4.5.0",
     "path": "^0.12.7",
+    "source-map-explorer": "^2.5.0",
     "webpack": "^4.44",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"
