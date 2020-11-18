@@ -54,14 +54,21 @@ const Diacritics = (props: Clickable) => {
                 <div className={classes.description}>{description}</div>
               </div>
             </Grid>
-            {examples.map((char) => (
-              <Grid
-                item
-                xs={2}
-                className={classes.symbol}
-                onClick={() => onClick(`${char}${ipa}`)}
-              >{`${char}${ipa}`}</Grid>
-            ))}
+            {/* Forgive me father, for I have sinned. I never should have used this much indentation */}
+            {examples.map((char) => {
+              const combined = `${char}${ipa}`;
+              return (
+                <Grid
+                  key={combined}
+                  item
+                  xs={2}
+                  className={classes.symbol}
+                  onClick={() => onClick(combined)}
+                >
+                  {combined}
+                </Grid>
+              );
+            })}
           </Grid>
         </Grid>
       ))}

@@ -2,6 +2,7 @@
 task: LIGN 101 IPA Training
 author: Winston Durand
 title: Your first try at IPA
+salt: RandomValue # This is a value unique to this assignment
 instructions: > # <-- The ">" here indicates a multiline string.
   For each of the following words, you'll be given both a word in English, and a
   sound file. Making reference to the sound file, you'll give us each sound in the
@@ -42,12 +43,10 @@ words:
         z: You're mostly right, but check if this is really voiced or voiceless
         # passing in an explicit `_end` symbol is fully optional. It's mostly just
         # to make explicitly clear that this is the end of the word. If not provided
-        # it is implied. You don't even need to specify
+        # it is implied. You don't even need to specify it. You can also do a empty string ""
       - _end: true
         _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
-        # special symbol `...` is equivalent to any other inputs. You can also use `_any`
-        # The main difference is _any is only acceptable as a macro while ... can be used as
-        # a pattern anywhere
+        # special symbol `...` is equivalent to any other inputs.
         ...: Don't let your writing system lie to you!
   - display: choice
     audio: choice.wav

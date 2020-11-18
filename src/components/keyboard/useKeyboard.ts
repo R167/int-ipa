@@ -5,11 +5,17 @@ interface Action<T> {
 }
 
 interface ValueAction<T> extends Action<T> {
-  type: T;
   value: string;
 }
 
-type Actions = Action<"delete"> | ValueAction<"append"> | ValueAction<"set">;
+enum Op {
+  Delete,
+  Append,
+  Set,
+}
+
+type Actions = Action<Op.Delete> | ValueAction<Op.Append> | ValueAction<Op.Set>;
+
 interface State {
   cursor: number;
   value: string;
@@ -24,7 +30,7 @@ function reducer(state: State, action: Actions): State {
   // console.log({ src: "reducer", cursor: cursor });
   const cursorAfter = state.ref?.current?.selectionEnd || cursor;
   switch (action.type) {
-    case "delete":
+    case Op.Delete:
       if (cursor !== cursorAfter) {
         return {
           ...state,
@@ -40,13 +46,13 @@ function reducer(state: State, action: Actions): State {
           value: value.slice(0, cursor - 1) + value.slice(cursor, value.length),
         };
       }
-    case "append":
+    case Op.Append:
       return {
         ...state,
         cursor: cursor + action.value.length,
         value: value.slice(0, cursor) + action.value + value.slice(cursorAfter, value.length),
       };
-    case "set":
+    case Op.Set:
       return { ...state, value: action.value };
   }
 }
@@ -60,15 +66,15 @@ const useKeyboard = () => {
   });
 
   const handleKeyboard = useCallback(
-    (char: string) => dispatch({ type: "append", value: char }),
+    (char: string) => dispatch({ type: Op.Append, value: char }),
     []
   );
   const handleType = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: "set", value: e.target.value }),
+    (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: Op.Set, value: e.target.value }),
     []
   );
-  const handleDelete = useCallback(() => dispatch({ type: "delete" }), []);
-  const setValue = useCallback((val: string) => dispatch({ type: "set", value: val }), []);
+  const handleDelete = useCallback(() => dispatch({ type: Op.Delete }), []);
+  const setValue = useCallback((val: string) => dispatch({ type: Op.Set, value: val }), []);
 
   useLayoutEffect(() => {
     // console.log(inputRef?.current?.selectionStart);

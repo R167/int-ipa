@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, makeStyles, TextField } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField, makeStyles } from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 import CheckIcon from "@material-ui/icons/Check";
@@ -27,7 +27,7 @@ interface Props {
   onDelete: () => void;
   // optional header stuff
   header?: React.ReactNode;
-  onCheck?: () => void;
+  onCheck?: (val: string) => void;
   checkDescription?: string;
 
   error?: boolean;
@@ -48,13 +48,18 @@ const IPAInput = (props: Props) => {
     helpText,
   } = props;
 
+  // This should be fine (famous last words...)
+  const handleSubmit = useCallback(() => {
+    onCheck && onCheck(inputRef.current?.value || "");
+  }, [onCheck]);
+
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
-      if (onCheck && e.key === "Enter") {
-        onCheck();
+      if (e.key === "Enter") {
+        handleSubmit();
       }
     },
-    [onCheck]
+    [handleSubmit]
   );
 
   const check = onCheck && (
@@ -62,7 +67,7 @@ const IPAInput = (props: Props) => {
       aria-label="check"
       color="secondary"
       title={checkDescription || "Validate input"}
-      onClick={onCheck}
+      onClick={handleSubmit}
     >
       <CheckIcon />
     </IconButton>
@@ -82,7 +87,8 @@ const IPAInput = (props: Props) => {
       variant="outlined"
       inputProps={{
         spellCheck: "false",
-        autoCorrect: "false",
+        autoCorrect: "off",
+        autoComplete: "off",
         style: { lineHeight: 2 },
       }}
       label="Type IPA"

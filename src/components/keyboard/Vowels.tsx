@@ -179,7 +179,7 @@ const Vowels = (props: Props) => {
                 className={clsx(classes.fullHeight, classes.vowelHeight)}
               >
                 {VOWEL_HEIGHTS.map((height) => (
-                  <Typography variant="body1" component="p">
+                  <Typography key={height} variant="body1" component="p">
                     {height}
                   </Typography>
                 ))}
@@ -192,7 +192,7 @@ const Vowels = (props: Props) => {
             <Grid item>
               <Grid container justify="space-between" className={classes.vowelPos}>
                 {VOWEL_FRONTEDNESS.map((pos) => (
-                  <Typography variant="body1" component="p">
+                  <Typography key={pos} variant="body1" component="p">
                     {pos}
                   </Typography>
                 ))}
