@@ -1,7 +1,7 @@
 ---
-task: LIGN 101 IPA Training
 author: Winston Durand
-title: Your first try at IPA
+title: LIGN 101 IPA Training
+salt: RandomValue # This is a value unique to this assignment
 instructions: > # <-- The ">" here indicates a multiline string.
   For each of the following words, you'll be given both a word in English, and a
   sound file. Making reference to the sound file, you'll give us each sound in the
@@ -16,17 +16,31 @@ macros:
   _ow:
     - ow
     - oʊ
+  _ej:
+    - ej
+    - eɪ
   _e_is_a_lie: # lying orthography...
     - _ej # macros can be expanded in other macros
     - e
     - ɛ
     - ə
+  _oj:
+    - oj
+    - oɪ
+  _ch:
+    - tʃ
+    - t͡ʃ
+  _j:
+    - dʒ
+    - d͡ʒ
+
+  # rhotics
+  _əɹ:
+    - əɹ
+    - ɚ
 words:
   - display: horse
     audio: horse.wav
-    # Stopping automatically terminates the input as soon as the student submits
-    # the last segment. Otherwise, they have to manually click submit afterwards
-    stop_automatically: false
     segments:
       - h: true
         /...: No need to use slashes or brackets here!
@@ -40,18 +54,15 @@ words:
         _əɹ: This isn't a full on vowel (like in 'curb'), but just a consonant
       - s: true
         z: You're mostly right, but check if this is really voiced or voiceless
-        # passing in an explicit `_end` symbol is fully optional. It's mostly just
+        # passing in an explicit `""` symbol (the empty string) is fully optional. It's mostly just
         # to make explicitly clear that this is the end of the word. If not provided
-        # it is implied. You don't even need to specify
-      - _end: true
+        # it is implied. You don't even need to specify it.
+      - "": true
         _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
-        # special symbol `...` is equivalent to any other inputs. You can also use `_any`
-        # The main difference is _any is only acceptable as a macro while ... can be used as
-        # a pattern anywhere
+        # special symbol `...` is equivalent to any other inputs.
         ...: Don't let your writing system lie to you!
   - display: choice
     audio: choice.wav
-    stop_automatically: false
     segments:
       - _ch: true
         _j: You're on the right track, but is this really voiced? Double check that
@@ -70,6 +81,5 @@ words:
       - s: true
         z: You're almost there, but is this a voiced or voiceless sound?
         c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English.  What -sound- is there?
-      - _end: true
-        _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
+      - _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
         ...: Don't let your writing system lie to you!
