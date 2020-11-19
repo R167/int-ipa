@@ -12,9 +12,14 @@ enum Op {
   Delete,
   Append,
   Set,
+  Type,
 }
 
-type Actions = Action<Op.Delete> | ValueAction<Op.Append> | ValueAction<Op.Set>;
+type Actions =
+  | Action<Op.Delete>
+  | ValueAction<Op.Append>
+  | ValueAction<Op.Set>
+  | ValueAction<Op.Type>;
 
 interface State {
   cursor: number;
@@ -53,6 +58,8 @@ function reducer(state: State, action: Actions): State {
         value: value.slice(0, cursor) + action.value + value.slice(cursorAfter, value.length),
       };
     case Op.Set:
+      return { ...state, value: action.value, cursor: action.value.length };
+    case Op.Type:
       return { ...state, value: action.value };
   }
 }
@@ -70,7 +77,7 @@ const useKeyboard = () => {
     []
   );
   const handleType = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: Op.Set, value: e.target.value }),
+    (e: React.ChangeEvent<HTMLInputElement>) => dispatch({ type: Op.Type, value: e.target.value }),
     []
   );
   const handleDelete = useCallback(() => dispatch({ type: Op.Delete }), []);

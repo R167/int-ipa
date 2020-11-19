@@ -27,7 +27,7 @@ const TaskList = (props: Props) => {
     return (
       <Grid container spacing={4}>
         {tasks.map(
-          (task, i) =>
+          (task: TaskInfo, i: number) =>
             !task.hidden && (
               <Grid item key={`tasklist-${i}`} lg={6} xs={12}>
                 <Box

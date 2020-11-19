@@ -4,6 +4,7 @@ import { useAsync } from "react-async-hook";
 import { parseTask, TaskDef } from "../utils/parsers/task";
 import {
   Button,
+  Collapse,
   Dialog,
   DialogActions,
   DialogContent,
@@ -49,6 +50,7 @@ const Task = React.memo((props: TaskProps) => {
   const { task } = props;
   const [currWord, setCurrWord] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  const [showWord, setShowWord] = useState(true);
 
   const handleSubmit = useCallback(() => {
     setShowModal(true);
@@ -59,6 +61,7 @@ const Task = React.memo((props: TaskProps) => {
   const dismissModal = useCallback(() => {
     if (currWord === lastWord) {
       // Display the new stuff
+      setShowWord(false);
     } else {
       setCurrWord((prev) => prev + 1);
     }
@@ -74,17 +77,27 @@ const Task = React.memo((props: TaskProps) => {
    *
    */
 
-  const { title, words } = task;
+  const { title, words, instructions } = task;
   const word = words[currWord];
 
   const dismissText = currWord < lastWord ? "Next word" : "Finish";
 
   return (
     <div>
-      <Typography variant="h3" component="h1" gutterBottom align="center">
+      <Typography variant="h3" component="h2" gutterBottom align="center">
         {title}
       </Typography>
-      <WordInput word={word} onSubmit={handleSubmit} />
+      <Typography variant="body1" gutterBottom>
+        {instructions}
+      </Typography>
+      <Collapse in={showWord}>
+        <WordInput word={word} onSubmit={handleSubmit} />
+      </Collapse>
+      {showWord || (
+        <Typography variant="h3" component="h3" gutterBottom align="center">
+          You're done!
+        </Typography>
+      )}
 
       <Dialog
         open={showModal}
