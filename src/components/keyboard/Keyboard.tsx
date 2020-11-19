@@ -41,14 +41,7 @@ const Keyboard = (props: Props) => {
   const { onClick } = props;
 
   return (
-    <Grid
-      container
-      spacing={2}
-      className={classes.childOrder}
-      onKeyPress={() => {
-        console.log("press");
-      }}
-    >
+    <Grid container spacing={2} className={classes.childOrder}>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
           <Typography variant="h6" component="p" gutterBottom>

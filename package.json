@@ -33,7 +33,8 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "fix": "eslint --fix ./src",
-    "analyze": "source-map-explorer 'build/static/js/*.js'"
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
+    "schema": "ts-json-schema-generator"
   },
   "eslintConfig": {
     "extends": [
@@ -75,6 +76,7 @@
     "html-webpack-plugin": "^4.5.0",
     "path": "^0.12.7",
     "source-map-explorer": "^2.5.0",
+    "ts-json-schema-generator": "^0.78.0",
     "webpack": "^4.44",
     "webpack-cli": "^4.1.0",
     "webpack-dev-server": "^3.11.0"

@@ -17,17 +17,31 @@ macros:
   _ow:
     - ow
     - oʊ
+  _ej:
+    - ej
+    - eɪ
   _e_is_a_lie: # lying orthography...
     - _ej # macros can be expanded in other macros
     - e
     - ɛ
     - ə
+  _oj:
+    - oj
+    - oɪ
+  _ch:
+    - tʃ
+    - t͡ʃ
+  _j:
+    - dʒ
+    - d͡ʒ
+
+  # rhotics
+  _əɹ:
+    - əɹ
+    - ɚ
 words:
   - display: horse
     audio: horse.wav
-    # Stopping automatically terminates the input as soon as the student submits
-    # the last segment. Otherwise, they have to manually click submit afterwards
-    stop_automatically: false
     segments:
       - h: true
         /...: No need to use slashes or brackets here!
@@ -50,7 +64,6 @@ words:
         ...: Don't let your writing system lie to you!
   - display: choice
     audio: choice.wav
-    stop_automatically: false
     segments:
       - _ch: true
         _j: You're on the right track, but is this really voiced? Double check that

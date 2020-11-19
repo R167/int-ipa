@@ -85,9 +85,11 @@ const useKeyboard = () => {
     // setTimeout(() => {
     // I tried both ways (leaving the text focused or not) and blur was a better experience
     // console.log(inputRef?.current?.value);
-    inputRef?.current?.focus(); // This might be the magic bullet
-    inputRef?.current?.setSelectionRange(cursor, cursor);
-    inputRef?.current?.blur();
+    const oldFocus = document.activeElement as HTMLInputElement;
+    inputRef.current?.focus();
+    inputRef.current?.setSelectionRange(cursor, cursor);
+    inputRef.current?.blur();
+    oldFocus?.focus();
     // console.log(inputRef?.current?.selectionStart);
     // console.log(cursor);
     // }, 0);

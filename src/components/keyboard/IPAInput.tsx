@@ -62,11 +62,13 @@ const IPAInput = (props: Props) => {
     [handleSubmit]
   );
 
+  const preventDefault = useCallback((e) => e.preventDefault(), []);
+
   const check = onCheck && (
     <IconButton
       aria-label="check"
-      color="secondary"
       title={checkDescription || "Validate input"}
+      onMouseDown={preventDefault}
       onClick={handleSubmit}
     >
       <CheckIcon />
@@ -96,7 +98,13 @@ const IPAInput = (props: Props) => {
         className: classes.input,
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton aria-label="delete" title="Delete" onClick={onDelete} color="inherit">
+            <IconButton
+              aria-label="delete"
+              title="Delete"
+              onMouseDown={preventDefault}
+              onClick={onDelete}
+              color="inherit"
+            >
               <BackspaceOutlinedIcon />
             </IconButton>
             {check}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Clickable, borderColor, shadowBorder } from "./common";
 
 import { Grid } from "@material-ui/core";
@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
 const Diacritics = (props: Clickable) => {
   const classes = useStyles();
   const { onClick = () => {} } = props;
+  const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   return (
     <Grid container spacing={0}>
@@ -64,6 +65,7 @@ const Diacritics = (props: Clickable) => {
                   xs={2}
                   className={classes.symbol}
                   onClick={() => onClick(combined)}
+                  onMouseDown={preventDefault}
                 >
                   {combined}
                 </Grid>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useMemo } from "react";
 
 import { Clickable, borderColor } from "./common";
 
@@ -44,22 +44,28 @@ const NonPulmonics = (props: Props) => {
   const classes = useStyles();
   const { onClick = () => {} } = props;
 
-  const sounds = React.useMemo(() => {
+  const sounds = useMemo(() => {
     return CLICKS.map((click, i) => [click, IMPLOSIVES[i], EJECTIVES[i]]);
   }, []);
 
-  const Cell = React.useCallback(
+  const preventDefault = useCallback((e) => e.preventDefault(), []);
+
+  const Cell = useCallback(
     ({ symbol, name }: { symbol: string; name: string }) => {
       return (
         <>
-          <TableCell className={classes.symbol} onClick={() => onClick(symbol)}>
+          <TableCell
+            className={classes.symbol}
+            onClick={() => onClick(symbol)}
+            onMouseDown={preventDefault}
+          >
             {symbol}
           </TableCell>
           <TableCell className={classes.descr}>{name}</TableCell>
         </>
       );
     },
-    [classes, onClick]
+    [classes, onClick, preventDefault]
   );
 
   return (

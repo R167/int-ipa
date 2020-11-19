@@ -1,5 +1,3 @@
-import YAML from "yaml";
-
 export interface Class {
   name: string;
   folder: string;

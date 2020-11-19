@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 
 import clsx from "clsx";
 import { Clickable, borderColor } from "./common";
@@ -66,11 +66,13 @@ interface Props extends Clickable {}
 const Pulmonics = (props: Props) => {
   const classes = useStyles();
   const { onClick } = props;
-  const clickCallback = React.useCallback(
+  const clickCallback = useCallback(
     (char) =>
       (char !== IMPOSSIBLE && char !== NOT_USED && onClick && (() => onClick(char))) || undefined,
     [onClick]
   );
+
+  const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   const Cell = React.useCallback(
     ({ x, y }: { x: number; y: number }) => {
@@ -88,19 +90,21 @@ const Pulmonics = (props: Props) => {
           <span
             className={clsx(classes.voiceless, voiceless === IMPOSSIBLE && classes.impossible)}
             onClick={clickCallback(voiceless)}
+            onMouseDown={preventDefault}
           >
             {voiceless}
           </span>
           <span
             className={clsx(classes.voiced, voiced === IMPOSSIBLE && classes.impossible)}
             onClick={clickCallback(voiced)}
+            onMouseDown={preventDefault}
           >
             {voiced}
           </span>
         </TableCell>
       );
     },
-    [classes, clickCallback]
+    [classes, clickCallback, preventDefault]
   );
 
   return (

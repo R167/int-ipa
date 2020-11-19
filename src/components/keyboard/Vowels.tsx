@@ -108,6 +108,8 @@ const Vowels = (props: Props) => {
   const classes = useStyles();
   const { onClick = () => {} } = props;
 
+  const preventDefault = useCallback((e) => e.preventDefault(), []);
+
   const VowelElement = useCallback(
     ({ vowels, coords }: { vowels: VowelLiteral; coords: Coords }) => {
       if (typeof vowels === "string") {
@@ -131,12 +133,14 @@ const Vowels = (props: Props) => {
             <div
               className={clsx(classes.unrounded, classes.symbol, classes.paperBack)}
               onClick={() => onClick(vowels[0])}
+              onMouseDown={preventDefault}
             >
               {vowels[0]}
             </div>
             <div
               className={clsx(classes.rounded, classes.symbol, classes.paperBack)}
               onClick={() => onClick(vowels[1])}
+              onMouseDown={preventDefault}
             >
               {vowels[1]}
             </div>
@@ -144,7 +148,7 @@ const Vowels = (props: Props) => {
         );
       }
     },
-    [classes, onClick]
+    [classes, onClick, preventDefault]
   );
 
   const vowelChart = useMemo(
