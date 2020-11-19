@@ -6,10 +6,16 @@ import CheckIcon from "@material-ui/icons/Check";
 const useStyles = makeStyles((theme) => ({
   label: {
     "&:not(.MuiInputLabel-shrink)": {
+      [theme.breakpoints.up("lg")]: {
+        fontSize: "2rem",
+      },
       fontSize: "1.5rem",
     },
   },
   input: {
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "2rem",
+    },
     fontSize: "1.5rem",
     "&> fieldset > legend > span": {
       fontSize: "0.75rem",
@@ -20,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
   },
   helpTextSize: {
     fontSize: "1rem",
+    [theme.breakpoints.up("lg")]: {
+      fontSize: "1.5rem",
+    },
   },
 }));
 
@@ -72,9 +81,10 @@ const IPAInput = (props: Props) => {
   const check = onCheck && (
     <IconButton
       aria-label="check"
-      title={checkDescription || "Validate input"}
+      title={checkDescription || "Submit IPA Symbol or End Word"}
       onMouseDown={preventDefault}
       onClick={handleSubmit}
+      color="primary"
     >
       <CheckIcon />
     </IconButton>

@@ -53,11 +53,11 @@
   },
   "browserslist": {
     "production": [
-      "last 2 major versions",
-      ">0.5%",
+      "last 2 year and last 2 major versions and >0.1%",
+      ">1%",
       "not dead",
       "not op_mini all",
-      "not ie 11"
+      "not ie 11 and supports css-sticky"
     ],
     "development": [
       "last 1 chrome version",

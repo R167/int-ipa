@@ -115,7 +115,11 @@ const Vowels = (props: Props) => {
       if (typeof vowels === "string") {
         return (
           <Box className={clsx(classes.element, classes.paperBack)} style={vowelCoords(coords)}>
-            <div className={clsx(classes.mid, classes.symbol)} onClick={() => onClick(vowels)}>
+            <div
+              className={clsx(classes.mid, classes.symbol)}
+              onClick={() => onClick(vowels)}
+              onMouseDown={preventDefault}
+            >
               {vowels}
             </div>
           </Box>

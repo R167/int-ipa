@@ -1,7 +1,7 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useMemo, useState } from "react";
 
 import { useAsync } from "react-async-hook";
-import { parseTask, TaskDef } from "../utils/parsers/task";
+import { TaskDef, parseTask } from "../utils/parsers/task";
 import {
   Button,
   Collapse,
@@ -11,8 +11,10 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
+  makeStyles,
 } from "@material-ui/core";
 import WordInput from "./WordInput";
+import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 
 interface LoadProps {
   taskFileUrl: string;
@@ -21,6 +23,19 @@ interface LoadProps {
 interface TaskProps {
   task: TaskDef;
 }
+
+const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
+
+const useStyles = makeStyles((theme) => ({
+  playButton: {
+    color: theme.palette.background.default,
+    backgroundColor: theme.palette.info.light,
+    margin: "4px",
+    padding: "4px 8px",
+    boxSizing: "content-box",
+    borderRadius: "4px",
+  },
+}));
 
 const fetchTask = async (taskFileUrl: string) => {
   if (!taskFileUrl) {
@@ -51,6 +66,12 @@ const Task = React.memo((props: TaskProps) => {
   const [currWord, setCurrWord] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showWord, setShowWord] = useState(true);
+  const [hash, setHash] = useState("");
+
+  const { title, words, instructions } = task;
+  const word = words[currWord];
+
+  const classes = useStyles();
 
   const handleSubmit = useCallback(() => {
     setShowModal(true);
@@ -66,7 +87,27 @@ const Task = React.memo((props: TaskProps) => {
       setCurrWord((prev) => prev + 1);
     }
     setShowModal(false);
-  }, [currWord]);
+  }, [currWord, lastWord]);
+
+  var audioCtx = useMemo(
+    () =>
+      new AudioContext({
+        latencyHint: "interactive",
+        sampleRate: 44100,
+      }),
+    []
+  );
+
+  const audioFile = useMemo(() => {
+    return word.audio ? new Audio(`/ex-lign101/${word.audio}`) : null;
+  }, [word.audio]);
+
+  const playAudio = useCallback(() => {
+    if (audioFile) {
+      audioFile.currentTime = 0;
+      audioFile.play();
+    }
+  }, [audioFile]);
 
   /**
    * Cases:
@@ -76,9 +117,6 @@ const Task = React.memo((props: TaskProps) => {
    * if (classTasks.error) : "cannot load class X"
    *
    */
-
-  const { title, words, instructions } = task;
-  const word = words[currWord];
 
   const dismissText = currWord < lastWord ? "Next word" : "Finish";
 
@@ -90,13 +128,27 @@ const Task = React.memo((props: TaskProps) => {
       <Typography variant="body1" gutterBottom>
         {instructions}
       </Typography>
+      <Typography variant="h4" component="p" align="center">
+        Transcribe "{word.display}"{" "}
+        <Button
+          variant="contained"
+          color="secondary"
+          startIcon={<PlayCircleFilledIcon />}
+          onClick={playAudio}
+        >
+          Play
+        </Button>
+      </Typography>
+
       <Collapse in={showWord}>
         <WordInput word={word} onSubmit={handleSubmit} />
       </Collapse>
       {showWord || (
-        <Typography variant="h3" component="h3" gutterBottom align="center">
-          You're done!
-        </Typography>
+        <>
+          <Typography variant="h3" component="h3" gutterBottom align="center">
+            You're done!
+          </Typography>
+        </>
       )}
 
       <Dialog
