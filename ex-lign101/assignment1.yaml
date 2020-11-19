@@ -24,9 +24,9 @@ macros:
     - e
     - ɛ
     - ə
-  _oj:
-    - oj
-    - oɪ
+  _ɔj:
+    - ɔj
+    - ɔɪ
   _ch:
     - tʃ
     - t͡ʃ
@@ -39,6 +39,13 @@ macros:
     - əɹ
     - ɚ
 words:
+  - display: test
+    segments:
+      - t: true
+        test: true
+        blah: > # <-- The ">" here indicates a multiline string.
+          For each of the following words, you'll be given both a word in English, and a
+          sound file. Making reference to the sound file, you'll give us each sound in the
   - display: horse
     audio: horse.wav
     segments:
@@ -71,13 +78,14 @@ words:
         tsh: There's a different symbol for the <ch> sound. Use it!
         ts: /ts/ is also an affricate, but it's the sound at the end of 'cats'
         t: Remember, the <ch> sound is comprised of two sounds combined
-      - _oj: true
-        o: This isn't just an /o/, but something more.
-        oi: >
+      - _ɔj: true
+        ɔ: This isn't just an /ɔ/, but something more.
+        ɔi: >
           This isn't absolutely a diphthong, and you're on the right track,
-          but we write this diphthong as /oj/ in this class (because it's not ending quite as high as /i/.
+          but we write this diphthong as /ɔj/ in this class (because it's not ending quite as high as /i/.
         _ej: This is the diphthong in 'bay' or 'rain'. Try another.
         _aj: This is the diphthong in 'buy' or 'rice'. Try another.
+        o...: Generally speaking, in mainstream US English, /ɔ/ is used here.
       - s: true
         z: You're almost there, but is this a voiced or voiceless sound?
         c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English.  What -sound- is there?
