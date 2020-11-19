@@ -1,7 +1,6 @@
 ---
-task: LIGN 101 IPA Training
 author: Winston Durand
-title: Your first try at IPA
+title: LIGN 101 IPA Training
 salt: RandomValue # This is a value unique to this assignment
 instructions: > # <-- The ">" here indicates a multiline string.
   For each of the following words, you'll be given both a word in English, and a
@@ -55,10 +54,10 @@ words:
         _əɹ: This isn't a full on vowel (like in 'curb'), but just a consonant
       - s: true
         z: You're mostly right, but check if this is really voiced or voiceless
-        # passing in an explicit `_end` symbol is fully optional. It's mostly just
+        # passing in an explicit `""` symbol (the empty string) is fully optional. It's mostly just
         # to make explicitly clear that this is the end of the word. If not provided
-        # it is implied. You don't even need to specify it. You can also do a empty string ""
-      - _end: true
+        # it is implied. You don't even need to specify it.
+      - "": true
         _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
         # special symbol `...` is equivalent to any other inputs.
         ...: Don't let your writing system lie to you!
@@ -82,6 +81,5 @@ words:
       - s: true
         z: You're almost there, but is this a voiced or voiceless sound?
         c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English.  What -sound- is there?
-      - _end: true
-        _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
+      - _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
         ...: Don't let your writing system lie to you!

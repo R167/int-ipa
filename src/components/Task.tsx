@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useCallback, useState } from "react";
 
 import { useAsync } from "react-async-hook";
-import { parseTask } from "../utils/parsers/task";
-import { Typography } from "@material-ui/core";
+import { parseTask, TaskDef } from "../utils/parsers/task";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  Typography,
+} from "@material-ui/core";
 import WordInput from "./WordInput";
 
-interface Props {
+interface LoadProps {
   taskFileUrl: string;
+}
+
+interface TaskProps {
+  task: TaskDef;
 }
 
 const fetchTask = async (taskFileUrl: string) => {
@@ -33,9 +45,25 @@ const Status = ({ msg, error }: StatusProps) => (
     {msg}
   </Typography>
 );
-const Task = (props: Props) => {
-  const { taskFileUrl } = props;
-  const task = useAsync(fetchTask, [taskFileUrl]);
+const Task = React.memo((props: TaskProps) => {
+  const { task } = props;
+  const [currWord, setCurrWord] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+
+  const handleSubmit = useCallback(() => {
+    setShowModal(true);
+  }, []);
+
+  const lastWord = task.words.length - 1;
+
+  const dismissModal = useCallback(() => {
+    if (currWord === lastWord) {
+      // Display the new stuff
+    } else {
+      setCurrWord((prev) => prev + 1);
+    }
+    setShowModal(false);
+  }, [currWord]);
 
   /**
    * Cases:
@@ -46,17 +74,50 @@ const Task = (props: Props) => {
    *
    */
 
+  const { title, words } = task;
+  const word = words[currWord];
+
+  const dismissText = currWord < lastWord ? "Next word" : "Finish";
+
+  return (
+    <div>
+      <Typography variant="h3" component="h1" gutterBottom align="center">
+        {title}
+      </Typography>
+      <WordInput word={word} onSubmit={handleSubmit} />
+
+      <Dialog
+        open={showModal}
+        onClose={dismissModal}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        disableRestoreFocus
+      >
+        <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            You did a good job of getting the word correct!
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={dismissModal} color="primary">
+            {dismissText}
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+});
+
+/**
+ * Wrapper around the Task with loading state
+ */
+const LoadTask = (props: LoadProps) => {
+  const { taskFileUrl } = props;
+  const task = useAsync(fetchTask, [taskFileUrl]);
+
   if (task.result) {
-    const { title, words } = task.result;
-    console.log(task.result);
-    return (
-      <div>
-        <Typography variant="h3" component="h1" gutterBottom align="center">
-          {title}
-        </Typography>
-        <WordInput word={words[0]} />
-      </div>
-    );
+    return <Task task={task.result} />;
   } else if (task.loading) {
     return (
       <div>
@@ -73,4 +134,4 @@ const Task = (props: Props) => {
   }
 };
 
-export default Task;
+export default LoadTask;

@@ -1,6 +1,5 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import React, { useCallback, useEffect, useReducer } from "react";
-import useMount from "../utils/useMount";
 import IPAInput from "./keyboard/IPAInput";
 import Keyboard from "./keyboard/Keyboard";
 import useKeyboard from "./keyboard/useKeyboard";
@@ -24,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props {
   word: Word;
+  onSubmit: () => void;
 }
 
 enum Op {
@@ -88,7 +88,7 @@ const reducer = (state: State, action: Act): State => {
 const WordInput = (props: Props) => {
   const classes = useStyles();
 
-  const { word } = props;
+  const { word, onSubmit: handleSubmit } = props;
   const { handleKeyboard, handleDelete, handleType, setValue, value, ref } = useKeyboard();
   const [state, dispatch] = useReducer(reducer, word, reset);
 
@@ -103,13 +103,15 @@ const WordInput = (props: Props) => {
       if (match.correct) {
         dispatch({ type: Op.NextSegment, value: currentValue });
         setValue(""); // Clear the text box
+        if (segment.final) {
+          handleSubmit();
+        }
       } else {
         // If not a match, set the error text
         dispatch({ type: Op.ErrorMessage, value: match.message });
       }
-      ref.current?.focus();
     },
-    [word, state.segment, setValue]
+    [word, state.segment, setValue, handleSubmit]
   );
 
   const { header, error, errorMessage } = state;
@@ -122,6 +124,7 @@ const WordInput = (props: Props) => {
         <Grid container alignItems="center" justify="center" spacing={2}>
           <Grid item xs md={8} className={classes.search}>
             <IPAInput
+              placeholder={`Transcribe "${word.display}"`}
               value={value}
               onDelete={handleDelete}
               onType={handleType}

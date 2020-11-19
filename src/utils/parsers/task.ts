@@ -1,12 +1,13 @@
 import YAML from "yaml";
 import escapeStringRegexp from "escape-string-regexp";
+import normalize from "../normalize";
 
-interface TaskDef {
-  task: string;
+export interface TaskDef {
   author: string;
   title: string;
   instructions?: string;
   salt?: string;
+  answer?: string;
   macros: Macros;
   words: Word[];
 }
@@ -18,6 +19,7 @@ interface Wildcard {
 }
 
 export interface WordSegment {
+  final?: boolean;
   correct: string[];
   explanations: Explanations;
   wildcards?: Wildcard[];
@@ -48,10 +50,12 @@ export const wildcardToRegex = (wildcard: string) => {
  * @param input The user inputted value to check
  * @param segment The word segment we are matching
  */
-export const matchSegment = (input: string, segment?: WordSegment): SegmentMatch => {
+export const matchSegment = (rawInput: string, segment?: WordSegment): SegmentMatch => {
   if (!segment) {
     return { correct: false, message: END_MESSAGE };
   }
+
+  const input = normalize(rawInput);
 
   let message: string | undefined;
   if (segment.correct.includes(input)) {
@@ -117,7 +121,12 @@ const pickValues = <T extends { [k: string]: boolean }>(
 const getMacros = (macros: any): Macros => {
   if (macros) {
     // TODO: add real type safety here
-    return macros as Macros;
+    let result: Macros = {};
+    for (const key in macros) {
+      result[normalize(key)] = macros[key].map(normalize);
+    }
+
+    return result;
   } else {
     return {};
   }
@@ -126,29 +135,49 @@ const getMacros = (macros: any): Macros => {
 // I am not proud of this method...
 const getSegments = (segments: any, macros: Macros): WordSegment[] => {
   if (segments && Array.isArray(segments)) {
-    return segments.map(
-      (segment: any): WordSegment => {
+    const validSegments = segments.map(
+      (segment: any, i): WordSegment => {
         let correct: string[] = [];
         let wildcards: Wildcard[] = [];
         const explanations = new Map<string, string>();
 
-        for (const sym in segment) {
-          if (segment[sym] === true) {
+        for (const key in segment) {
+          const sym = normalize(key);
+          const value = segment[key];
+          if (value === true) {
             correct = correct.concat(expandMacro(sym, macros));
           } else if (sym.includes("...")) {
             // wildcard matcher
-            wildcards.push({ matcher: sym, message: segment[sym] });
+            wildcards.push({ matcher: sym, message: value });
           } else {
             // We just have a normal explanation
-            expandMacro(sym, macros).forEach((key) => {
-              explanations.set(key, segment[sym]);
+            expandMacro(sym, macros).forEach((expand) => {
+              explanations.set(expand, value);
             });
           }
+        }
+
+        if (i < segments.length - 1 && correct.includes("")) {
+          throw new Error("You can only have the empty string as a key in the last segment");
         }
 
         return { correct, explanations, wildcards };
       }
     );
+
+    // Ensure we have a final element listed
+    const lastElement = validSegments[validSegments.length - 1];
+    if (lastElement.correct.length === 0) {
+      // Add the terminating element if it doesn't exist
+      lastElement.correct.push("");
+      lastElement.final = true;
+    } else if (lastElement.correct.includes("")) {
+      lastElement.final = true;
+    } else {
+      validSegments.push({ correct: [""], explanations: new Map(), final: true });
+    }
+
+    return validSegments;
   } else {
     throw new Error("Segments must be an array");
   }
@@ -157,12 +186,13 @@ const getSegments = (segments: any, macros: Macros): WordSegment[] => {
 // TODO: Actually do validations and make this type safe
 export const parseTask = (contents: string): TaskDef => {
   const fileContents = YAML.parse(contents, { prettyErrors: true });
+  // TODO: Write a more robust type checker than this
   const metadata = pickValues(fileContents, {
     author: true,
-    task: true,
     title: true,
     salt: false,
     instructions: false,
+    answer: false,
   });
 
   const macros = getMacros(fileContents.macros);

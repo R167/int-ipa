@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 
 import clsx from "clsx";
 import { Clickable, borderColor } from "./common";

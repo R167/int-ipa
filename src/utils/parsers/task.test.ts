@@ -1,10 +1,10 @@
 import {
-  expandMacro,
-  wildcardToRegex,
-  matchSegment,
-  WordSegment,
   DEFAULT_MESSAGE,
   END_MESSAGE,
+  WordSegment,
+  expandMacro,
+  matchSegment,
+  wildcardToRegex,
 } from "./task";
 
 describe("expandMacros", () => {

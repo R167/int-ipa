@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   noRightMargin: {
     marginRight: 0,
   },
+  helpTextSize: {
+    fontSize: "1rem",
+  },
 }));
 
 interface Props {
@@ -32,11 +35,13 @@ interface Props {
 
   error?: boolean;
   helpText?: string;
+  placeholder?: string;
 }
 
 const IPAInput = (props: Props) => {
   const classes = useStyles();
   const {
+    placeholder = "Type IPA",
     value,
     onType,
     onDelete,
@@ -51,7 +56,7 @@ const IPAInput = (props: Props) => {
   // This should be fine (famous last words...)
   const handleSubmit = useCallback(() => {
     onCheck && onCheck(inputRef.current?.value || "");
-  }, [onCheck]);
+  }, [onCheck, inputRef]);
 
   const handleEnter = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
@@ -75,6 +80,8 @@ const IPAInput = (props: Props) => {
     </IconButton>
   );
 
+  const helperText = helpText && <span className={classes.helpTextSize}>{helpText}</span>;
+
   // TODO: refactor so this uses the individual components rather than just TextField
   //       honestly, it's starting to get pretty unwieldy and then I can have more control
 
@@ -93,7 +100,7 @@ const IPAInput = (props: Props) => {
         autoComplete: "off",
         style: { lineHeight: 2 },
       }}
-      label="Type IPA"
+      label={placeholder}
       InputProps={{
         className: classes.input,
         endAdornment: (
@@ -123,7 +130,7 @@ const IPAInput = (props: Props) => {
       }}
       onKeyPress={handleEnter}
       error={error}
-      helperText={helpText}
+      helperText={helperText}
     />
   );
 };
