@@ -1,7 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react";
+import AudioContext from "../../utils/AudioContext";
 
-import { useAsync } from "react-async-hook";
-import { TaskDef, parseTask } from "../utils/parsers/task";
+import { TaskDef } from "../../utils/parsers/task";
 import {
   Button,
   Collapse,
@@ -11,67 +11,23 @@ import {
   DialogContentText,
   DialogTitle,
   Typography,
-  makeStyles,
 } from "@material-ui/core";
-import WordInput from "./WordInput";
+import WordInput from "../WordInput";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 
-interface LoadProps {
-  taskFileUrl: string;
-}
-
 interface TaskProps {
+  baseUrl: string;
   task: TaskDef;
 }
 
-const AudioContext = window.AudioContext || (window as any).webkitAudioContext;
-
-const useStyles = makeStyles((theme) => ({
-  playButton: {
-    color: theme.palette.background.default,
-    backgroundColor: theme.palette.info.light,
-    margin: "4px",
-    padding: "4px 8px",
-    boxSizing: "content-box",
-    borderRadius: "4px",
-  },
-}));
-
-const fetchTask = async (taskFileUrl: string) => {
-  if (!taskFileUrl) {
-    // Absurd. klass will actually always be defined
-    console.log("empty task");
-    return;
-  }
-
-  const req = await fetch(taskFileUrl);
-  const body = await req.text();
-
-  return parseTask(body);
-};
-
-interface StatusProps {
-  msg: string;
-  error?: boolean;
-}
-
-const Status = ({ msg, error }: StatusProps) => (
-  <Typography variant="h3" component="h1" gutterBottom align="center">
-    {error && "Error: "}
-    {msg}
-  </Typography>
-);
 const Task = React.memo((props: TaskProps) => {
-  const { task } = props;
+  const { task, baseUrl } = props;
   const [currWord, setCurrWord] = useState(0);
   const [showModal, setShowModal] = useState(false);
   const [showWord, setShowWord] = useState(true);
-  const [hash, setHash] = useState("");
 
   const { title, words, instructions } = task;
   const word = words[currWord];
-
-  const classes = useStyles();
 
   const handleSubmit = useCallback(() => {
     setShowModal(true);
@@ -89,23 +45,32 @@ const Task = React.memo((props: TaskProps) => {
     setShowModal(false);
   }, [currWord, lastWord]);
 
-  var audioCtx = useMemo(
+  const audioContext = useMemo(
     () =>
       new AudioContext({
         latencyHint: "interactive",
-        sampleRate: 44100,
       }),
     []
   );
 
   const audioFile = useMemo(() => {
-    return word.audio ? new Audio(`/ex-lign101/${word.audio}`) : null;
-  }, [word.audio]);
+    if (word.audio) {
+      const audioUrl = new URL(word.audio, baseUrl).toString();
+      const element = new Audio(audioUrl);
+      const track = audioContext.createMediaElementSource(element);
+      track.connect(audioContext.destination);
+      return element;
+    }
+  }, [word.audio, audioContext]);
 
   const playAudio = useCallback(() => {
     if (audioFile) {
-      audioFile.currentTime = 0;
-      audioFile.play();
+      try {
+        audioFile.currentTime = 0;
+        audioFile.play();
+      } catch {
+        console.error({ message: "unable to play url", src: audioFile.src });
+      }
     }
   }, [audioFile]);
 
@@ -135,6 +100,7 @@ const Task = React.memo((props: TaskProps) => {
           color="secondary"
           startIcon={<PlayCircleFilledIcon />}
           onClick={playAudio}
+          disabled={!audioFile}
         >
           Play
         </Button>
@@ -174,29 +140,4 @@ const Task = React.memo((props: TaskProps) => {
   );
 });
 
-/**
- * Wrapper around the Task with loading state
- */
-const LoadTask = (props: LoadProps) => {
-  const { taskFileUrl } = props;
-  const task = useAsync(fetchTask, [taskFileUrl]);
-
-  if (task.result) {
-    return <Task task={task.result} />;
-  } else if (task.loading) {
-    return (
-      <div>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          Loading...
-        </Typography>
-      </div>
-    );
-  } else if (task.error) {
-    console.log(task.error);
-    return <Status error msg="Cannot load task file" />;
-  } else {
-    return <Status error msg="Unreachable state???" />;
-  }
-};
-
-export default LoadTask;
+export default Task;

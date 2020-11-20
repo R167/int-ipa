@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 
 import ClassPage from "./components/ClassPage";
 import Homepage from "./components/Homepage";
-import Task from "./components/Task";
+import { RouteTask } from "./components/Task";
 import TypeIPA from "./components/TypeIPA";
 
 const Router = () => {
@@ -11,8 +11,8 @@ const Router = () => {
     <Switch>
       <Route path="/type" exact component={TypeIPA} />
       <Route path="/" exact component={Homepage} />
-      <Route path="/class/:klass" component={ClassPage} />
-      <Route path="/ex/:file+" render={(r) => <Task taskFileUrl={r.match.params.file} />} />
+      <Route path="/class/:klass" exact component={ClassPage} />
+      <Route path="/class/:klass/:assignment" exact component={RouteTask} />
     </Switch>
   );
 };

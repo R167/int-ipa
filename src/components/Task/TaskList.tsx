@@ -15,8 +15,7 @@ interface Props {
   path: string;
 }
 
-// const taskLink = (path: string, file: string) => `${path}/${file.replace(".yaml", "")}`;
-const taskLink = (path: string, file: string) => `${path.replace("class", "ex")}/${file}`;
+const taskLink = (path: string, file: string) => `${path}/${file.replace(".yaml", "")}`;
 
 const TaskList = (props: Props) => {
   const { tasks, path } = props;

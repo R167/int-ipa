@@ -43,6 +43,7 @@ words:
     segments:
       - t: true
         test: true
+        ?t: true
         blah: > # <-- The ">" here indicates a multiline string.
           For each of the following words, you'll be given both a word in English, and a
           sound file. Making reference to the sound file, you'll give us each sound in the
