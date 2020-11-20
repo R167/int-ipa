@@ -90,23 +90,23 @@ const Task = React.memo((props: TaskProps) => {
       <Typography variant="h3" component="h2" gutterBottom align="center">
         {title}
       </Typography>
-      <Typography variant="body1" gutterBottom>
-        {instructions}
-      </Typography>
-      <Typography variant="h4" component="p" align="center">
-        Transcribe "{word.display}"{" "}
-        <Button
-          variant="contained"
-          color="secondary"
-          startIcon={<PlayCircleFilledIcon />}
-          onClick={playAudio}
-          disabled={!audioFile}
-        >
-          Play
-        </Button>
-      </Typography>
 
       <Collapse in={showWord}>
+        <Typography variant="body1" gutterBottom>
+          {instructions}
+        </Typography>
+        <Typography variant="h4" component="p" align="center">
+          Transcribe "{word.display}"{" "}
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<PlayCircleFilledIcon />}
+            onClick={playAudio}
+            disabled={!audioFile}
+          >
+            Play
+          </Button>
+        </Typography>
         <WordInput word={word} onSubmit={handleSubmit} />
       </Collapse>
       {showWord || (
@@ -131,7 +131,13 @@ const Task = React.memo((props: TaskProps) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={dismissModal} color="primary">
+          <Button
+            onClick={dismissModal}
+            variant="contained"
+            color="primary"
+            autoFocus
+            disableFocusRipple
+          >
             {dismissText}
           </Button>
         </DialogActions>

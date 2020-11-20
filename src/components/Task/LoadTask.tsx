@@ -43,8 +43,6 @@ const LoadTask = (props: LoadProps) => {
   const task = useAsync(fetchTask, [taskFileUrl]);
   const baseUrl = new URL(taskFileUrl, fullBaseUrl()).toString();
 
-  console.log(taskFileUrl);
-
   if (task.result) {
     return <Task task={task.result} baseUrl={baseUrl} />;
   } else if (task.loading) {

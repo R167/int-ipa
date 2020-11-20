@@ -4,16 +4,19 @@ import ReactDOM from "react-dom";
 import App from "./App";
 // import reportWebVitals from "./reportWebVitals";
 import Manifest from "./Manifest";
+import Debug from "./utils/Debug";
 
 import { HashRouter } from "react-router-dom";
 
 ReactDOM.render(
   <React.StrictMode>
-    <Manifest>
-      <HashRouter>
-        <App />
-      </HashRouter>
-    </Manifest>
+    <Debug>
+      <Manifest>
+        <HashRouter>
+          <App />
+        </HashRouter>
+      </Manifest>
+    </Debug>
   </React.StrictMode>,
   document.getElementById("root")
 );

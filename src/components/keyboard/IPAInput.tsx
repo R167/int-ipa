@@ -1,4 +1,4 @@
-import { IconButton, InputAdornment, TextField, makeStyles } from "@material-ui/core";
+import { IconButton, InputAdornment, TextField, makeStyles, Typography } from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 import CheckIcon from "@material-ui/icons/Check";
@@ -90,7 +90,11 @@ const IPAInput = (props: Props) => {
     </IconButton>
   );
 
-  const helperText = helpText && <span className={classes.helpTextSize}>{helpText}</span>;
+  const helperText = helpText && (
+    <Typography variant="body2" component="span" className={classes.helpTextSize}>
+      {helpText}
+    </Typography>
+  );
 
   // TODO: refactor so this uses the individual components rather than just TextField
   //       honestly, it's starting to get pretty unwieldy and then I can have more control
