@@ -1,17 +1,17 @@
 ---
-author: Winston Durand
+author: Winston Durand and Will Styler
 title: LIGN 101 IPA Training
-salt: RandomValue # This is a value unique to this assignment
+salt: vowelsarecool # This is a value unique to this assignment
 instructions: > # <-- The ">" here indicates a multiline string.
   For each of the following words, you'll be given both a word in English, and a
   sound file. Making reference to the sound file, you'll give us each sound in the
-  word, one by one. So, for each word, enter the first complete sound.  This can
+  word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can
   be a single IPA character, like 's', or, for something more complicated like
-  affricates (e.g. t͡ʃ) or diphthongs (e.g. ej) or other multi-symbol characters,
+  affricates (e.g. 't͡ʃ') or diphthongs (e.g. 'ej') or other multi-symbol characters,
   you might enter multiple symbols at one.  When you think you've entered the
-  symbol(s) associated with the first sound completely, press 'Submit sound' to
+  symbol(s) associated with the first sound completely, press 'Submit IPA Symbol(s) or Word' to
   check your work. Then, do this for the remaining sounds, and when you feel like
-  you've finished all the sounds in the word, click 'End Word'.
+  you've finished all the sounds in the word, click 'Submit' one last time.
 macros:
   _ow:
     - ow
@@ -33,20 +33,59 @@ macros:
   _j:
     - dʒ
     - d͡ʒ
-
+  -aj:
+    - aj
+    - aɪ
   # rhotics
   _əɹ:
     - əɹ
     - ɚ
 words:
   - display: test
+    audio: test.wav
     segments:
       - t: true
-        test: true
-        ?t: true
         blah: > # <-- The ">" here indicates a multiline string.
           For each of the following words, you'll be given both a word in English, and a
-          sound file. Making reference to the sound file, you'll give us each sound in the
+          sound file. Making reference to the sound file, you'll give us each sound in the in word.
+      - ɛ: true
+        e: Your writing system is lying to you here. This vowel only occurs in the diphthong /ej/, and would sound like 'taste'
+      - s: true
+        st: In this case, /s/ and /t/ are two segments, unlike in affricates or diphthongs. Submit the /s/ first!
+      - t: true
+        "": Although some dialects of English would simplify this cluster to just /s/, there's a /t/ in this audio file!
+  - display: ban
+    audio: ban.wav
+    segments:
+      - b: true
+        p: No, this is a voiced sound in English (although it sounds like a voiceless sound in many other languages!)
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+      - æ: true
+        ɑ: No, this vowel would sound like 'bahn' or 'bomb'
+        a: This vowel is really only used in diphthongs in English
+        ae: It's important to write this vowel as a digraph, /æ/, otherwise it's a VV sequence and very different
+        ɔ: Open o?  More like NOPE-n o.  Try another vowel.
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'bang', but the sound in this word is made more towards the front of the mouth
+      - "": true
+  - display: rain
+    audio: rain.wav
+    segments:
+      - ɹ: true
+        r: This is the Voiced Alveolar Trill, the Spanish 'Rolled R'. You want the English R, /ɹ/.
+        l: Nope, you've got the wrong liquid here.
+      - _ej: true
+        e: This vowel is a diphthong for most in mainstream US English, so you'll want to write it as such
+        ɛ: ɛ is the vowel in 'rent', not rain
+        ə: ə is only used in unstressed contexts, and would sound more like 'run' anyways
+        a: This is a low vowel.  Is your jaw really that low when making this sound?
+        _aj: I'm thinking your writing system is leading you astray.  This is the vowel in 'rhine' or 'rye'
+        ai: Remember, your writing system is a bucket of lies.  Don't let it lead you astray!  /ai/ isn't even a diphthong used in English
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'ram'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'rang', but the sound in this word is made more towards the front of the mouth
   - display: horse
     audio: horse.wav
     segments:
