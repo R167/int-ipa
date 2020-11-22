@@ -33,8 +33,8 @@ macros:
   _j:
     - dʒ
     - d͡ʒ
-  -aj:
-    - aj
+  aj: # macros don't need a prefix
+    - aj # when a macro expands to its own name, it just uses the name literal
     - aɪ
   # rhotics
   _əɹ:
@@ -126,7 +126,7 @@ words:
           This isn't absolutely a diphthong, and you're on the right track,
           but we write this diphthong as /ɔj/ in this class (because it's not ending quite as high as /i/.
         _ej: This is the diphthong in 'bay' or 'rain'. Try another.
-        _aj: This is the diphthong in 'buy' or 'rice'. Try another.
+        aj: This is the diphthong in 'buy' or 'rice'. Try another.
         o...: Generally speaking, in mainstream US English, /ɔ/ is used here.
       - s: true
         z: You're almost there, but is this a voiced or voiceless sound?
