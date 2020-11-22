@@ -21,6 +21,31 @@ const minuteOfYear = () => {
   return Math.floor((now.getTime() - EPOCH.getTime()) / 1000 / 60);
 };
 
+// Assume the second string is shorter
+export const interleave = (longer: string, shorter: string): string => {
+  const interleaved: string[] = [shorter.length.toString(36)];
+  for (let i = 0; i < shorter.length; i++) {
+    interleaved.push(longer.charAt(i));
+    interleaved.push(shorter.charAt(i));
+  }
+  interleaved.push(longer.slice(shorter.length, longer.length));
+  return interleaved.join("");
+};
+
+// Assume the second string is shorter
+export const deinterleave = (encoded: string): [string, string] => {
+  const length = parseInt(encoded.charAt(0), 36);
+  const interleaved = encoded.slice(1, encoded.length);
+  const longer: string[] = [];
+  const shorter: string[] = [];
+  for (let i = 0; i < length * 2; i += 2) {
+    longer.push(interleaved.charAt(i));
+    shorter.push(interleaved.charAt(i + 1));
+  }
+  longer.push(interleaved.slice(length * 2, interleaved.length));
+  return [longer.join(""), shorter.join("")];
+};
+
 export const computeHash = async (
   name: string | undefined,
   salt: string,
@@ -31,20 +56,26 @@ export const computeHash = async (
     return;
   }
 
-  const nameTime = `${normName(name)}_${time || minuteOfYear().toString(36)}`;
+  const outName = normName(name);
+  const outTime = (time || minuteOfYear().toString(36)).toLowerCase();
+  const nameTime = `${outName}_${outTime}`;
   const input = [nameTime, salt].join("_");
 
   const sha1 = await sha1sum(new TextEncoder().encode(input));
 
   // Remove special characters and limit to the first 16 chars
   const cleanupSha1 = sha1.replace(/[+/=]/g, "").toLowerCase().slice(0, SHA_LENGTH);
-
-  return [nameTime, cleanupSha1].join("_");
+  const interleaved = interleave(cleanupSha1, outTime);
+  return [outName, interleaved].join("_");
 };
 
 export const validateHash = async (hash: string, salt: string) => {
   const lowerHash = hash.toLowerCase();
-  const [name, time, sha] = lowerHash.split("_", 3);
+  const [name, interleaved] = lowerHash.split("_", 2);
+  if (!(name && interleaved)) {
+    return false;
+  }
+  const [sha, time] = deinterleave(interleaved);
   if (sha?.length !== SHA_LENGTH) {
     console.warn("sha segment differs from expected length.");
   }

@@ -4,14 +4,14 @@ import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
 import Header from "./components/Header";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme } from "@material-ui/core/styles";
+import { createMuiTheme, ThemeOptions } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
 import { notchGutters } from "./utils/styles";
 import { useDebugContext } from "./utils/Debug";
 import { usePersistentState } from "./utils/usePersistentState";
 
-const lightTheme = createMuiTheme({
+const lightTheme: ThemeOptions = {
   palette: {
     type: "light",
     primary: {
@@ -21,9 +21,9 @@ const lightTheme = createMuiTheme({
       main: indigo[700],
     },
   },
-});
+};
 
-const darkTheme = createMuiTheme({
+const darkTheme: ThemeOptions = {
   palette: {
     type: "dark",
     primary: {
@@ -33,7 +33,7 @@ const darkTheme = createMuiTheme({
       main: indigo[700],
     },
   },
-});
+};
 
 const useStyles = makeStyles((theme: Theme) => ({
   // Modified from source

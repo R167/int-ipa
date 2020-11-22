@@ -12144,3 +12144,8 @@ yargs@^15.4.1:
     which-module "^2.0.0"
     y18n "^4.0.0"
     yargs-parser "^18.1.2"
+
+zbase32@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/zbase32/-/zbase32-1.0.3.tgz#5d570371bbe11b91fb8b7175e9c37c0405eb8885"
+  integrity sha512-X8knynenNcK1lN5Tsx+oDgEizfNuegZZg5QS4xaK98wgcf8jrYWruM05s5psEOgJaqf1mXrF1LU/0pjmVSrf6g==

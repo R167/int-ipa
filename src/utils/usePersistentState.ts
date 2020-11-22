@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useDebugValue, useEffect, useRef, useState } from "react";
 
 type JSONSafe = string | number | boolean | null;
 
@@ -16,6 +16,8 @@ export const usePersistentState = <T = JSONSafe>(
       return JSON.parse(stored) as T;
     }
   });
+
+  useDebugValue({ [key]: value });
 
   const setter = useCallback((prevState: React.SetStateAction<T>) => {
     setValue(prevState);

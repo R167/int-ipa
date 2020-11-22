@@ -5,7 +5,7 @@ const SALT = "pepper";
 describe("computeHash", () => {
   it("computes a hash correctly", async () => {
     expect(await computeHash("winston", SALT, true, "r167")).toEqual(
-      "winston_r167_aafnararswwf7vzn"
+      "winston_4ara1f6n7ararswwf7vzn"
     );
   });
 
@@ -21,12 +21,12 @@ describe("validateHash", () => {
   });
 
   it("validates a hash correctly", async () => {
-    expect(await validateHash("winston_r167_aafnararswwf7vzn", SALT)).toBe(true);
-    expect(await validateHash("winston_r167_aafnararswwf7vzn", "SALT")).toBe(false);
+    expect(await validateHash("winston_4ara1f6n7ararswwf7vzn", SALT)).toBe(true);
+    expect(await validateHash("winston_4ara1f6n7ararswwf7vzn", "SALT")).toBe(false);
   });
 
   it("validates regardless of case", async () => {
-    expect(await validateHash("WINSTON_R167_AAfnararswwf7vzn", SALT)).toBe(true);
+    expect(await validateHash("winSTON_4aRa1f6n7ARARswwf7vzn", SALT)).toBe(true);
   });
 
   it("fails when missing params", async () => {

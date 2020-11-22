@@ -78,7 +78,7 @@ const SubmitCode = (props: Props) => {
             disableFocusListener
             disableHoverListener
             disableTouchListener
-            title={<Typography variant="subtitle2">Copied!</Typography>}
+            title={<Typography variant="subtitle2">Copied code!</Typography>}
           >
             <TextField
               label={prompt}
@@ -94,12 +94,14 @@ const SubmitCode = (props: Props) => {
           </Tooltip>
         </Grid>
         <Grid item xs={12}>
-          <Grid container justify="center">
-            {button}
+          <Grid container justify="center" spacing={2}>
+            <Grid item>{button}</Grid>
             {debug && (
-              <Button variant="contained" color="primary" onClick={() => setRun(false)}>
-                Reset
-              </Button>
+              <Grid item>
+                <Button variant="contained" color="primary" onClick={() => setRun(false)}>
+                  Reset
+                </Button>
+              </Grid>
             )}
           </Grid>
         </Grid>

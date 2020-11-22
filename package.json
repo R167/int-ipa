@@ -27,7 +27,8 @@
     "smoothscroll-polyfill": "^0.4.4",
     "typescript": "^4.0.3",
     "web-vitals": "^0.2.4",
-    "yaml": "^1.10.0"
+    "yaml": "^1.10.0",
+    "zbase32": "^1.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
