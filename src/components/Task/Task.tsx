@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useReducer } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer } from "react";
 import AudioContext from "../../utils/AudioContext";
 
 import { TaskDef } from "../../utils/parsers/task";
@@ -78,14 +78,15 @@ const Task = React.memo((props: TaskProps) => {
 
   const lastWord = words.length - 1;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const audioContext = useMemo(
-    () =>
+  useEffect(() => {
+    const create = () => {
+      document.removeEventListener("click", create);
       new AudioContext({
         latencyHint: "interactive",
-      }),
-    []
-  );
+      });
+    };
+    document.addEventListener("click", create);
+  }, []);
 
   const audioFile = useMemo(() => {
     if (word.audio) {
