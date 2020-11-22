@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useAsync, useAsyncCallback } from "react-async-hook";
-import { Box, Button, Grid, TextField, Tooltip } from "@material-ui/core";
+import { useAsync } from "react-async-hook";
+import { Button, Grid, TextField, Tooltip, Typography } from "@material-ui/core";
 import { computeHash } from "../../utils/validation";
 
 interface Props {
@@ -35,7 +35,7 @@ const SubmitCode = (props: Props) => {
       document.execCommand("copy");
       setOpen(true);
       window.clearTimeout(timer.current);
-      timer.current = window.setTimeout(() => setOpen(false), 1500);
+      timer.current = window.setTimeout(() => setOpen(false), 2000);
     }
   }, []);
 
@@ -58,12 +58,12 @@ const SubmitCode = (props: Props) => {
     if (run && result) {
       copyText();
     }
-  }, [result, run]);
+  }, [result, run, copyText]);
 
   return (
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} alignItems="center" justify="center">
-        <Grid item xs md={8} lg={6}>
+        <Grid item xs={12} sm={10} md={8} lg={6}>
           <TextField
             label={prompt}
             variant="outlined"
@@ -86,7 +86,8 @@ const SubmitCode = (props: Props) => {
               disableFocusListener
               disableHoverListener
               disableTouchListener
-              title="Copied!"
+              arrow
+              title={<Typography variant="subtitle2">Copied!</Typography>}
             >
               {button}
             </Tooltip>

@@ -14,6 +14,8 @@ async function sha1sum(bytes: ArrayBuffer) {
 
 const EPOCH = new Date("2020-02-02");
 
+const SHA_LENGTH = 16;
+
 const minuteOfYear = () => {
   const now = new Date();
   return Math.floor((now.getTime() - EPOCH.getTime()) / 1000 / 60);
@@ -22,7 +24,7 @@ const minuteOfYear = () => {
 export const computeHash = async (
   name: string | undefined,
   salt: string,
-  run: boolean,
+  run: boolean = true,
   time?: string
 ) => {
   if (typeof name === "undefined" || !run) {
@@ -34,10 +36,18 @@ export const computeHash = async (
 
   const sha1 = await sha1sum(new TextEncoder().encode(input));
 
-  const cleanupSha1 = sha1
-    .replace(/[\+\/\=]/g, "")
-    .toLowerCase()
-    .slice(0, 16);
+  // Remove special characters and limit to the first 16 chars
+  const cleanupSha1 = sha1.replace(/[+/=]/g, "").toLowerCase().slice(0, SHA_LENGTH);
 
   return [nameTime, cleanupSha1].join("_");
+};
+
+export const validateHash = async (hash: string, salt: string) => {
+  const lowerHash = hash.toLowerCase();
+  const [name, time, sha] = lowerHash.split("_", 3);
+  if (sha?.length !== SHA_LENGTH) {
+    console.log("sha segment differs from expected length.");
+  }
+  const expected = await computeHash(name, salt, true, time);
+  return expected === lowerHash;
 };

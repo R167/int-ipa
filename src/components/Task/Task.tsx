@@ -59,25 +59,26 @@ const useDispatch = <T,>(dispatch: React.Dispatch<T>, op: T) =>
 
 const Task = React.memo((props: TaskProps) => {
   const { task, baseUrl } = props;
+  const { title, words, instructions } = task;
 
   const [{ currWord, modalWord, showModal, showWord }, dispatch] = useReducer(reducer, {
     modalWord: 0,
     currWord: 0,
-    wordCount: task.words.length,
+    wordCount: words.length,
     showModal: false,
     showWord: true,
   });
 
   const debug = useDebugContext();
-  const { title, words, instructions } = task;
   const word = words[currWord];
 
   const handleSubmit = useDispatch(dispatch, Op.Submit);
   const dismissModal = useDispatch(dispatch, Op.DismissModal);
   const handleModalExit = useDispatch(dispatch, Op.ModalExit);
 
-  const lastWord = task.words.length - 1;
+  const lastWord = words.length - 1;
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const audioContext = useMemo(
     () =>
       new AudioContext({
@@ -90,11 +91,9 @@ const Task = React.memo((props: TaskProps) => {
     if (word.audio) {
       const audioUrl = new URL(word.audio, baseUrl).toString();
       const element = new Audio(audioUrl);
-      const track = audioContext.createMediaElementSource(element);
-      track.connect(audioContext.destination);
       return element;
     }
-  }, [word.audio, audioContext, baseUrl]);
+  }, [word.audio, baseUrl]);
 
   const playAudio = useCallback(() => {
     if (audioFile) {
