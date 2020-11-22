@@ -64,6 +64,10 @@ const SubmitCode = (props: Props) => {
     <form onSubmit={handleSubmit}>
       <Grid container spacing={2} alignItems="center" justify="center">
         <Grid item xs={12} sm={10} md={8} lg={6}>
+          <Typography variant="h6" component="p" gutterBottom>
+            Congratulations on finishing this assignment! Type your {prompt} below and submit to
+            receive a unique code for completion.
+          </Typography>
           <TextField
             label={prompt}
             variant="outlined"
@@ -76,7 +80,7 @@ const SubmitCode = (props: Props) => {
             value={displayValue}
           />
         </Grid>
-        <Grid item md={8}>
+        <Grid item xs={12}>
           <Grid container justify="center">
             <Tooltip
               PopperProps={{
