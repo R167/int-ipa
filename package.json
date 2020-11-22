@@ -16,6 +16,7 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
+    "base64-js": "^1.5.1",
     "escape-string-regexp": "^4.0.0",
     "react": "^17.0.1",
     "react-async-hook": "^3.6.2",
@@ -47,6 +48,12 @@
         "warn",
         {
           "ignoreDeclarationSort": true
+        }
+      ],
+      "react-hooks/exhaustive-deps": [
+        "warn",
+        {
+          "additionalHooks": "(useAsync|useAsyncCallback)"
         }
       ]
     }

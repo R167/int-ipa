@@ -1,4 +1,11 @@
-import { IconButton, InputAdornment, TextField, makeStyles, Typography } from "@material-ui/core";
+import {
+  IconButton,
+  InputAdornment,
+  TextField,
+  Tooltip,
+  Typography,
+  makeStyles,
+} from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 import CheckIcon from "@material-ui/icons/Check";
@@ -79,15 +86,11 @@ const IPAInput = (props: Props) => {
   const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   const check = onCheck && (
-    <IconButton
-      aria-label="check"
-      title={checkDescription || "Submit IPA Symbol or End Word"}
-      onMouseDown={preventDefault}
-      onClick={handleSubmit}
-      color="primary"
-    >
-      <CheckIcon />
-    </IconButton>
+    <Tooltip title={checkDescription || "Submit IPA Symbol or End Word"} enterDelay={500}>
+      <IconButton aria-label="check" onMouseDown={preventDefault} onClick={handleSubmit}>
+        <CheckIcon />
+      </IconButton>
+    </Tooltip>
   );
 
   const helperText = helpText && (
@@ -119,15 +122,11 @@ const IPAInput = (props: Props) => {
         className: classes.input,
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton
-              aria-label="delete"
-              title="Delete"
-              onMouseDown={preventDefault}
-              onClick={onDelete}
-              color="inherit"
-            >
-              <BackspaceOutlinedIcon />
-            </IconButton>
+            <Tooltip title="Delete" enterDelay={500}>
+              <IconButton aria-label="delete" onMouseDown={preventDefault} onClick={onDelete}>
+                <BackspaceOutlinedIcon />
+              </IconButton>
+            </Tooltip>
             {check}
           </InputAdornment>
         ),

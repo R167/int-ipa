@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useReducer } from "react";
 import AudioContext from "../../utils/AudioContext";
 
 import { TaskDef } from "../../utils/parsers/task";
@@ -12,38 +12,71 @@ import {
   DialogTitle,
   Typography,
 } from "@material-ui/core";
-import WordInput from "../WordInput";
+import WordInput from "./WordInput";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
+import { useDebugContext } from "../../utils/Debug";
+import SubmitCode from "./SubmitCode";
 
 interface TaskProps {
   baseUrl: string;
   task: TaskDef;
 }
 
+enum Op {
+  DismissModal,
+  Submit,
+  ModalExit,
+}
+
+interface State {
+  modalWord: number;
+  currWord: number;
+  wordCount: number;
+  showModal: boolean;
+  showWord: boolean;
+}
+
+const reducer = (state: State, action: Op): State => {
+  const { currWord, wordCount } = state;
+  switch (action) {
+    case Op.DismissModal:
+      const nextWord = currWord + 1;
+      if (nextWord < wordCount) {
+        return { ...state, showModal: false, currWord: currWord + 1 };
+      } else {
+        return { ...state, showModal: false, showWord: false };
+      }
+    case Op.Submit:
+      return { ...state, showModal: true };
+    case Op.ModalExit:
+      // Modal text needs to be delayed by one
+      return { ...state, modalWord: currWord };
+  }
+};
+
+const useDispatch = <T,>(dispatch: React.Dispatch<T>, op: T) =>
+  useCallback(() => dispatch(op), [op, dispatch]);
+
 const Task = React.memo((props: TaskProps) => {
   const { task, baseUrl } = props;
-  const [currWord, setCurrWord] = useState(0);
-  const [showModal, setShowModal] = useState(false);
-  const [showWord, setShowWord] = useState(true);
 
+  const [{ currWord, modalWord, showModal, showWord }, dispatch] = useReducer(reducer, {
+    modalWord: 0,
+    currWord: 0,
+    wordCount: task.words.length,
+    showModal: false,
+    showWord: true,
+  });
+
+  const debug = useDebugContext();
   const { title, words, instructions } = task;
   const word = words[currWord];
 
-  const handleSubmit = useCallback(() => {
-    setShowModal(true);
-  }, []);
+  const handleSubmit = useDispatch(dispatch, Op.Submit);
+  const dismissModal = useDispatch(dispatch, Op.DismissModal);
+  const handleModalExit = useDispatch(dispatch, Op.ModalExit);
 
   const lastWord = task.words.length - 1;
-
-  const dismissModal = useCallback(() => {
-    if (currWord === lastWord) {
-      // Display the new stuff
-      setShowWord(false);
-    } else {
-      setCurrWord((prev) => prev + 1);
-    }
-    setShowModal(false);
-  }, [currWord, lastWord]);
 
   const audioContext = useMemo(
     () =>
@@ -61,7 +94,7 @@ const Task = React.memo((props: TaskProps) => {
       track.connect(audioContext.destination);
       return element;
     }
-  }, [word.audio, audioContext]);
+  }, [word.audio, audioContext, baseUrl]);
 
   const playAudio = useCallback(() => {
     if (audioFile) {
@@ -74,17 +107,6 @@ const Task = React.memo((props: TaskProps) => {
     }
   }, [audioFile]);
 
-  /**
-   * Cases:
-   * if classTasks.result : Good
-   * while loading class && manifest: Class name
-   * while loading manifest: Loading...
-   * if (classTasks.error) : "cannot load class X"
-   *
-   */
-
-  const dismissText = currWord < lastWord ? "Next word" : "Finish";
-
   return (
     <div>
       <Typography variant="h3" component="h2" gutterBottom align="center">
@@ -96,7 +118,7 @@ const Task = React.memo((props: TaskProps) => {
           {instructions}
         </Typography>
         <Typography variant="h4" component="p" align="center">
-          Transcribe "{word.display}"{" "}
+          {currWord + 1}/{words.length}: Transcribe "{word.display}"{" "}
           <Button
             variant="contained"
             color="secondary"
@@ -109,20 +131,17 @@ const Task = React.memo((props: TaskProps) => {
         </Typography>
         <WordInput word={word} onSubmit={handleSubmit} />
       </Collapse>
-      {showWord || (
-        <>
-          <Typography variant="h3" component="h3" gutterBottom align="center">
-            You're done!
-          </Typography>
-        </>
-      )}
+      <Collapse in={!showWord}>
+        <SubmitCode salt={task.salt} debug={debug} />
+      </Collapse>
 
       <Dialog
         open={showModal}
         onClose={dismissModal}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
-        disableRestoreFocus
+        disableRestoreFocus={!debug}
+        onExited={handleModalExit}
       >
         <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
         <DialogContent>
@@ -135,10 +154,11 @@ const Task = React.memo((props: TaskProps) => {
             onClick={dismissModal}
             variant="contained"
             color="primary"
+            disabled={!showModal}
             autoFocus
             disableFocusRipple
           >
-            {dismissText}
+            {modalWord < lastWord ? "Next word" : "Finish"}
           </Button>
         </DialogActions>
       </Dialog>

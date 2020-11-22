@@ -1,10 +1,11 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
 import React, { useCallback, useEffect, useReducer } from "react";
-import IPAInput from "./keyboard/IPAInput";
-import Keyboard from "./keyboard/Keyboard";
-import useKeyboard from "./keyboard/useKeyboard";
+import IPAInput from "../keyboard/IPAInput";
+import Keyboard from "../keyboard/Keyboard";
+import useKeyboard from "../keyboard/useKeyboard";
 
-import { Word, matchSegment } from "../utils/parsers/task";
+import { Word, matchSegment } from "../../utils/parsers/task";
+import { useDebugContext } from "../../utils/Debug";
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -87,6 +88,7 @@ const reducer = (state: State, action: Act): State => {
 
 const WordInput = (props: Props) => {
   const classes = useStyles();
+  const debug = useDebugContext();
 
   const { word, onSubmit: handleSubmit } = props;
   const { handleKeyboard, handleDelete, handleType, setValue, value, ref } = useKeyboard();
@@ -98,6 +100,14 @@ const WordInput = (props: Props) => {
   // Run validation logic. If the
   const handleCheck = useCallback(
     (currentValue: string) => {
+      // Make life easier with debug mode
+      if (debug && currentValue === "winston") {
+        setValue("");
+        dispatch({ type: Op.SetHeader, value: currentValue });
+        handleSubmit();
+        return;
+      }
+
       const segment = word.segments[state.segment];
       const match = matchSegment(currentValue, segment);
       if (match.correct) {
@@ -111,7 +121,7 @@ const WordInput = (props: Props) => {
         dispatch({ type: Op.ErrorMessage, value: match.message });
       }
     },
-    [word, state.segment, setValue, handleSubmit]
+    [word, state.segment, setValue, handleSubmit, debug]
   );
 
   const { header, error, errorMessage } = state;

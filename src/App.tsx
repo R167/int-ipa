@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
@@ -9,6 +9,7 @@ import { blue, indigo } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
 import { notchGutters } from "./utils/styles";
 import { useDebugContext } from "./utils/Debug";
+import { useLocalStorage } from "./utils/useLocalStorage";
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -56,18 +57,7 @@ export default function App() {
   const debug = useDebugContext();
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [dark, setDark] = React.useState<boolean | null>(() => {
-    const value = window.localStorage.getItem(DARK_KEY);
-    return value ? value === "true" : null;
-  });
-
-  const changeDarkMode = React.useCallback(
-    (dark: boolean) => {
-      window.localStorage.setItem(DARK_KEY, dark.toString());
-      setDark(dark);
-    },
-    [setDark]
-  );
+  const [dark, setDark] = useLocalStorage<boolean | null>(DARK_KEY, null);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {
@@ -82,7 +72,7 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header darkMode={darkMode} changeDarkMode={changeDarkMode} />
+      <Header darkMode={darkMode} changeDarkMode={setDark} />
       <Container maxWidth="lg" classes={{ root: classes.containerRoot }}>
         <Router />
       </Container>
