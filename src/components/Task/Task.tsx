@@ -78,6 +78,9 @@ const Task = React.memo((props: TaskProps) => {
 
   const lastWord = words.length - 1;
 
+  useEffect(() => window.scroll({ top: 0, behavior: "smooth" }), [currWord, showWord]);
+
+  // Create an audio context on first user interaction. Reduces audio playing delay
   useEffect(() => {
     const create = () => {
       document.removeEventListener("click", create);

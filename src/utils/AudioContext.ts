@@ -1,1 +1,1 @@
-export default window.AudioContext || (window as any).webkitAudioContext;
+export default window.AudioContext || window.webkitAudioContext;

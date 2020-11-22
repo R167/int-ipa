@@ -1,5 +1,5 @@
 import { Box, Grid, makeStyles } from "@material-ui/core";
-import React, { useCallback, useEffect, useReducer } from "react";
+import React, { useCallback, useEffect, useMemo, useReducer } from "react";
 import IPAInput from "../keyboard/IPAInput";
 import Keyboard from "../keyboard/Keyboard";
 import useKeyboard from "../keyboard/useKeyboard";
@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: "8px",
   },
   correct: {
-    color: theme.palette.success.dark,
+    color: theme.palette.type === "dark" ? theme.palette.success.main : theme.palette.success.dark,
   },
 }));
 
@@ -126,7 +126,10 @@ const WordInput = (props: Props) => {
 
   const { header, error, errorMessage } = state;
 
-  const headerValue = header && <span className={classes.correct}>{header}</span>;
+  const headerValue = useMemo(() => header && <span className={classes.correct}>{header}</span>, [
+    header,
+    classes.correct,
+  ]);
 
   return (
     <div>
@@ -143,6 +146,7 @@ const WordInput = (props: Props) => {
               header={headerValue}
               error={error}
               helpText={errorMessage}
+              headerTooltip="Correct!"
             />
           </Grid>
         </Grid>

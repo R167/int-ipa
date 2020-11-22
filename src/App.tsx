@@ -47,6 +47,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   debug: {
     pointerEvents: "none",
+    zIndex: 1150,
+  },
+  debugRoot: {
+    minWidth: 0,
+    background: "rgba(240, 240, 240, 0.25)",
+    color: theme.palette.text.disabled,
   },
 }));
 
@@ -79,12 +85,12 @@ export default function App() {
       <Snackbar
         anchorOrigin={{
           vertical: "bottom",
-          horizontal: "right",
+          horizontal: "left",
         }}
         open={debug}
         message="Debug mode"
         className={classes.debug}
-        ContentProps={{ style: { minWidth: 0, background: "rgba(240, 240, 240, 0.5)" } }}
+        ContentProps={{ classes: { root: classes.debugRoot }, elevation: darkMode ? 1 : 0 }}
       />
     </ThemeProvider>
   );

@@ -1,4 +1,5 @@
 import {
+  Fade,
   IconButton,
   InputAdornment,
   TextField,
@@ -6,7 +7,7 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import React, { KeyboardEvent, RefObject, useCallback } from "react";
+import React, { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 import CheckIcon from "@material-ui/icons/Check";
 
@@ -52,6 +53,7 @@ interface Props {
   error?: boolean;
   helpText?: string;
   placeholder?: string;
+  headerTooltip?: string;
 }
 
 const IPAInput = (props: Props) => {
@@ -67,7 +69,10 @@ const IPAInput = (props: Props) => {
     checkDescription,
     error,
     helpText,
+    headerTooltip,
   } = props;
+
+  const [open, setOpen] = useState(false);
 
   // This should be fine (famous last words...)
   const handleSubmit = useCallback(() => {
@@ -97,6 +102,39 @@ const IPAInput = (props: Props) => {
     <Typography variant="body2" component="span" className={classes.helpTextSize}>
       {helpText}
     </Typography>
+  );
+
+  useEffect(() => {
+    if (header && headerTooltip) {
+      setOpen(true);
+      window.setTimeout(() => setOpen(false), 1500);
+    }
+  }, [header, headerTooltip]);
+
+  const headerContent = header && (
+    <InputAdornment
+      disablePointerEvents
+      disableTypography
+      position="start"
+      classes={{ positionStart: classes.noRightMargin }}
+    >
+      {headerTooltip ? (
+        <Tooltip
+          open={open}
+          disableFocusListener
+          disableHoverListener
+          disableTouchListener
+          placement="bottom-end"
+          TransitionComponent={Fade}
+          TransitionProps={{ timeout: 400 }}
+          title={<Typography variant="subtitle2">{headerTooltip}</Typography>}
+        >
+          <span>{header}</span>
+        </Tooltip>
+      ) : (
+        header
+      )}
+    </InputAdornment>
   );
 
   // TODO: refactor so this uses the individual components rather than just TextField
@@ -130,16 +168,7 @@ const IPAInput = (props: Props) => {
             {check}
           </InputAdornment>
         ),
-        startAdornment: header && (
-          <InputAdornment
-            disablePointerEvents
-            disableTypography
-            position="start"
-            classes={{ positionStart: classes.noRightMargin }}
-          >
-            {header}
-          </InputAdornment>
-        ),
+        startAdornment: headerContent,
       }}
       onKeyPress={handleEnter}
       error={error}

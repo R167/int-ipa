@@ -67,37 +67,35 @@ const SubmitCode = (props: Props) => {
       <Grid container spacing={2} alignItems="center" justify="center">
         <Grid item xs={12} sm={10} md={8} lg={6}>
           <Typography variant="h6" component="p" gutterBottom>
-            Congratulations on finishing this assignment! Type your {prompt} below and submit to
+            Congratulations on finishing this assignment! Type your {prompt} below and hit submit to
             receive a unique code for completion.
           </Typography>
-          <TextField
-            label={prompt}
-            variant="filled"
-            InputProps={{
-              readOnly: !!result,
+          <Tooltip
+            PopperProps={{
+              disablePortal: true,
             }}
-            inputRef={inputRef}
-            fullWidth
-            onChange={(e) => setName(e.target.value)}
-            value={displayValue}
-          />
+            open={open}
+            disableFocusListener
+            disableHoverListener
+            disableTouchListener
+            title={<Typography variant="subtitle2">Copied!</Typography>}
+          >
+            <TextField
+              label={prompt}
+              variant="filled"
+              InputProps={{
+                readOnly: !!result,
+              }}
+              inputRef={inputRef}
+              fullWidth
+              onChange={(e) => setName(e.target.value)}
+              value={displayValue}
+            />
+          </Tooltip>
         </Grid>
         <Grid item xs={12}>
           <Grid container justify="center">
-            <Tooltip
-              PopperProps={{
-                disablePortal: true,
-              }}
-              open={open}
-              disableFocusListener
-              disableHoverListener
-              disableTouchListener
-              arrow
-              title={<Typography variant="subtitle2">Copied!</Typography>}
-            >
-              {button}
-            </Tooltip>
-
+            {button}
             {debug && (
               <Button variant="contained" color="primary" onClick={() => setRun(false)}>
                 Reset

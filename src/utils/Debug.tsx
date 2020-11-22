@@ -16,6 +16,13 @@ const Debug = (props: { children: React.ReactNode }) => {
     });
   }, [setDebug]);
 
+  // Register a way to toggle debugging for iOS, etc. disable in production
+  React.useEffect(() => {
+    if (process.env.NODE_ENV !== "production") {
+      window.toggleDebug = () => setDebug((d) => !d);
+    }
+  }, [setDebug]);
+
   return <DebugContext.Provider value={debug}>{props.children}</DebugContext.Provider>;
 };
 
