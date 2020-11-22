@@ -46,7 +46,7 @@ export const validateHash = async (hash: string, salt: string) => {
   const lowerHash = hash.toLowerCase();
   const [name, time, sha] = lowerHash.split("_", 3);
   if (sha?.length !== SHA_LENGTH) {
-    console.log("sha segment differs from expected length.");
+    console.warn("sha segment differs from expected length.");
   }
   const expected = await computeHash(name, salt, true, time);
   return expected === lowerHash;

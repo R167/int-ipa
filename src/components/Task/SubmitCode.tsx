@@ -3,6 +3,8 @@ import { useAsync } from "react-async-hook";
 import { Button, Grid, TextField, Tooltip, Typography } from "@material-ui/core";
 import { computeHash } from "../../utils/validation";
 
+import AssignmentIcon from "@material-ui/icons/Assignment";
+
 interface Props {
   prompt?: string;
   salt?: string;
@@ -40,7 +42,7 @@ const SubmitCode = (props: Props) => {
   }, []);
 
   const button = run ? (
-    <Button variant="contained" color="primary" onClick={copyText}>
+    <Button variant="contained" color="primary" onClick={copyText} startIcon={<AssignmentIcon />}>
       Copy
     </Button>
   ) : (
@@ -70,7 +72,7 @@ const SubmitCode = (props: Props) => {
           </Typography>
           <TextField
             label={prompt}
-            variant="outlined"
+            variant="filled"
             InputProps={{
               readOnly: !!result,
             }}
