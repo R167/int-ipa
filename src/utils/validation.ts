@@ -3,8 +3,8 @@ import base64 from "base64-js";
 const normName = (name: string) => {
   return name
     .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-zA-Z-]/g, "");
+    .replace(/[\s-]+/g, "-")
+    .replace(/[^a-zA-Z0-9-]/g, "");
 };
 
 async function sha1sum(bytes: ArrayBuffer) {
@@ -30,7 +30,7 @@ export const computeHash = async (
   }
 
   const nameTime = `${normName(name)}_${time || minuteOfYear().toString(36)}`;
-  const input = [nameTime, salt].join("-");
+  const input = [nameTime, salt].join("_");
 
   const sha1 = await sha1sum(new TextEncoder().encode(input));
 
