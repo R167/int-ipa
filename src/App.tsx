@@ -9,7 +9,7 @@ import { blue, indigo } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
 import { notchGutters } from "./utils/styles";
 import { useDebugContext } from "./utils/Debug";
-import { useLocalStorage } from "./utils/useLocalStorage";
+import { usePersistentState } from "./utils/usePersistentState";
 
 const lightTheme = createMuiTheme({
   palette: {
@@ -63,7 +63,7 @@ export default function App() {
   const debug = useDebugContext();
 
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-  const [dark, setDark] = useLocalStorage<boolean | null>(DARK_KEY, null);
+  const [dark, setDark] = usePersistentState<boolean | null>(DARK_KEY, null);
 
   useEffect(() => {
     if (process.env.NODE_ENV !== "production") {

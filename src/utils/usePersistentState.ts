@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 type JSONSafe = string | number | boolean | null;
 
-export const useLocalStorage = <T = JSONSafe>(
+export const usePersistentState = <T = JSONSafe>(
   key: string,
   defaultValue: T,
   persistOnLoad = false
