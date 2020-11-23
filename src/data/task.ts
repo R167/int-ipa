@@ -28,6 +28,12 @@ const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
     return "Segments may only occur in arrays";
   }
 
+  for (const key in segment) {
+    if ((key.includes("...") || key.includes("?")) && segment[key] === true) {
+      return "Correct options are not allowed to use wildcards";
+    }
+  }
+
   if (index < parent.length - 1) {
     if (segment[""] === true) {
       return `You may only terminate with "" on the last segment`;
