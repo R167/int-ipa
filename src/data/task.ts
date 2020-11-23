@@ -29,7 +29,7 @@ const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
   }
 
   for (const key in segment) {
-    if ((key.includes("...") || key.includes("?")) && segment[key] === true) {
+    if ((key.includes("...") || key.includes("%")) && segment[key] === true) {
       return "Correct options are not allowed to use wildcards";
     }
   }

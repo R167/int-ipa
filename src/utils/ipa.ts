@@ -201,4 +201,6 @@ export const MISC: MiscList = [
     description: "Tie bar",
     examples: ["t͡ʃ", "d͡ʒ"],
   },
+  { ipa: STRESS, sym: STRESS, description: "Primary stress" },
+  { ipa: SECONDARY_STRESS, sym: SECONDARY_STRESS, description: "Secondary stress" },
 ];
