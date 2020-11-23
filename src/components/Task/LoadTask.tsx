@@ -6,6 +6,8 @@ import { parseTask } from "../../utils/parsers/task";
 import Task from "./Task";
 import { fullBaseUrl } from "../../constants";
 
+import { StructError } from "superstruct";
+
 const fetchTask = async (taskFileUrl: string) => {
   if (!taskFileUrl) {
     // Absurd. klass will actually always be defined
@@ -25,7 +27,7 @@ interface StatusProps {
 }
 
 const Status = ({ msg, error }: StatusProps) => (
-  <Typography variant="h3" component="h1" gutterBottom align="center">
+  <Typography variant="h3" component="p" gutterBottom align="center">
     {error && "Error: "}
     {msg}
   </Typography>
@@ -55,7 +57,11 @@ const LoadTask = (props: LoadProps) => {
     );
   } else if (task.error) {
     console.error(task.error);
-    return <Status error msg="Cannot load task file" />;
+    if (task.error instanceof StructError) {
+      return <Status error msg={task.error.message} />;
+    } else {
+      return <Status error msg="Cannot load task file" />;
+    }
   } else {
     return <Status error msg="Unreachable state???" />;
   }

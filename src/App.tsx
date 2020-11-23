@@ -4,7 +4,7 @@ import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
 import Header from "./components/Header";
 import { ThemeProvider } from "@material-ui/styles";
-import { createMuiTheme, ThemeOptions } from "@material-ui/core/styles";
+import { ThemeOptions, createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
 import { notchGutters } from "./utils/styles";

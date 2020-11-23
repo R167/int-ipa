@@ -1,6 +1,6 @@
 import { useCallback, useDebugValue, useEffect, useRef, useState } from "react";
 
-type JSONSafe = string | number | boolean | null;
+type JSONSafe = string | number | boolean | null | Array<JSONSafe> | { [l: string]: JSONSafe };
 
 export const usePersistentState = <T = JSONSafe>(
   key: string,

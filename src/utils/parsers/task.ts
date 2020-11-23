@@ -1,13 +1,14 @@
 import YAML from "yaml";
 import escapeStringRegexp from "escape-string-regexp";
 import normalize from "../normalize";
+import { TaskFile, TaskFileMacros, TaskFileSegment } from "../../data/task";
+import { assert } from "superstruct";
 
 export interface TaskDef {
   author: string;
   title: string;
   instructions?: string;
   salt?: string;
-  answer?: string;
   macros: Macros;
   words: Word[];
 }
@@ -104,28 +105,22 @@ export const expandMacro = (str: Macro, macros: Macros, encountered: string[] = 
   }
 };
 
-const pickValues = <T extends { [k: string]: boolean }>(
-  values: any,
-  ops: T
-): { [K in keyof T]: T[K] extends true ? string : string | undefined } => {
-  let result: any = {};
-  for (const key in ops) {
-    if (ops[key] && !values.hasOwnProperty(key)) {
-      throw new Error(`Missing required property ${key}`);
-    }
+const pickValues = <T, K extends keyof T>(values: T, ops: K[]): Pick<T, K> => {
+  let result = {} as Pick<T, K>;
+  ops.forEach((key) => {
     result[key] = values[key];
-  }
+  });
   return result;
 };
 
-const getMacros = (macros: any): Macros => {
+const getMacros = (macros: TaskFileMacros | undefined): Macros => {
   if (macros) {
-    // TODO: add real type safety here
     let result: Macros = {};
+    // iterate over record
     for (const key in macros) {
+      // Todo: raise an error if a key is defined twice
       result[normalize(key)] = macros[key].map(normalize);
     }
-
     return result;
   } else {
     return {};
@@ -133,74 +128,65 @@ const getMacros = (macros: any): Macros => {
 };
 
 // I am not proud of this method...
-const getSegments = (segments: any, macros: Macros): WordSegment[] => {
-  if (segments && Array.isArray(segments)) {
-    const validSegments = segments.map(
-      (segment: any, i): WordSegment => {
-        let correct: string[] = [];
-        let wildcards: Wildcard[] = [];
-        const explanations = new Map<string, string>();
+const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[] => {
+  const validSegments = segments.map(
+    (segment, i): WordSegment => {
+      let correct: string[] = [];
+      let wildcards: Wildcard[] = [];
+      const explanations = new Map<string, string>();
 
-        for (const key in segment) {
-          const sym = normalize(key);
-          const value = segment[key];
-          if (value === true) {
-            correct = correct.concat(expandMacro(sym, macros));
-          } else if (sym.includes("...")) {
-            // wildcard matcher
-            wildcards.push({ matcher: sym, message: value });
-          } else {
-            // We just have a normal explanation
-            expandMacro(sym, macros).forEach((expand) => {
-              explanations.set(expand, value);
-            });
-          }
+      // Record iteration
+      for (const key in segment) {
+        const sym = normalize(key);
+        const value = segment[key];
+        if (value === true) {
+          // Correct value(s)
+          correct = correct.concat(expandMacro(sym, macros));
+        } else if (sym.includes("...")) {
+          // Wildcard matcher
+          wildcards.push({ matcher: sym, message: value || DEFAULT_MESSAGE });
+        } else {
+          // We just have a normal explanation
+          expandMacro(sym, macros).forEach((expand) => {
+            explanations.set(expand, value || DEFAULT_MESSAGE);
+          });
         }
-
-        if (i < segments.length - 1 && correct.includes("")) {
-          throw new Error("You can only have the empty string as a key in the last segment");
-        }
-
-        return { correct, explanations, wildcards };
       }
-    );
-
-    // Ensure we have a final element listed
-    const lastElement = validSegments[validSegments.length - 1];
-    if (lastElement.correct.length === 0) {
-      // Add the terminating element if it doesn't exist
-      lastElement.correct.push("");
-      lastElement.final = true;
-    } else if (lastElement.correct.includes("")) {
-      lastElement.final = true;
-    } else {
-      validSegments.push({ correct: [""], explanations: new Map(), final: true });
+      return { correct, explanations, wildcards };
     }
+  );
 
-    return validSegments;
+  // Ensure we have a final element listed
+  const lastElement = validSegments[validSegments.length - 1];
+  if (lastElement.correct.length === 0) {
+    // Final element exists, but we don't have a termination identifier
+    lastElement.correct.push("");
+    lastElement.final = true;
+  } else if (lastElement.correct.includes("")) {
+    // All data is good. Mark as final
+    lastElement.final = true;
   } else {
-    throw new Error("Segments must be an array");
+    // No final element existed, so we create one
+    validSegments.push({ correct: [""], explanations: new Map(), final: true });
   }
+
+  return validSegments;
 };
 
 // TODO: Actually do validations and make this type safe
 export const parseTask = (contents: string): TaskDef => {
   const fileContents = YAML.parse(contents, { prettyErrors: true });
-  // TODO: Write a more robust type checker than this
-  const metadata = pickValues(fileContents, {
-    author: true,
-    title: true,
-    salt: false,
-    instructions: false,
-    answer: false,
-  });
 
-  const macros = getMacros(fileContents.macros);
-  const words = fileContents.words.map(
-    (word: any): Word => {
-      const meta = pickValues(word, { display: true, audio: false });
+  // TODO: Refactor to use validate instead
+  assert(fileContents, TaskFile);
+  const valid = fileContents;
+
+  const metadata = pickValues(valid, ["author", "title", "salt", "instructions"]);
+  const macros = getMacros(valid.macros);
+  const words = valid.words.map(
+    (word): Word => {
+      const meta = pickValues(word, ["display", "audio"]);
       const segments = getSegments(word.segments, macros);
-
       return { ...meta, segments };
     }
   );
