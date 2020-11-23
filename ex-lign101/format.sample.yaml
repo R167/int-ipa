@@ -12,3 +12,7 @@ macros: #optional
 words:
   - display: _orthography_ # required
     audio: _sound_file_ # optional
+    segments:
+      correct_value: true
+      wrong_value: incorrect message
+      ...: anything else message
