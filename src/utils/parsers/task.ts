@@ -39,11 +39,13 @@ interface SegmentMatch {
 
 export const DEFAULT_MESSAGE = "Whoops, that's not right. Try again!";
 export const END_MESSAGE = "Hmmm... Are you sure there's more sounds here?";
-const REGEX_REPLACE = escapeStringRegexp("...");
+const KLEENE_REPLACE = escapeStringRegexp("...");
+const ANY_REPLACE = escapeStringRegexp("?");
 
 export const wildcardToRegex = (wildcard: string) => {
   const str = escapeStringRegexp(wildcard);
-  return new RegExp(`^${str.replaceAll(REGEX_REPLACE, ".*")}$`, "u");
+  const kleene = str.replaceAll(KLEENE_REPLACE, ".*").replaceAll(ANY_REPLACE, ".");
+  return new RegExp(`^${kleene}$`, "u");
 };
 
 /**
@@ -127,7 +129,6 @@ const getMacros = (macros: TaskFileMacros | undefined): Macros => {
   }
 };
 
-// I am not proud of this method...
 const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[] => {
   const validSegments = segments.map(
     (segment, i): WordSegment => {
@@ -142,7 +143,7 @@ const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[]
         if (value === true) {
           // Correct value(s)
           correct = correct.concat(expandMacro(sym, macros));
-        } else if (sym.includes("...")) {
+        } else if (sym.includes("...") || sym.includes("?")) {
           // Wildcard matcher
           wildcards.push({ matcher: sym, message: value || DEFAULT_MESSAGE });
         } else {

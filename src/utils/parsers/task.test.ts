@@ -53,11 +53,32 @@ describe("wildcardToRegex", () => {
     expect(wildcardToRegex("he.*llo")).toEqual(/^he\.\*llo$/u);
   });
 
+  it("matchers single any", () => {
+    expect(wildcardToRegex("he?llo")).toEqual(/^he.llo$/u);
+  });
+
+  it("runs ? matcher", () => {
+    expect("hello").toMatch(wildcardToRegex("h?llo"));
+    expect("hillo").toMatch(wildcardToRegex("h?llo"));
+  });
+
   it("creates valid matchers", () => {
     expect("hello world").toMatch(wildcardToRegex("hello..."));
     expect("_hello world").not.toMatch(wildcardToRegex("hello..."));
     expect("i̋umʂ").toMatch(wildcardToRegex("...mʂ"));
     expect("hi").toMatch(wildcardToRegex("hi..."));
+  });
+
+  it("composes multiple matchers", () => {
+    const hll = wildcardToRegex("h...ll...");
+    expect("hll").toMatch(hll);
+    expect("hell").toMatch(hll);
+    expect("hello").toMatch(hll);
+
+    const h_any = wildcardToRegex("h?...");
+    expect("h").not.toMatch(h_any);
+    expect("hi").toMatch(h_any);
+    expect("hello").toMatch(h_any);
   });
 });
 

@@ -108,6 +108,8 @@ const WordInput = (props: Props) => {
         return;
       }
 
+      // IDEA:  add an optional "accept_multiple" that will allow submission
+      //        of multiple segments at once.
       const segment = word.segments[state.segment];
       const match = matchSegment(currentValue, segment);
       if (match.correct) {
