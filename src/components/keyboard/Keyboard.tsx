@@ -7,6 +7,7 @@ import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
+import Other from "./Other";
 
 // import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
@@ -18,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   childOrder: {
     // Allow reordering the children of this element.
     // This has the additional benefit of allowing an "IPA" setting
-    ...orderChildren(1, 3, 2, 4),
-    [theme.breakpoints.up("lg")]: orderChildren(1, 2, 3, 4),
+    // ...orderChildren(1, 3, 2, 4),
+    // [theme.breakpoints.up("lg")]: orderChildren(1, 2, 3, 4),
   },
 }));
 
@@ -57,9 +58,9 @@ const Keyboard = (props: Props) => {
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
           <Typography variant="h6" component="p" gutterBottom>
-            Consonants (Non-pulmonics)
+            Other
           </Typography>
-          <NonPulmonics onClick={onClick} />
+          <Other onClick={onClick} />
         </Paper>
       </Grid>
       <Grid item xs={12} md={6}>
@@ -73,6 +74,16 @@ const Keyboard = (props: Props) => {
             Diacritics
           </Typography>
           <Diacritics onClick={onClick} />
+        </Paper>
+      </Grid>
+
+      {/* Ugh... non-pulmonics are the worst... */}
+      <Grid item xs={12} md={6}>
+        <Paper className={classes.paper}>
+          <Typography variant="h6" component="p" gutterBottom>
+            Consonants (Non-pulmonics)
+          </Typography>
+          <NonPulmonics onClick={onClick} />
         </Paper>
       </Grid>
     </Grid>

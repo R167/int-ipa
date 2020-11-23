@@ -79,15 +79,6 @@ export const EJECTIVES = [
 
 export const FILLER = "◌";
 
-export const OTHERS = [
-  ["ʍ", "voiceless labial-velar fricative"],
-  ["w", "voiced labial-velar approximant"],
-  ["ɥ", "voiced labial-palatal approximant"],
-  ["ʜ", "voiceless epiglottal fricative"],
-  ["ʢ", "voiced epiglottal fricative"],
-  ["ʡ", "epiglottal plosive"],
-];
-
 export const VOWEL_HEIGHTS = ["Close", "Close-mid", "Open-mid", "Open"] as const;
 export const VOWEL_FRONTEDNESS = ["Front", "Central", "Back"] as const;
 
@@ -149,7 +140,7 @@ interface Diacritic {
   width?: number;
 }
 
-export type DiacriticsList = readonly Diacritic[];
+export type DiacriticsList = readonly Readonly<Diacritic>[];
 
 export const DIACRITICS: DiacriticsList = [
   { ipa: "\u0325", description: "Voiceless", examples: ["n", "d"] },
@@ -186,4 +177,28 @@ export const DIACRITICS: DiacriticsList = [
   { ipa: "\u031E", description: "Lowered", examples: ["e"] },
   { ipa: "\u0318", description: "Advanced tongue root", examples: ["e"] },
   { ipa: "\u0319", description: "Retracted tongue root", examples: ["e"] },
+];
+
+interface MiscChar {
+  ipa: string;
+  sym: string;
+  description: string;
+  examples?: string[];
+}
+
+export type MiscList = readonly Readonly<MiscChar>[];
+
+export const MISC: MiscList = [
+  { ipa: "ʍ", sym: "ʍ", description: "Voiceless labial-velar fricative" },
+  { ipa: "w", sym: "w", description: "Voiced labial-velar approximant" },
+  { ipa: "ɥ", sym: "ɥ", description: "Voiced labial-palatal approximant" },
+  { ipa: "ʜ", sym: "ʜ", description: "Voiceless epiglottal fricative" },
+  { ipa: "ʢ", sym: "ʢ", description: "Voiced epiglottal fricative" },
+  { ipa: "ʡ", sym: "ʡ", description: "Epiglottal plosive" },
+  {
+    ipa: "\u0361",
+    sym: `${FILLER}\u0361${FILLER}`,
+    description: "Tie bar",
+    examples: ["t͡ʃ", "d͡ʒ"],
+  },
 ];

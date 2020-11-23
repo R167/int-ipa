@@ -3,7 +3,7 @@ import { Clickable, borderColor, shadowBorder } from "./common";
 
 import { Grid } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { DIACRITICS, FILLER } from "../../utils/ipa";
+import { MISC } from "../../utils/ipa";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,15 +34,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Diacritics = (props: Clickable) => {
+const Other = (props: Clickable) => {
   const classes = useStyles();
   const { onClick = () => {} } = props;
   const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   return (
     <Grid container spacing={0}>
-      {DIACRITICS.map(({ ipa, description, examples }) => (
-        <Grid item xs={6} sm={4} key={`diacritics-${description}`} className={classes.bordered}>
+      {MISC.map(({ ipa, sym, description, examples }) => (
+        <Grid item xs={12} sm={6} key={description} className={classes.bordered}>
           <Grid container>
             <Grid
               item
@@ -50,25 +50,26 @@ const Diacritics = (props: Clickable) => {
               className={classes.symbol}
               onClick={() => onClick(ipa)}
               onMouseDown={preventDefault}
-            >{`${FILLER}${ipa}`}</Grid>
+            >
+              {sym}
+            </Grid>
             <Grid item xs>
               <div className={classes.descriptionParent}>
                 <div className={classes.description}>{description}</div>
               </div>
             </Grid>
-            {/* Forgive me father, for I have sinned. I never should have used this much indentation */}
-            {examples.map((char) => {
-              const combined = `${char}${ipa}`;
+            {/* Forgive me father, for I have sinned. I never should have used this much indentation (the second time) */}
+            {examples?.map((char) => {
               return (
                 <Grid
-                  key={combined}
+                  key={char}
                   item
                   xs={2}
                   className={classes.symbol}
-                  onClick={() => onClick(combined)}
+                  onClick={() => onClick(char)}
                   onMouseDown={preventDefault}
                 >
-                  {combined}
+                  {char}
                 </Grid>
               );
             })}
@@ -79,4 +80,4 @@ const Diacritics = (props: Clickable) => {
   );
 };
 
-export default React.memo(Diacritics);
+export default React.memo(Other);
