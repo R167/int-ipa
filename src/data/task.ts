@@ -19,29 +19,33 @@ const Macros = record(string(), array(string()));
 
 const Segment = record(string(), union([boolean(), string()]));
 
-const SegmentList = refine(array(Segment), "SegmentList", (segments) => {
-  // Only iterate up to the last element
-  for (let i = 0; i < segments.length - 1; i++) {
-    const curr = segments[i];
+const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
+  const index = context.path[context.path.length - 1];
+  const parent = context.branch[context.branch.length - 1];
 
-    if (curr[""] === true) {
-      return `Error in segment ${i}: You may only terminate with "" on the last segment`;
-    }
-
-    if (Object.values(curr).reduce((run: boolean, curr) => run && curr !== true, true)) {
-      return `There must be at least one valid value in segment ${i}`;
-    }
+  // Slightly hacky way of checking for current segment number and if last segment
+  if (typeof index === "string" || !Array.isArray(parent)) {
+    return "Segments may only occur in arrays";
   }
 
-  const lastSegment = segments[segments.length - 1];
-  if (lastSegment[""] === true) {
-    for (const key in lastSegment) {
-      if (key !== "" && lastSegment[key] === true) {
-        return "You must not have both a termination and another valid option in the last segment";
+  if (index < parent.length - 1) {
+    if (segment[""] === true) {
+      return `You may only terminate with "" on the last segment`;
+    }
+
+    if (Object.values(segment).reduce((run: boolean, curr) => run && curr !== true, true)) {
+      return `There must be at least one valid value in segment`;
+    }
+  } else {
+    // Last segment
+    if (segment[""] === true) {
+      for (const key in segment) {
+        if (key !== "" && segment[key] === true) {
+          return "You must not have both a termination and another valid option in the last segment";
+        }
       }
     }
   }
-
   // Validation successful
   return true;
 });
@@ -49,7 +53,7 @@ const SegmentList = refine(array(Segment), "SegmentList", (segments) => {
 const Word = object({
   display: string(),
   audio: optional(string()),
-  segments: SegmentList,
+  segments: array(ValidateSegment),
 });
 
 export const TaskFile = object({
