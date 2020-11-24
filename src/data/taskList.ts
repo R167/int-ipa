@@ -1,4 +1,4 @@
-import { object, array, boolean, string, optional, Infer } from "superstruct";
+import { Infer, array, boolean, object, optional, string } from "superstruct";
 
 export type TaskListDef = Infer<typeof TaskListFile>;
 export type TaskInfoDef = Infer<typeof TaskInfo>;

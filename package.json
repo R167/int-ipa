@@ -32,7 +32,7 @@
     "zbase32": "^1.0.3"
   },
   "scripts": {
-    "preversion": "yarn test",
+    "preversion": "yarn test --watchAll=false",
     "postversion": "echo \"Pushing $npm_package_version to origin...\" && git push --tags",
     "start": "react-scripts start",
     "build": "react-scripts build",
