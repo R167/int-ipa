@@ -19,7 +19,7 @@ tasks:
 
   - name: You get the idea
     description: This is a "getting to know you" style assignment
-    file: assignment1.yaml
+    file: format.sample.yaml
 
   - name: Intentionally hidden
     description: This assignment is currently **hidden**
