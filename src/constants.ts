@@ -1,7 +1,7 @@
 // A list of constants for the project
 
 // PUBLIC_URL access
-export const BASE_URL = process.env.PUBLIC_URL;
+export const BASE_URL = `${process.env.PUBLIC_URL}/config`;
 
 // URL of teh manifest file
 export const MANIFEST_FILE = `${BASE_URL}/manifest.yaml`;
