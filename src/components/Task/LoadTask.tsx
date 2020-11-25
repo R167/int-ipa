@@ -7,6 +7,7 @@ import Task from "./Task";
 import { fullBaseUrl } from "../../constants";
 
 import { StructError } from "superstruct";
+import { ValidateError } from "../../utils/error";
 
 const fetchTask = async (taskFileUrl: string) => {
   if (!taskFileUrl) {
@@ -22,14 +23,14 @@ const fetchTask = async (taskFileUrl: string) => {
 };
 
 interface StatusProps {
-  msg: string;
+  children: React.ReactNode;
   error?: boolean;
 }
 
-const Status = ({ msg, error }: StatusProps) => (
+const Status = ({ children, error }: StatusProps) => (
   <Typography variant="h3" component="p" gutterBottom align="center">
     {error && "Error: "}
-    {msg}
+    {children}
   </Typography>
 );
 
@@ -57,13 +58,30 @@ const LoadTask = (props: LoadProps) => {
     );
   } else if (task.error) {
     console.error(task.error);
-    if (task.error instanceof StructError) {
-      return <Status error msg={task.error.message} />;
+    if (task.error instanceof ValidateError) {
+      const issue = task.error.context(2);
+      return (
+        <div>
+          <Typography variant="h3" component="p" gutterBottom>
+            {task.error.message}
+          </Typography>
+          <Typography variant="h4" component="div">
+            <pre>
+              {issue.map(({ num, contents, error }) => (
+                <span style={error ? { color: "red" } : {}} key={num}>
+                  {num.toString().padStart(3, "0")}| {contents}
+                  {"\n"}
+                </span>
+              ))}
+            </pre>
+          </Typography>
+        </div>
+      );
     } else {
-      return <Status error msg="Cannot load task file" />;
+      return <Status error children="Cannot load task file" />;
     }
   } else {
-    return <Status error msg="Unreachable state???" />;
+    return <Status error children="Unreachable state???" />;
   }
 };
 

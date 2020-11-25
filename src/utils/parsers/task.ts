@@ -2,7 +2,8 @@ import YAML from "yaml";
 import escapeStringRegexp from "escape-string-regexp";
 import normalize from "../normalize";
 import { TaskFile, TaskFileMacros, TaskFileSegment } from "../../data/task";
-import { assert } from "superstruct";
+import { assert, validate } from "superstruct";
+import { IPAError, ValidateError } from "../error";
 
 export interface TaskDef {
   author: string;
@@ -179,8 +180,14 @@ export const parseTask = (contents: string): TaskDef => {
   const fileContents = YAML.parse(contents, { prettyErrors: true });
 
   // TODO: Refactor to use validate instead
-  assert(fileContents, TaskFile);
-  const valid = fileContents;
+  const [err, valid] = validate(fileContents, TaskFile);
+  if (!valid) {
+    if (!err) {
+      throw new IPAError("Bad state. Both No valid and no error!");
+    }
+
+    throw new ValidateError(contents, YAML.parseDocument(contents), err);
+  }
 
   const metadata = pickValues(valid, ["author", "title", "salt", "instructions"]);
   const macros = getMacros(valid.macros);
