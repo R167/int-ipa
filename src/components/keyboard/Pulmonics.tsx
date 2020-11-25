@@ -37,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   symbol: {
+    padding: theme.spacing(0, 0.5),
     userSelect: "none",
     fontSize: "1.5rem",
   },
@@ -50,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
     padding: "6px 5.5px",
   },
   header: {
+    minWidth: "56px",
     borderLeft: `1px solid ${borderColor(theme)}`,
     borderRight: `1px solid ${borderColor(theme)}`,
   },
@@ -117,13 +119,14 @@ const Pulmonics = (props: Props) => {
       <Table size="small" aria-label="Consonants (Pulmonics)">
         <TableHead>
           <TableRow>
-            <TableCell>{/* Filler for articulation */}</TableCell>
+            <TableCell>{/* Filler for articulation row */}</TableCell>
             {PLACES.map((place) => (
               <TableCell
                 key={`keyboard-place-${place}`}
                 align="center"
                 className={clsx(classes.header, classes.caps)}
                 colSpan={2}
+                padding="none"
               >
                 {place}
               </TableCell>

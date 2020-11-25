@@ -27,6 +27,7 @@ import PlayButton from "./PlayButton";
 interface TaskProps {
   baseUrl: string;
   task: TaskDef;
+  noPersist?: boolean;
 }
 
 enum Op {
@@ -75,11 +76,11 @@ const reducer = (state: State, action: Op): State => {
 const useDispatch = <T,>(dispatch: React.Dispatch<T>, op: T) =>
   useCallback(() => dispatch(op), [op, dispatch]);
 
-const Task = React.memo((props: TaskProps) => {
-  const { task, baseUrl } = props;
+const Task = (props: TaskProps) => {
+  const { task, baseUrl, noPersist } = props;
   const { title, words, instructions } = task;
 
-  const persistKey = `persist-${baseUrl}`;
+  const persistKey = noPersist ? null : `persist-${baseUrl}`;
 
   const [persist, setPersist] = usePersistentState(persistKey, { word: 0, name: "" });
 
@@ -96,7 +97,7 @@ const Task = React.memo((props: TaskProps) => {
   const debug = useDebugContext();
   const showWord = currWord < words.length;
 
-  const word = showWord ? words[currWord] : words[currWord - 1];
+  const word = showWord ? words[currWord] : words[words.length - 1];
 
   const handleSubmit = useDispatch(dispatch, Op.Submit);
   const dismissModal = useDispatch(dispatch, Op.DismissModal);
@@ -121,7 +122,7 @@ const Task = React.memo((props: TaskProps) => {
   useEffect(() => {
     window.scroll({ top: 0, behavior: "smooth" });
     setPersist((s) => ({ name: modalWord === 0 ? "" : s.name, word: modalWord }));
-  }, [modalWord]);
+  }, [modalWord, setPersist]);
 
   const controls = (
     <>
@@ -216,6 +217,6 @@ const Task = React.memo((props: TaskProps) => {
       />
     </div>
   );
-});
+};
 
-export default Task;
+export default React.memo(Task);

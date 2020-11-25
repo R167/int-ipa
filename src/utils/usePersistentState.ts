@@ -3,13 +3,13 @@ import { useCallback, useDebugValue, useEffect, useRef, useState } from "react";
 type JSONSafe = string | number | boolean | null | Array<JSONSafe> | { [l: string]: JSONSafe };
 
 export const usePersistentState = <T = JSONSafe>(
-  key: string,
+  key: string | null,
   defaultValue: T,
   persistOnLoad = false
 ): [T, React.Dispatch<React.SetStateAction<T>>] => {
   const mount = useRef(false);
   const [value, setValue] = useState(() => {
-    const stored = localStorage.getItem(key);
+    const stored = key && localStorage.getItem(key);
     if (stored === null) {
       return defaultValue;
     } else {
@@ -17,14 +17,14 @@ export const usePersistentState = <T = JSONSafe>(
     }
   });
 
-  useDebugValue({ [key]: value });
+  useDebugValue({ [key || "<nopersist>"]: value });
 
   const setter = useCallback((prevState: React.SetStateAction<T>) => {
     setValue(prevState);
   }, []);
 
   useEffect(() => {
-    if (mount.current || persistOnLoad) {
+    if (key && (mount.current || persistOnLoad)) {
       localStorage.setItem(key, JSON.stringify(value));
     } else {
       mount.current = true;

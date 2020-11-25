@@ -54,12 +54,12 @@ describe("wildcardToRegex", () => {
   });
 
   it("matchers single any", () => {
-    expect(wildcardToRegex("he?llo")).toEqual(/^he.llo$/u);
+    expect(wildcardToRegex("he%llo")).toEqual(/^he.llo$/u);
   });
 
-  it("runs ? matcher", () => {
-    expect("hello").toMatch(wildcardToRegex("h?llo"));
-    expect("hillo").toMatch(wildcardToRegex("h?llo"));
+  it("runs % matcher", () => {
+    expect("hello").toMatch(wildcardToRegex("h%llo"));
+    expect("hillo").toMatch(wildcardToRegex("h%llo"));
   });
 
   it("creates valid matchers", () => {
@@ -75,7 +75,7 @@ describe("wildcardToRegex", () => {
     expect("hell").toMatch(hll);
     expect("hello").toMatch(hll);
 
-    const h_any = wildcardToRegex("h?...");
+    const h_any = wildcardToRegex("h%...");
     expect("h").not.toMatch(h_any);
     expect("hi").toMatch(h_any);
     expect("hello").toMatch(h_any);

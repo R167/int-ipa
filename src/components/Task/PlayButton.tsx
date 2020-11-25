@@ -7,7 +7,7 @@ interface Props {
   file?: string;
 }
 
-const PlayButton = React.memo((props: Props) => {
+const PlayButton = (props: Props) => {
   const { file, baseUrl } = props;
 
   // hey, it's easier just to use the function than figure it out...
@@ -42,6 +42,6 @@ const PlayButton = React.memo((props: Props) => {
       Play
     </Button>
   );
-});
+};
 
-export default PlayButton;
+export default React.memo(PlayButton);

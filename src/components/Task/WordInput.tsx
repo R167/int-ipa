@@ -1,10 +1,12 @@
-import { makeStyles, useTheme } from "@material-ui/core";
 import React, { useCallback, useEffect, useMemo, useReducer } from "react";
+
+import { makeStyles } from "@material-ui/core";
+
 import useKeyboard from "../keyboard/useKeyboard";
+import StickyIPA from "../keyboard/StickyIPA";
 
 import { Word, matchSegment } from "../../utils/parsers/task";
 import { useDebugContext } from "../../utils/Debug";
-import StickyIPA from "../keyboard/StickyIPA";
 
 const useStyles = makeStyles((theme) => ({
   correct: {
@@ -77,7 +79,6 @@ const reducer = (state: State, action: Act): State => {
 };
 
 const WordInput = (props: Props) => {
-  const theme = useTheme();
   const classes = useStyles();
   const debug = useDebugContext();
 
