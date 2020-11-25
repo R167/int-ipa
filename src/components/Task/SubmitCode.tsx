@@ -9,6 +9,9 @@ interface Props {
   prompt?: string;
   salt?: string;
   debug?: boolean;
+  name?: string | null;
+  onSubmit?: (name: string) => void;
+  controls?: React.ReactNode;
 }
 
 const DEFAULTS = {
@@ -18,9 +21,9 @@ const DEFAULTS = {
 } as const;
 
 const SubmitCode = (props: Props) => {
-  const { salt, debug, prompt } = { ...DEFAULTS, ...props };
-  const [name, setName] = useState<string | undefined>();
-  const [run, setRun] = useState(false);
+  const { salt, debug, prompt, name: existingName, onSubmit, controls } = { ...DEFAULTS, ...props };
+  const [name, setName] = useState<string>(existingName || "");
+  const [run, setRun] = useState(!!existingName);
   const [open, setOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>();
   const timer = useRef<number | undefined>();
@@ -51,10 +54,15 @@ const SubmitCode = (props: Props) => {
     </Button>
   );
 
-  const handleSubmit = useCallback((e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setRun(true);
-  }, []);
+    if (name.trim()) {
+      setRun(true);
+      if (onSubmit) {
+        onSubmit(name);
+      }
+    }
+  };
 
   useEffect(() => {
     if (run && result) {
@@ -94,7 +102,7 @@ const SubmitCode = (props: Props) => {
           </Tooltip>
         </Grid>
         <Grid item xs={12}>
-          <Grid container justify="center" spacing={2}>
+          <Grid container justify="center" alignItems="center" spacing={2}>
             <Grid item>{button}</Grid>
             {debug && (
               <Grid item>
@@ -103,6 +111,7 @@ const SubmitCode = (props: Props) => {
                 </Button>
               </Grid>
             )}
+            {controls && <Grid item>{controls}</Grid>}
           </Grid>
         </Grid>
       </Grid>

@@ -11,6 +11,8 @@ import { notchGutters } from "./utils/styles";
 import { useDebugContext } from "./utils/Debug";
 import { usePersistentState } from "./utils/usePersistentState";
 
+import AudioContext from "./utils/AudioContext";
+
 const lightTheme: ThemeOptions = {
   palette: {
     type: "light",
@@ -69,6 +71,17 @@ export default function App() {
     if (process.env.NODE_ENV !== "production") {
       document.title = `${process.env.NODE_ENV.slice(0, 3)} - ${document.title}`;
     }
+  }, []);
+
+  // Create an audio context on first user interaction. Reduces audio playing delay
+  useEffect(() => {
+    const create = () => {
+      document.removeEventListener("click", create);
+      new AudioContext({
+        latencyHint: "interactive",
+      });
+    };
+    document.addEventListener("click", create);
   }, []);
 
   const darkMode = dark === null ? prefersDarkMode : dark;

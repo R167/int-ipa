@@ -1,22 +1,12 @@
-import { Box, Grid, makeStyles } from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core";
 import React, { useCallback, useEffect, useMemo, useReducer } from "react";
-import IPAInput from "../keyboard/IPAInput";
-import Keyboard from "../keyboard/Keyboard";
 import useKeyboard from "../keyboard/useKeyboard";
 
 import { Word, matchSegment } from "../../utils/parsers/task";
 import { useDebugContext } from "../../utils/Debug";
+import StickyIPA from "../keyboard/StickyIPA";
 
 const useStyles = makeStyles((theme) => ({
-  sticky: {
-    zIndex: 10,
-    position: "sticky",
-    top: `${theme.spacing(-1)}px`,
-  },
-  search: {
-    backgroundColor: theme.palette.background.default,
-    borderRadius: "8px",
-  },
   correct: {
     color: theme.palette.type === "dark" ? theme.palette.success.main : theme.palette.success.dark,
   },
@@ -87,6 +77,7 @@ const reducer = (state: State, action: Act): State => {
 };
 
 const WordInput = (props: Props) => {
+  const theme = useTheme();
   const classes = useStyles();
   const debug = useDebugContext();
 
@@ -134,28 +125,19 @@ const WordInput = (props: Props) => {
   ]);
 
   return (
-    <div>
-      <Box paddingY={2} className={classes.sticky}>
-        <Grid container alignItems="center" justify="center" spacing={2}>
-          <Grid item xs md={8} className={classes.search}>
-            <IPAInput
-              placeholder={`Transcribe "${word.display}"`}
-              value={value}
-              onDelete={handleDelete}
-              onType={handleType}
-              inputRef={ref}
-              onCheck={handleCheck}
-              header={headerValue}
-              error={error}
-              helpText={errorMessage}
-              headerTooltip="Correct!"
-            />
-          </Grid>
-        </Grid>
-      </Box>
-
-      <Keyboard onClick={handleKeyboard} />
-    </div>
+    <StickyIPA
+      placeholder={`Transcribe "${word.display}"`}
+      value={value}
+      onDelete={handleDelete}
+      onType={handleType}
+      inputRef={ref}
+      onCheck={handleCheck}
+      header={headerValue}
+      error={error}
+      helpText={errorMessage}
+      headerTooltip="Correct!"
+      handleKeyboard={handleKeyboard}
+    />
   );
 };
 

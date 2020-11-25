@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { UseAsyncReturn, useAsync } from "react-async-hook";
 import YAML from "yaml";
+import { YAMLError } from "yaml/util";
 import { MANIFEST_FILE } from "./constants";
 
 import { ManifestType } from "./utils/parsers";
@@ -11,6 +12,7 @@ const fetchManifest = async (): Promise<ManifestType> => {
   // TODO: Change to force fetch even when cached
   const req = await fetch(MANIFEST_FILE);
   const body = await req.text();
+  // console.log(YAML.parseDocument(body, { prettyErrors: true }));
   return YAML.parse(body, { prettyErrors: true });
 };
 
@@ -36,7 +38,7 @@ const Manifest = ({ children }: Props) => {
     errorShown = true;
     console.log(manifest.error.message);
     console.log(manifest.error);
-    if (manifest.error.name.match(/^YAML/)) {
+    if (manifest.error instanceof YAMLError) {
       // This is a YAML error
       alert(
         `Error: Your manifest.yaml contains invalid syntax. Please check the console for more info.`

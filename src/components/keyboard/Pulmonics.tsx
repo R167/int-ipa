@@ -18,17 +18,12 @@ import { IMPOSSIBLE, MANNERS, NOT_USED, PLACES, PULMONICS } from "../../utils/ip
 const useStyles = makeStyles((theme) => ({
   voiceless: {
     cursor: "pointer",
-    width: "50%",
-    float: "left",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
   },
   voiced: {
-    height: "100%",
     cursor: "pointer",
-    width: "50%",
-    float: "right",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
@@ -45,15 +40,14 @@ const useStyles = makeStyles((theme) => ({
     userSelect: "none",
     fontSize: "1.5rem",
   },
-  sideBorder: {
+  leftSideBorder: {
     borderLeft: `1px solid ${borderColor(theme)}`,
+  },
+  rightSideBorder: {
     borderRight: `1px solid ${borderColor(theme)}`,
   },
   caps: {
     padding: "6px 5.5px",
-    // "td&": {
-    //   padding: "0px 5.5px",
-    // },
   },
   header: {
     borderLeft: `1px solid ${borderColor(theme)}`,
@@ -74,6 +68,7 @@ const Pulmonics = (props: Props) => {
 
   const preventDefault = useCallback((e) => e.preventDefault(), []);
 
+  // TODO: Fix this at some point
   const Cell = React.useCallback(
     ({ x, y }: { x: number; y: number }) => {
       const voiceless = PULMONICS[y]?.[x * 2];
@@ -82,26 +77,36 @@ const Pulmonics = (props: Props) => {
       const hasBorders = x < 2 || x > 4 || y === 4;
 
       return (
-        <TableCell
-          align="center"
-          className={clsx(classes.symbol, hasBorders && classes.sideBorder)}
-          padding="none"
-        >
-          <span
-            className={clsx(classes.voiceless, voiceless === IMPOSSIBLE && classes.impossible)}
+        <>
+          <TableCell
+            align="center"
+            className={clsx(
+              classes.symbol,
+              voiceless && classes.voiceless,
+              voiceless === IMPOSSIBLE && classes.impossible,
+              hasBorders && classes.leftSideBorder
+            )}
+            padding="none"
             onClick={clickCallback(voiceless)}
             onMouseDown={preventDefault}
           >
             {voiceless}
-          </span>
-          <span
-            className={clsx(classes.voiced, voiced === IMPOSSIBLE && classes.impossible)}
+          </TableCell>
+          <TableCell
+            align="center"
+            className={clsx(
+              classes.symbol,
+              voiced && classes.voiced,
+              voiced === IMPOSSIBLE && classes.impossible,
+              hasBorders && classes.rightSideBorder
+            )}
+            padding="none"
             onClick={clickCallback(voiced)}
             onMouseDown={preventDefault}
           >
             {voiced}
-          </span>
-        </TableCell>
+          </TableCell>
+        </>
       );
     },
     [classes, clickCallback, preventDefault]
@@ -118,6 +123,7 @@ const Pulmonics = (props: Props) => {
                 key={`keyboard-place-${place}`}
                 align="center"
                 className={clsx(classes.header, classes.caps)}
+                colSpan={2}
               >
                 {place}
               </TableCell>

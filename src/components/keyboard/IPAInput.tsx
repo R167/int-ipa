@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props {
+export interface Props {
   inputRef: RefObject<HTMLInputElement>;
   value: string;
   onType: (e: React.ChangeEvent<HTMLInputElement>) => void;
