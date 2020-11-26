@@ -6,7 +6,6 @@ import { parseTask } from "../../utils/parsers/task";
 import Task from "./Task";
 import { fullBaseUrl } from "../../constants";
 
-import { StructError } from "superstruct";
 import { ValidateError } from "../../utils/error";
 
 const fetchTask = async (taskFileUrl: string) => {

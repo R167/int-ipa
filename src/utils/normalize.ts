@@ -1,4 +1,4 @@
-import { STRESS } from "./ipa";
+// import { STRESS } from "./ipa";
 
 // We will always prefer the multi char version of a symbol, so always expand it
 const CANONICAL_FORMS = new Map([
@@ -7,9 +7,9 @@ const CANONICAL_FORMS = new Map([
   ["ɚ", "ə˞"],
   ["ɝ", "ɜ˞"],
   // coerce an exclamation point to postalveolar click
-  ["!", "ǃ"],
+  // ["!", "ǃ"],
   // coerce an apostrophe to the ejective
-  ["'", STRESS],
+  // ["'", STRESS],
 ]);
 
 const NORM = "NFKD";

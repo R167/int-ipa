@@ -23,9 +23,11 @@ const PlayButton = (props: Props) => {
     if (audioFile) {
       try {
         audioFile.currentTime = 0;
-        audioFile.play();
-      } catch {
-        console.error({ message: "unable to play url", src: audioFile.src });
+        audioFile.play().catch((e) => {
+          console.error({ message: "unable to play url", src: audioFile.src, err: e });
+        });
+      } catch (e) {
+        console.error({ message: "unable to play url", src: audioFile.src, err: e });
       }
     }
   };

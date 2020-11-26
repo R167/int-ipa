@@ -2,7 +2,7 @@ import YAML from "yaml";
 import escapeStringRegexp from "escape-string-regexp";
 import normalize from "../normalize";
 import { TaskFile, TaskFileMacros, TaskFileSegment } from "../../data/task";
-import { assert, validate } from "superstruct";
+import { validate } from "superstruct";
 import { IPAError, ValidateError } from "../error";
 
 export interface TaskDef {

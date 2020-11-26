@@ -9,7 +9,7 @@ interface Line {
   error: boolean;
 }
 
-const indexToLines = (str: string, idx: number, context: number = 1) => {
+const indexToLines = (str: string, idx: number, context: number = 1): Line[] => {
   const lines = str.split("\n");
 
   // Yes, we need this here from function

@@ -1,10 +1,12 @@
-import React from "react";
+import React, { Suspense } from "react";
 
 import { Box, Grid, Paper, makeStyles, useTheme } from "@material-ui/core";
 
 import IPAInput, { Props as InputProps } from "./IPAInput";
-import Keyboard from "./Keyboard";
 import useKeyboard from "./useKeyboard";
+
+// const Keyboard = React.lazy(() => import("./Keyboard"));
+import Keyboard from "./Keyboard";
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
