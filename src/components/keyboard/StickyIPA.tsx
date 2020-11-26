@@ -22,6 +22,7 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === "dark"
         ? theme.palette.background.default
         : theme.palette.background.paper,
+    borderRadius: "8px",
   },
 }));
 

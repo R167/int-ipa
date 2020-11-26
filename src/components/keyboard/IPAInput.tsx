@@ -6,6 +6,10 @@ import {
   Tooltip,
   Typography,
   makeStyles,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+  FormHelperText,
 } from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
@@ -141,24 +145,25 @@ const IPAInput = (props: Props) => {
   //       honestly, it's starting to get pretty unwieldy and then I can have more control
 
   return (
-    <TextField
-      InputLabelProps={{ className: classes.label }}
-      id="ipa-typer"
-      fullWidth
-      inputRef={inputRef}
-      value={value}
-      onChange={onType}
-      variant="outlined"
-      inputProps={{
-        spellCheck: "false",
-        autoCorrect: "off",
-        autoComplete: "off",
-        style: { lineHeight: 2 },
-      }}
-      label={placeholder}
-      InputProps={{
-        className: classes.input,
-        endAdornment: (
+    <FormControl fullWidth error={error} variant="outlined">
+      <InputLabel htmlFor="ipa-typer" className={classes.label}>
+        {placeholder}
+      </InputLabel>
+      <OutlinedInput
+        id="ipa-typer"
+        label={placeholder}
+        onKeyPress={handleEnter}
+        className={classes.input}
+        onChange={onType}
+        value={value}
+        inputRef={inputRef}
+        inputProps={{
+          spellCheck: "false",
+          autoCorrect: "off",
+          autoComplete: "off",
+          style: { lineHeight: 2 },
+        }}
+        endAdornment={
           <InputAdornment position="end">
             <Tooltip title="Delete" enterDelay={500}>
               <IconButton aria-label="delete" onMouseDown={preventDefault} onClick={onDelete}>
@@ -167,13 +172,11 @@ const IPAInput = (props: Props) => {
             </Tooltip>
             {check}
           </InputAdornment>
-        ),
-        startAdornment: headerContent,
-      }}
-      onKeyPress={handleEnter}
-      error={error}
-      helperText={helperText}
-    />
+        }
+        startAdornment={headerContent}
+      />
+      <FormHelperText>{helperText}</FormHelperText>
+    </FormControl>
   );
 };
 

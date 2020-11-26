@@ -189,18 +189,25 @@ interface MiscChar {
 export type MiscList = readonly Readonly<MiscChar>[];
 
 export const MISC: MiscList = [
-  { ipa: "ʍ", sym: "ʍ", description: "Voiceless labial-velar fricative" },
-  { ipa: "w", sym: "w", description: "Voiced labial-velar approximant" },
-  { ipa: "ɥ", sym: "ɥ", description: "Voiced labial-palatal approximant" },
-  { ipa: "ʜ", sym: "ʜ", description: "Voiceless epiglottal fricative" },
-  { ipa: "ʢ", sym: "ʢ", description: "Voiced epiglottal fricative" },
-  { ipa: "ʡ", sym: "ʡ", description: "Epiglottal plosive" },
   {
     ipa: "\u0361",
     sym: `${FILLER}\u0361${FILLER}`,
     description: "Tie bar",
     examples: ["t͡ʃ", "d͡ʒ"],
   },
+  { ipa: "w", sym: "w", description: "Voiced labial-velar approximant" },
+  { ipa: "ʍ", sym: "ʍ", description: "Voiceless labial-velar fricative" },
+  { ipa: "ɥ", sym: "ɥ", description: "Voiced labial-palatal approximant" },
+  { ipa: "ʜ", sym: "ʜ", description: "Voiceless epiglottal fricative" },
+  { ipa: "ʢ", sym: "ʢ", description: "Voiced epiglottal fricative" },
+  { ipa: "ʡ", sym: "ʡ", description: "Epiglottal plosive" },
+  { ipa: "ɺ", sym: "ɺ", description: "Voiced alveolar lateral flap" },
+  { ipa: "ɕ", sym: "ɕ", description: "Voiceless alveolo-palatal fricative" },
+  { ipa: "ʑ", sym: "ʑ", description: "Voiced alveolo-palatal fricative" },
+  { ipa: "ɧ", sym: "ɧ", description: "Simultaneous ʃ and x" },
+];
+
+export const SUPRASEGMENTALS: MiscList = [
   { ipa: STRESS, sym: STRESS, description: "Primary stress" },
   { ipa: SECONDARY_STRESS, sym: SECONDARY_STRESS, description: "Secondary stress" },
 ];

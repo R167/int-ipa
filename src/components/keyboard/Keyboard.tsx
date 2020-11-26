@@ -19,8 +19,8 @@ const useStyles = makeStyles((theme) => ({
   childOrder: {
     // Allow reordering the children of this element.
     // This has the additional benefit of allowing an "IPA" setting
-    // ...orderChildren(1, 3, 2, 4),
-    // [theme.breakpoints.up("lg")]: orderChildren(1, 2, 3, 4),
+    // On larger screens, show "other" left of "vowels"
+    [theme.breakpoints.up("md")]: orderChildren(1, 3, 2),
   },
 }));
 
@@ -42,6 +42,7 @@ const Keyboard = (props: Props) => {
   const { onClick } = props;
 
   return (
+    // 1
     <Grid container spacing={2} className={classes.childOrder}>
       <Grid item xs={12}>
         <Paper className={classes.paper}>
@@ -55,6 +56,13 @@ const Keyboard = (props: Props) => {
           </Typography>
         </Paper>
       </Grid>
+      {/* 2 */}
+      <Grid item xs={12} md={6}>
+        <Paper className={classes.paper}>
+          <Vowels onClick={onClick} />
+        </Paper>
+      </Grid>
+      {/* 3 */}
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
           <Typography variant="h6" component="p" gutterBottom>
@@ -63,11 +71,7 @@ const Keyboard = (props: Props) => {
           <Other onClick={onClick} />
         </Paper>
       </Grid>
-      <Grid item xs={12} md={6}>
-        <Paper className={classes.paper}>
-          <Vowels onClick={onClick} />
-        </Paper>
-      </Grid>
+
       <Grid item xs={12} md={8}>
         <Paper className={classes.paper}>
           <Typography variant="h6" component="p" gutterBottom>

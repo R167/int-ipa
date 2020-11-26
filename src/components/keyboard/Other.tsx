@@ -59,10 +59,10 @@ const Other = (props: Clickable) => {
               </div>
             </Grid>
             {/* Forgive me father, for I have sinned. I never should have used this much indentation (the second time) */}
-            {examples?.map((char) => {
+            {examples?.map((char, i) => {
               return (
                 <Grid
-                  key={char}
+                  key={`${char}-${i}`}
                   item
                   xs={2}
                   className={classes.symbol}
