@@ -72,7 +72,7 @@ const reducer = (state: State, action: Act): State => {
     case Op.NextSegment: // Inc segment and add value to header
       return { ...state, segment: state.segment + 1, header: state.header + action.value };
     case Op.ClearError:
-      return state.error ? { ...state, error: false, errorMessage: undefined } : state;
+      return state.error ? { ...state, error: false } : state;
     case Op.ErrorMessage:
       return { ...state, error: true, errorMessage: action.value };
   }

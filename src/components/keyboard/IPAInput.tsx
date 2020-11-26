@@ -10,6 +10,7 @@ import {
   InputLabel,
   OutlinedInput,
   FormHelperText,
+  Collapse,
 } from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
@@ -175,7 +176,12 @@ const IPAInput = (props: Props) => {
         }
         startAdornment={headerContent}
       />
-      <FormHelperText>{helperText}</FormHelperText>
+      {/* Look into changing this to be a tool tip possibly */}
+      <Collapse in={error}>
+        <FormHelperText error variant="outlined">
+          {helperText}
+        </FormHelperText>
+      </Collapse>
     </FormControl>
   );
 };
