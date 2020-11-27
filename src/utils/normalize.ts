@@ -18,7 +18,7 @@ const MATCHER = new RegExp(Array.from(CANONICAL_FORMS.keys()).join("|"), "gu");
 
 const normalize = (str: string) => {
   const normalized = str.normalize(NORM);
-  return normalized.replaceAll(MATCHER, (match) => CANONICAL_FORMS.get(match) || "⍰");
+  return normalized.replace(MATCHER, (match) => CANONICAL_FORMS.get(match) || "⍰");
 };
 
 export default normalize;

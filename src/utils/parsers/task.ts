@@ -40,12 +40,13 @@ interface SegmentMatch {
 
 export const DEFAULT_MESSAGE = "Whoops, that's not right. Try again!";
 export const END_MESSAGE = "Hmmm... Are you sure there's more sounds here?";
-const KLEENE_REPLACE = escapeStringRegexp("...");
-const ANY_REPLACE = escapeStringRegexp("%");
+// replaceAll is not supported in Github actions because we need node 15.x for that :'(
+const KLEENE_REPLACE = new RegExp(escapeStringRegexp(escapeStringRegexp("...")), "g");
+const ANY_REPLACE = new RegExp(escapeStringRegexp(escapeStringRegexp("%")), "g");
 
 export const wildcardToRegex = (wildcard: string) => {
   const str = escapeStringRegexp(wildcard);
-  const kleene = str.replaceAll(KLEENE_REPLACE, ".*").replaceAll(ANY_REPLACE, ".");
+  const kleene = str.replace(KLEENE_REPLACE, ".*").replace(ANY_REPLACE, ".");
   return new RegExp(`^${kleene}$`, "u");
 };
 
