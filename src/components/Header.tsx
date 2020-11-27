@@ -12,6 +12,7 @@ import {
   ListItemIcon,
   ListItemText,
   ListSubheader,
+  Link as MatLink,
   Switch,
   Theme,
   Toolbar,
@@ -112,7 +113,7 @@ const Header = (props: Props) => {
   );
 
   const list = (
-    <Box width="100%">
+    <div>
       <List>
         <ListLink to="/" text="Home" icon={<HomeIcon />} exact gutters={classes.itemGutters} />
       </List>
@@ -145,24 +146,26 @@ const Header = (props: Props) => {
           gutters={classes.itemGutters}
         />
       </List>
-    </Box>
+    </div>
   );
+
+  const version = process.env.REACT_APP_VERSION;
+  const repo = process.env.REACT_APP_REPO;
 
   return (
     <div>
       <Drawer anchor="left" open={drawer} onClose={closeDrawer}>
         <Box
           display="flex"
-          flexWrap="wrap"
-          width={DRAWER_WIDTH}
-          alignContent="space-between"
-          alignItems="flex-start"
+          minWidth={DRAWER_WIDTH}
+          flexDirection="column"
+          justifyContent="space-between"
           height="100%"
           overflow="hidden"
           role="presentation"
         >
           {list}
-          <Box width="100%" mb={2}>
+          <Box mb={2}>
             <Typography component="div">
               <Grid component="label" container justify="center" alignItems="center" spacing={1}>
                 <Grid item>Light</Grid>
@@ -171,6 +174,12 @@ const Header = (props: Props) => {
                 </Grid>
                 <Grid item>Dark</Grid>
               </Grid>
+            </Typography>
+            <Typography variant="body2" component="div" align="center" color="textSecondary">
+              Int IPA –{" "}
+              <MatLink href={repo} color="inherit">
+                {version}
+              </MatLink>
             </Typography>
           </Box>
         </Box>

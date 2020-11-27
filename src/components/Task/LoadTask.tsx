@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Typography } from "@material-ui/core";
+import { CircularProgress, Fade, Typography } from "@material-ui/core";
 import { useAsync } from "react-async-hook";
 import { parseTask } from "../../utils/parsers/task";
 import Task from "./Task";
@@ -49,11 +49,17 @@ const LoadTask = (props: LoadProps) => {
     return <Task task={task.result} baseUrl={baseUrl} />;
   } else if (task.loading) {
     return (
-      <div>
-        <Typography variant="h4" component="h1" gutterBottom align="center">
-          Loading...
+      <Fade
+        in
+        style={{
+          transitionDelay: "500ms",
+        }}
+        unmountOnExit
+      >
+        <Typography variant="h4" component="h1" align="center">
+          <CircularProgress />
         </Typography>
-      </div>
+      </Fade>
     );
   } else if (task.error) {
     console.error(task.error);

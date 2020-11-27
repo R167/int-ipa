@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React from "react";
 
 import { Box, Grid, Paper, makeStyles, useTheme } from "@material-ui/core";
 

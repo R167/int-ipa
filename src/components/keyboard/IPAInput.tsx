@@ -1,16 +1,15 @@
 import {
+  Collapse,
   Fade,
+  FormControl,
+  FormHelperText,
   IconButton,
   InputAdornment,
-  TextField,
+  InputLabel,
+  OutlinedInput,
   Tooltip,
   Typography,
   makeStyles,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-  FormHelperText,
-  Collapse,
 } from "@material-ui/core";
 import React, { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";

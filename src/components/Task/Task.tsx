@@ -9,6 +9,7 @@ import {
   DialogTitle,
   Grid,
   IconButton,
+  ListSubheader,
   Menu,
   MenuItem,
   Typography,
@@ -140,6 +141,7 @@ const Task = (props: TaskProps) => {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleCloseMore}
+        MenuListProps={{ subheader: <ListSubheader>Options</ListSubheader> }}
       >
         <MenuItem onClick={handleShowReset}>Reset assignment</MenuItem>
       </Menu>
