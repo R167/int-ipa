@@ -1,13 +1,6 @@
-export interface Class {
-  name: string;
-  folder: string;
-  hidden?: boolean;
-}
+import { ManifestDef, ManifestFile } from "../../data/manifest";
+import { parse } from "./parse";
 
-export type ClassList = Class[];
+export type { ManifestDef } from "../../data/manifest";
 
-export interface ManifestType {
-  classes: ClassList;
-}
-
-export const parseManifest = () => {};
+export const parseManifest = (contents: string): ManifestDef => parse(contents, ManifestFile);

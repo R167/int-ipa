@@ -36,3 +36,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
           cname: ipa.ucsd.wtf
+          user_name: github-actions[bot]
+          user_email: github-actions[bot]@users.noreply.github.com

@@ -27,5 +27,6 @@ jobs:
             ${{ runner.os }}-yarn-
       - run: yarn install --frozen-lockfile
 
-      - run: yarn lint
+      # require all lints to pass without warnings and files to be formatted well
+      - run: yarn lint --max-warnings 0
       - run: yarn prettier --check ./src
