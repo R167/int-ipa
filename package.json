@@ -89,6 +89,7 @@
     "html-webpack-plugin": "^4.5.0",
     "isomorphic-webcrypto": "^2.3.6",
     "path": "^0.12.7",
+    "prettier": "^2.2.0",
     "source-map-explorer": "^2.5.0",
     "ts-json-schema-generator": "^0.78.0",
     "webpack": "^4.44",
