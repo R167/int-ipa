@@ -7,7 +7,7 @@ name: TEST
 
 jobs:
   build:
-    name: Upload Release Asset
+    name: Test node_modules caching
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
