@@ -133,16 +133,16 @@ export const VOWELS: VowelCoords = [
 export const STRESS = "ˈ";
 export const SECONDARY_STRESS = "ˌ";
 
-interface Diacritic {
+interface MiscChar {
   ipa: string;
+  sym?: string;
   description: string;
-  examples: string[];
-  width?: number;
+  examples?: readonly string[];
 }
 
-export type DiacriticsList = readonly Readonly<Diacritic>[];
+export type MiscList = readonly Readonly<MiscChar>[];
 
-export const DIACRITICS: DiacriticsList = [
+export const DIACRITICS: MiscList = [
   { ipa: "\u0325", description: "Voiceless", examples: ["n", "d"] },
   { ipa: "\u032C", description: "Voiced", examples: ["s", "t"] },
   { ipa: "\u02B0", description: "Aspirated", examples: ["t", "d"] },
@@ -171,22 +171,13 @@ export const DIACRITICS: DiacriticsList = [
   { ipa: "\u02E1", description: "Lateral release", examples: ["d"] },
   { ipa: "\u031A", description: "No audible release", examples: ["d"] },
 
-  { ipa: "\u0334", description: "Velarized or pharyngealized", examples: ["l"], width: 2 },
+  { ipa: "\u0334", description: "Velarized or pharyngealized", examples: ["l"] },
 
   { ipa: "\u031D", description: "Raised", examples: ["e"] },
   { ipa: "\u031E", description: "Lowered", examples: ["e"] },
   { ipa: "\u0318", description: "Advanced tongue root", examples: ["e"] },
   { ipa: "\u0319", description: "Retracted tongue root", examples: ["e"] },
 ];
-
-interface MiscChar {
-  ipa: string;
-  sym: string;
-  description: string;
-  examples?: string[];
-}
-
-export type MiscList = readonly Readonly<MiscChar>[];
 
 export const MISC: MiscList = [
   {
@@ -205,9 +196,16 @@ export const MISC: MiscList = [
   { ipa: "ɕ", sym: "ɕ", description: "Voiceless alveolo-palatal fricative" },
   { ipa: "ʑ", sym: "ʑ", description: "Voiced alveolo-palatal fricative" },
   { ipa: "ɧ", sym: "ɧ", description: "Simultaneous ʃ and x" },
-];
+] as const;
 
 export const SUPRASEGMENTALS: MiscList = [
   { ipa: STRESS, sym: STRESS, description: "Primary stress" },
   { ipa: SECONDARY_STRESS, sym: SECONDARY_STRESS, description: "Secondary stress" },
-];
+  { ipa: "ː", sym: "ː", description: "Long", examples: ["eː"] },
+  { ipa: "ˑ", sym: "ˑ", description: "Half-long", examples: ["eˑ"] },
+  { ipa: "\u0306", sym: `${FILLER}\u0306`, description: "Extra-short", examples: ["e\u0306"] },
+  { ipa: "|", sym: "|", description: "Minor (foot) group" },
+  { ipa: "‖", sym: "‖", description: "Major (intonation) group" },
+  { ipa: ".", sym: ".", description: "Syllable break" },
+  { ipa: "‿", sym: "‿", description: "Linking (absence of break)" },
+] as const;

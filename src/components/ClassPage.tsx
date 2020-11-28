@@ -4,9 +4,11 @@ import { useManifest } from "../Manifest";
 
 import { useAsync } from "react-async-hook";
 import { TASK_FILE, fileUrl } from "../constants";
-import YAML from "yaml";
 import { Typography } from "@material-ui/core";
 import { TaskList } from "./Task";
+
+import { parseTaskList } from "../utils/parsers";
+import { ValidateError } from "../utils/error";
 
 interface MatchParams {
   klass: string;
@@ -16,7 +18,7 @@ interface Props extends RouteComponentProps<MatchParams> {}
 
 const fetchClassTasks = async (classId: string) => {
   if (!classId) {
-    // Absurd. klass will actually always be defined
+    // Absurd. klass will actually always be defined. but just in case
     console.log("empty class");
     return;
   }
@@ -25,7 +27,7 @@ const fetchClassTasks = async (classId: string) => {
   const req = await fetch(url);
   const body = await req.text();
 
-  return YAML.parse(body, { prettyErrors: true });
+  return parseTaskList(body);
 };
 
 interface StatusProps {
@@ -90,6 +92,10 @@ const ClassPage = (props: Props) => {
     );
   } else if (classTasks.error) {
     if (klass) {
+      console.error(classTasks.error);
+      if (classTasks.error instanceof ValidateError) {
+        console.log(classTasks.error.context(2));
+      }
       return <Status error msg="Cannot load class task file" />;
     } else {
       return <Status error msg="No such class exists" />;

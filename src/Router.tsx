@@ -13,7 +13,8 @@ const Router = () => {
       <Route path="/type" exact component={TypeIPA} />
       <Route path="/" exact component={Homepage} />
       <Route path="/class/:klass" exact component={ClassPage} />
-      <Route path="/class/:klass/:assignment" exact component={RouteTask} />
+      {/* Allow slashes for nested assignments */}
+      <Route path="/class/:klass/:assignment+" exact component={RouteTask} />
 
       {/* Catchall */}
       <Route component={NotFound} />

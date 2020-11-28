@@ -8,6 +8,7 @@ import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import Other from "./Other";
+import Suprasegmentals from "./Suprasegmentals";
 
 // import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 
@@ -81,6 +82,15 @@ const Keyboard = (props: Props) => {
         </Paper>
       </Grid>
 
+      <Grid item xs={12} md={4}>
+        <Paper className={classes.paper}>
+          <Typography variant="h6" component="p" gutterBottom>
+            Suprasegmentals
+          </Typography>
+          <Suprasegmentals onClick={onClick} />
+        </Paper>
+      </Grid>
+
       {/* Ugh... non-pulmonics are the worst... */}
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
@@ -88,6 +98,16 @@ const Keyboard = (props: Props) => {
             Consonants (Non-pulmonics)
           </Typography>
           <NonPulmonics onClick={onClick} />
+        </Paper>
+      </Grid>
+
+      {/* Placeholder for adding phonology symbols? */}
+      <Grid item xs={12} md={6} hidden>
+        <Paper className={classes.paper}>
+          <Typography variant="h6" component="p" gutterBottom>
+            Common non-IPA symbols
+          </Typography>
+          <Typography>Coming soon...</Typography>
         </Paper>
       </Grid>
     </Grid>
