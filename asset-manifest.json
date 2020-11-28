@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.js": "/static/js/main.f02c4e5b.chunk.js",
-    "main.js.map": "/static/js/main.f02c4e5b.chunk.js.map",
+    "main.js": "/static/js/main.5398fcf6.chunk.js",
+    "main.js.map": "/static/js/main.5398fcf6.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.b12bc8f4.js",
     "runtime-main.js.map": "/static/js/runtime-main.b12bc8f4.js.map",
-    "static/js/2.2f5f689f.chunk.js": "/static/js/2.2f5f689f.chunk.js",
-    "static/js/2.2f5f689f.chunk.js.map": "/static/js/2.2f5f689f.chunk.js.map",
+    "static/js/2.e9057ab8.chunk.js": "/static/js/2.e9057ab8.chunk.js",
+    "static/js/2.e9057ab8.chunk.js.map": "/static/js/2.e9057ab8.chunk.js.map",
     "index.html": "/index.html",
-    "static/js/2.2f5f689f.chunk.js.LICENSE.txt": "/static/js/2.2f5f689f.chunk.js.LICENSE.txt",
+    "static/js/2.e9057ab8.chunk.js.LICENSE.txt": "/static/js/2.e9057ab8.chunk.js.LICENSE.txt",
     "static/media/trapezium.dacff88a.svg": "/static/media/trapezium.dacff88a.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b12bc8f4.js",
-    "static/js/2.2f5f689f.chunk.js",
-    "static/js/main.f02c4e5b.chunk.js"
+    "static/js/2.e9057ab8.chunk.js",
+    "static/js/main.5398fcf6.chunk.js"
   ]
 }
