@@ -1,5 +1,6 @@
 import { Document } from "yaml";
 import { StructError } from "superstruct";
+import { YAMLError } from "yaml/util";
 
 export class IPAError extends Error {}
 
@@ -9,7 +10,26 @@ interface Line {
   error: boolean;
 }
 
-const indexToLines = (str: string, idx: number, context: number = 1): Line[] => {
+// Note: line is assumed one indexed
+const getLines = (lines: string | string[], lineIdx: number, context: number): Line[] => {
+  const lineArr = typeof lines === "string" ? lines.split("\n") : lines;
+  const line = lineIdx - 1;
+
+  const start = Math.max(line - context, 0);
+  const errorLine = Math.max(line, line - context) - start;
+
+  if (line < 0) {
+    return [];
+  } else {
+    return lineArr.slice(line - context, line + context + 1).map((contents, i) => ({
+      num: start + i + 1,
+      contents,
+      error: i === errorLine,
+    }));
+  }
+};
+
+const indexToLines = (str: string, idx: number, context: number): Line[] => {
   const lines = str.split("\n");
 
   // Yes, we need this here from function
@@ -21,21 +41,38 @@ const indexToLines = (str: string, idx: number, context: number = 1): Line[] => 
     { pos: 0 }
   );
 
-  const start = Math.max(line - context, 0);
-  const errorLine = Math.max(line, line - context) - start;
-
-  if (line < 0) {
-    return [];
-  } else {
-    return lines.slice(line - context, line + context + 1).map((contents, i) => ({
-      num: start + i + 1,
-      contents,
-      error: i === errorLine,
-    }));
-  }
+  return getLines(lines, line + 1, context);
 };
 
-export class ValidateError extends IPAError {
+interface ContextError {
+  context(n?: number): Line[];
+}
+
+export const isContextError = (o: any): o is ContextError => {
+  return o instanceof IPAError && "context" in o;
+};
+
+export class ParseError extends IPAError implements ContextError {
+  dat: string;
+  err: YAMLError;
+
+  constructor(data: string, err: YAMLError) {
+    super(err.message);
+    this.dat = data;
+    this.err = err;
+  }
+
+  context(n = 1) {
+    const linePos = this.err.linePos?.start;
+    if (linePos) {
+      return getLines(this.dat, linePos.line, n);
+    } else {
+      return [];
+    }
+  }
+}
+
+export class ValidateError extends IPAError implements ContextError {
   dat: string;
   doc: Document;
   err: StructError;

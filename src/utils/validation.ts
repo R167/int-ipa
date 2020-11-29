@@ -1,4 +1,4 @@
-import base64 from "base64-js";
+import { fromUint8Array } from "js-base64";
 
 const normName = (name: string) => {
   return name
@@ -9,7 +9,7 @@ const normName = (name: string) => {
 
 async function sha1sum(bytes: ArrayBuffer) {
   const buf = await crypto.subtle.digest("SHA-256", bytes);
-  return base64.fromByteArray(new Uint8Array(buf));
+  return fromUint8Array(new Uint8Array(buf));
 }
 
 const EPOCH = new Date("2020-02-02");
@@ -64,7 +64,10 @@ export const computeHash = async (
   const sha1 = await sha1sum(new TextEncoder().encode(input));
 
   // Remove special characters and limit to the first 16 chars
-  const cleanupSha1 = sha1.replace(/[+/=]/g, "").toLowerCase().slice(0, SHA_LENGTH);
+  const cleanupSha1 = sha1
+    .toLowerCase()
+    .replace(/[^a-z0-9]/g, "")
+    .slice(0, SHA_LENGTH);
   const interleaved = interleave(cleanupSha1, outTime);
   return [outName, interleaved].join("_");
 };

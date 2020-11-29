@@ -20,7 +20,7 @@ export const useManifest = () => {
   const asyncManifest = useContext(ManifestContext);
   if (!asyncManifest) {
     // Absurd
-    throw new Error("Error: you must create an initial manifest object");
+    throw new Error("Error: you must wrapped in a <Manifest> context");
   }
   return asyncManifest;
 };

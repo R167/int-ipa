@@ -14,5 +14,6 @@ words:
     audio: _sound_file_ # optional
     segments:
       - correct_value: true
+        "": true
         wrong_value: incorrect message
         ...: anything else message

@@ -6,7 +6,7 @@ import { parseTask } from "../../utils/parsers/task";
 import Task from "./Task";
 import { fullBaseUrl } from "../../constants";
 
-import { ValidateError } from "../../utils/error";
+import { isContextError } from "../../utils/error";
 
 const fetchTask = async (taskFileUrl: string) => {
   if (!taskFileUrl) {
@@ -16,6 +16,7 @@ const fetchTask = async (taskFileUrl: string) => {
   }
 
   const req = await fetch(taskFileUrl);
+
   const body = await req.text();
 
   return parseTask(body);
@@ -62,8 +63,7 @@ const LoadTask = (props: LoadProps) => {
       </Fade>
     );
   } else if (task.error) {
-    console.error(task.error);
-    if (task.error instanceof ValidateError) {
+    if (isContextError(task.error)) {
       const issue = task.error.context(2);
       return (
         <div>

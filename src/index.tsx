@@ -7,15 +7,23 @@ import Manifest from "./Manifest";
 import Debug from "./utils/Debug";
 import smoothscroll from "smoothscroll-polyfill";
 
-import { HashRouter } from "react-router-dom";
+import { BrowserRouter, HashRouter } from "react-router-dom";
+
+const Router = ({ children }: { children: React.ReactNode }) => {
+  if (process.env.REACT_APP_ROUTER === "browser") {
+    return <BrowserRouter children={children} />;
+  } else {
+    return <HashRouter children={children} />;
+  }
+};
 
 ReactDOM.render(
   <React.StrictMode>
     <Debug>
       <Manifest>
-        <HashRouter>
+        <Router>
           <App />
-        </HashRouter>
+        </Router>
       </Manifest>
     </Debug>
   </React.StrictMode>,
