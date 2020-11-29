@@ -25,6 +25,8 @@ import ConfirmDialog from "../ConfirmDialog";
 import { usePersistentState } from "../../utils/usePersistentState";
 import PlayButton from "./PlayButton";
 
+import Markdown from "../Markdown";
+
 interface TaskProps {
   baseUrl: string;
   task: TaskDef;
@@ -155,9 +157,7 @@ const Task = (props: TaskProps) => {
       </Typography>
 
       <Collapse in={showWord}>
-        <Typography variant="body1" gutterBottom>
-          {instructions}
-        </Typography>
+        <Markdown children={instructions || ""} />
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item>
             <Typography variant="h4" component="p">

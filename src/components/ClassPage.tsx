@@ -8,7 +8,7 @@ import { Typography } from "@material-ui/core";
 import { TaskList } from "./Task";
 
 import { parseTaskList } from "../utils/parsers";
-import { ValidateError } from "../utils/error";
+import { isContextError } from "../utils/error";
 
 interface MatchParams {
   klass: string;
@@ -93,7 +93,7 @@ const ClassPage = (props: Props) => {
   } else if (classTasks.error) {
     if (klass) {
       console.error(classTasks.error);
-      if (classTasks.error instanceof ValidateError) {
+      if (isContextError(classTasks.error)) {
         console.log(classTasks.error.context(2));
       }
       return <Status error msg="Cannot load class task file" />;

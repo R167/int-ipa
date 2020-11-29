@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CircularProgress, Fade, Typography } from "@material-ui/core";
+import { Box, CircularProgress, Fade, Typography } from "@material-ui/core";
 import { useAsync } from "react-async-hook";
 import { parseTask } from "../../utils/parsers/task";
 import Task from "./Task";
@@ -70,16 +70,14 @@ const LoadTask = (props: LoadProps) => {
           <Typography variant="h3" component="p" gutterBottom>
             {task.error.message}
           </Typography>
-          <Typography variant="h4" component="div">
-            <pre>
-              {issue.map(({ num, contents, error }) => (
-                <span style={error ? { color: "red" } : {}} key={num}>
-                  {num.toString().padStart(3, "0")}| {contents}
-                  {"\n"}
-                </span>
-              ))}
-            </pre>
-          </Typography>
+          <Box component="pre" fontSize="h6.fontSize" lineHeight="1.3">
+            {issue.map(({ num, contents, error }) => (
+              <code style={error ? { color: "red" } : {}} key={num}>
+                {num.toString().padStart(3, "0")}| {contents}
+                {"\n"}
+              </code>
+            ))}
+          </Box>
         </div>
       );
     } else {
