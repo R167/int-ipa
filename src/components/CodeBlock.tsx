@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 
-import { makeStyles, Paper } from "@material-ui/core";
+import { Paper, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   codeBlock: {

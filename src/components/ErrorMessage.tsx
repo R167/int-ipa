@@ -4,7 +4,7 @@ import clsx from "clsx";
 
 import CodeBlock from "./CodeBlock";
 import { IPAError, isContextError } from "../utils/error";
-import { makeStyles, Typography } from "@material-ui/core";
+import { Typography, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   fileDump: {

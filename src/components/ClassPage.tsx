@@ -8,7 +8,7 @@ import { Typography } from "@material-ui/core";
 import { TaskList } from "./Task";
 
 import { parseTaskList } from "../utils/parsers";
-import { isContextError, ResourceError } from "../utils/error";
+import { ResourceError } from "../utils/error";
 import ErrorMessage from "./ErrorMessage";
 
 interface MatchParams {
