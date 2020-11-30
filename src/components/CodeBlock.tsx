@@ -9,7 +9,11 @@ const useStyles = makeStyles((theme) => ({
   },
   inline: {
     padding: theme.spacing(0.25, 0.5),
-    "pre &": { padding: 0, boxShadow: "none", borderRadius: 0 },
+    "pre &": {
+      padding: 0,
+      boxShadow: "none",
+      borderRadius: 0,
+    },
   },
 }));
 

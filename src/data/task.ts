@@ -47,7 +47,7 @@ const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
     if (segment[""] === true) {
       for (const key in segment) {
         if (key !== "" && segment[key] === true) {
-          return "You must not have both a termination and another valid option in the last segment";
+          return "You cannot have both a termination and another valid option in the last segment";
         }
       }
     }

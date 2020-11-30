@@ -45,6 +45,7 @@ const indexToLines = (str: string, idx: number, context: number): Line[] => {
 };
 
 interface ContextError {
+  headline: string;
   context(n?: number): Line[];
 }
 
@@ -55,6 +56,7 @@ export const isContextError = (o: any): o is ContextError => {
 export class ParseError extends IPAError implements ContextError {
   dat: string;
   err: YAMLError;
+  headline = "File parsing error";
 
   constructor(data: string, err: YAMLError) {
     super(err.message);
@@ -76,6 +78,7 @@ export class ValidateError extends IPAError implements ContextError {
   dat: string;
   doc: Document;
   err: StructError;
+  headline = "File validation error";
 
   constructor(data: string, document: Document, err: StructError) {
     super(err.message);
@@ -87,5 +90,14 @@ export class ValidateError extends IPAError implements ContextError {
   context(n = 1) {
     const node = this.doc.getIn(this.err.path, true);
     return indexToLines(this.dat, node.range[0], n);
+  }
+}
+
+export class ResourceError extends IPAError {
+  originalMessage?: string;
+
+  constructor(msg: string, orig?: string) {
+    super(msg);
+    this.originalMessage = orig;
   }
 }

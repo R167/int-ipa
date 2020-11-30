@@ -8,7 +8,8 @@ import { Typography } from "@material-ui/core";
 import { TaskList } from "./Task";
 
 import { parseTaskList } from "../utils/parsers";
-import { isContextError } from "../utils/error";
+import { isContextError, ResourceError } from "../utils/error";
+import ErrorMessage from "./ErrorMessage";
 
 interface MatchParams {
   klass: string;
@@ -24,7 +25,22 @@ const fetchClassTasks = async (classId: string) => {
   }
   const url = fileUrl(classId, TASK_FILE);
 
-  const req = await fetch(url);
+  const req = await fetch(url).catch((error) => {
+    if (error instanceof TypeError) {
+      console.error(error);
+      throw new ResourceError(
+        `Cannot fetch resource. Permissions may not be correctly configured.`,
+        error.message
+      );
+    } else {
+      throw error;
+    }
+  });
+
+  if (req.status !== 200) {
+    throw new ResourceError(`${req.statusText}: Resource cannot be retrieved`);
+  }
+
   const body = await req.text();
 
   return parseTaskList(body);
@@ -91,15 +107,9 @@ const ClassPage = (props: Props) => {
       </Typography>
     );
   } else if (classTasks.error) {
-    if (klass) {
-      console.error(classTasks.error);
-      if (isContextError(classTasks.error)) {
-        console.log(classTasks.error.context(2));
-      }
-      return <Status error msg="Cannot load class task file" />;
-    } else {
-      return <Status error msg="No such class exists" />;
-    }
+    return (
+      <ErrorMessage error={classTasks.error} context={3} defaultHeader="No such class exists" />
+    );
   } else {
     return <Status error msg="Unreachable state???" />;
   }

@@ -36,4 +36,4 @@ const Markdown = (props: Props) => {
   return <Md children={children} options={opts} />;
 };
 
-export default Markdown;
+export default React.memo(Markdown);
