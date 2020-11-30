@@ -33,16 +33,16 @@
     "zbase32": "^1.0.3"
   },
   "scripts": {
-    "preversion": "yarn prettier --check ./src && yarn lint && yarn test --watchAll=false",
+    "preversion": "yarn prettier --check ./src && yarn lint-ci && yarn test --watchAll=false",
     "postversion": "echo \"Pushing $npm_package_version to origin...\" && git push --follow-tags",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
+    "lint-ci": "yarn lint --max-warnings=0",
     "fix": "eslint --fix ./src",
-    "analyze": "source-map-explorer 'build/static/js/*.js'",
-    "schema": "ts-json-schema-generator"
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
