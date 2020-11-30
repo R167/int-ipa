@@ -7,9 +7,11 @@ on:
 name: Upload Release Asset
 
 jobs:
-  build:
+  create_release:
     name: Upload Release Asset
     runs-on: ubuntu-latest
+    outputs:
+      upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node
@@ -26,13 +28,14 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-node-${{ hashFiles('**/yarn.lock') }}
       - run: yarn install --frozen-lockfile
-      - run: yarn build
-        env:
-          CI: false
-      - name: Zip build assets
-        run: |
-          zip -r build.zip build
+      - name: Linting sanity check
+        run: yarn lint-ci
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -43,13 +46,44 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
+
+  create_asset:
+    name: Build ${{ matrix.name }} path site
+    runs-on: ubuntu-latest
+    needs: create_release
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - url: "."
+            name: relative
+          - url: "/"
+            name: absolute
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Node
+        uses: actions/setup-node@v2-beta
+        with:
+          node-version: "14.x"
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-node-${{ hashFiles('**/yarn.lock') }}
+
+      - run: yarn build
+        env:
+          PUBLIC_URL: ${{ matrix.url }}
+      - name: Zip build assets
+        run: |
+          zip -r build.zip build
       - name: Upload Release Asset
         id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+          upload_url: ${{ needs.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
           asset_path: ./build.zip
-          asset_name: build.zip
+          asset_name: ${{ matrix.name }}-path-assets.zip
           asset_content_type: application/zip
