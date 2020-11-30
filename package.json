@@ -3,8 +3,9 @@
   "author": "Winston Durand <me@winstondurand.com>",
   "description": "An interactive tool for learning IPA transcription",
   "license": "MIT",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "repository": "github:R167/int-ipa",
+  "homepage": ".",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^4.11.0",
