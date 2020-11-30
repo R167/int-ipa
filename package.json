@@ -3,7 +3,7 @@
   "author": "Winston Durand <me@winstondurand.com>",
   "description": "An interactive tool for learning IPA transcription",
   "license": "MIT",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "repository": "github:R167/int-ipa",
   "private": true,
   "dependencies": {
@@ -33,7 +33,7 @@
     "zbase32": "^1.0.3"
   },
   "scripts": {
-    "preversion": "yarn test --watchAll=false",
+    "preversion": "yarn prettier --check ./src && yarn lint && yarn test --watchAll=false",
     "postversion": "echo \"Pushing $npm_package_version to origin...\" && git push --follow-tags",
     "start": "react-scripts start",
     "build": "react-scripts build",
