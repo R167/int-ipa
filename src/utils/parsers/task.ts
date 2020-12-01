@@ -28,6 +28,7 @@ export interface WordSegment {
 export interface Word {
   display: string;
   audio?: string;
+  instructions?: string;
   segments: WordSegment[];
 }
 
@@ -182,7 +183,7 @@ export const parseTask = (contents: string): TaskDef => {
   const macros = getMacros(valid.macros);
   const words = valid.words.map(
     (word): Word => {
-      const meta = pickValues(word, ["display", "audio"]);
+      const meta = pickValues(word, ["display", "audio", "instructions"]);
       const segments = getSegments(word.segments, macros);
       return { ...meta, segments };
     }

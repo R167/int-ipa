@@ -59,6 +59,7 @@ const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
 const Word = object({
   display: string(),
   audio: optional(string()),
+  instructions: optional(string()),
   segments: array(ValidateSegment),
 });
 

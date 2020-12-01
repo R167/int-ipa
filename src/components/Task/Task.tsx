@@ -151,6 +151,14 @@ const Task = (props: TaskProps) => {
     </>
   );
 
+  const wordInstructions = word.instructions && (
+    <Grid container justify="center" spacing={2}>
+      <Grid item xs md={8}>
+        <Markdown children={word.instructions} />
+      </Grid>
+    </Grid>
+  );
+
   return (
     <div>
       <Typography variant="h3" component="h2" gutterBottom align="center">
@@ -163,7 +171,7 @@ const Task = (props: TaskProps) => {
         </Box>
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item>
-            <Typography variant="h4" component="p">
+            <Typography variant="h4" component="p" align="center">
               {Math.min(currWord + 1, words.length)}/{words.length}: Transcribe "{word.display}"
             </Typography>
           </Grid>
@@ -173,6 +181,9 @@ const Task = (props: TaskProps) => {
           <Grid item>{controls}</Grid>
         </Grid>
 
+        {wordInstructions}
+
+        {/* Setting key here lets us force clear the nested state when we need to */}
         <WordInput word={word} onSubmit={handleSubmit} key={rest.inputKey} />
       </Collapse>
 

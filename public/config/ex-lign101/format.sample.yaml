@@ -12,6 +12,8 @@ macros: #optional
 words:
   - display: _orthography_ # required
     audio: _sound_file_ # optional
+    instructions: | # optional
+      This is word specific help text
     segments:
       - correct_value: true
         wrong_value: incorrect message
