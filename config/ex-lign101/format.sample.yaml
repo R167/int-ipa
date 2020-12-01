@@ -2,7 +2,7 @@
 author: _author_name_ # required
 title: _title_ # required
 salt: _optional_salt_value_ # optional
-instructions: > # required
+instructions: | # required
   Your instructions
   go here
 macros: #optional
@@ -12,6 +12,8 @@ macros: #optional
 words:
   - display: _orthography_ # required
     audio: _sound_file_ # optional
+    instructions: | # optional
+      This is word specific help text
     segments:
       - correct_value: true
         wrong_value: incorrect message
