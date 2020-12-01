@@ -20,6 +20,7 @@ tasks:
   - name: Broken sample
     description: This is a "getting to know you" style assignment
     file: format.sample.yaml
+    hidden: true
 
   - name: A nested file...
     description: Test for nested assignments

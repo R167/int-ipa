@@ -1,5 +1,5 @@
 import React from "react";
-import { Button } from "@material-ui/core";
+import { Button, Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 
 interface Props {
@@ -32,17 +32,25 @@ const PlayButton = (props: Props) => {
     }
   };
 
+  // A more robust method would be checking if the audio file loads, but there's no easy way
+  // to check this until after the play button is pressed.
+  const disable = !audioFile;
+
   return (
-    <Button
-      title="Play sound"
-      variant="contained"
-      color="secondary"
-      startIcon={<PlayCircleFilledIcon />}
-      onClick={playAudio}
-      disabled={!audioFile}
-    >
-      Play
-    </Button>
+    <Tooltip title={disable ? "No sound file to play" : ""}>
+      <div>
+        <Button
+          title="Play sound"
+          variant="contained"
+          color="secondary"
+          startIcon={<PlayCircleFilledIcon />}
+          onClick={playAudio}
+          disabled={disable}
+        >
+          Play
+        </Button>
+      </div>
+    </Tooltip>
   );
 };
 

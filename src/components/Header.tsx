@@ -23,6 +23,7 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
+import CastIcon from "@material-ui/icons/Cast";
 
 import { Link, matchPath, useLocation } from "react-router-dom";
 
@@ -138,6 +139,13 @@ const Header = (props: Props) => {
       <Divider />
       <List>
         <ListSubheader classes={{ gutters: classes.itemGutters }}>Tools</ListSubheader>
+        <ListLink
+          to="/remote"
+          text="Hosted Task"
+          icon={<CastIcon />}
+          exact
+          gutters={classes.itemGutters}
+        />
         <ListLink
           to="/type"
           text="IPA Keyboard"

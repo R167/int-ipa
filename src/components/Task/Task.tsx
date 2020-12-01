@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useReducer } from "react";
 import {
+  Box,
   Button,
   Collapse,
   Dialog,
@@ -157,7 +158,9 @@ const Task = (props: TaskProps) => {
       </Typography>
 
       <Collapse in={showWord}>
-        <Markdown children={instructions || ""} />
+        <Box mb={2}>
+          <Markdown children={instructions || ""} />
+        </Box>
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item>
             <Typography variant="h4" component="p">
