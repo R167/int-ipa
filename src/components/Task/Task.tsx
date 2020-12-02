@@ -125,7 +125,11 @@ const Task = (props: TaskProps) => {
   // Scroll back to top at start of each word
   useEffect(() => {
     window.scroll({ top: 0, behavior: "smooth" });
-    setPersist((s) => ({ name: modalWord === 0 ? "" : s.name, word: modalWord }));
+    setPersist((s) => {
+      // Make sure name is cleared when we reset
+      const name = modalWord === 0 ? "" : s.name;
+      return { name, word: modalWord };
+    });
   }, [modalWord, setPersist]);
 
   const controls = (
