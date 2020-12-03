@@ -9,6 +9,8 @@ jobs:
   deploy:
     name: Upload github pages
     runs-on: ubuntu-latest
+    env:
+      REACT_APP_ALLOW_REMOTE: true
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node

@@ -31,6 +31,7 @@ import { useManifest } from "../Manifest";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { grey } from "@material-ui/core/colors";
 import { notchGutters } from "../utils/styles";
+import { allowRemote, REPO, VERSION } from "../config";
 
 const DRAWER_WIDTH = 275;
 
@@ -139,13 +140,15 @@ const Header = (props: Props) => {
       <Divider />
       <List>
         <ListSubheader classes={{ gutters: classes.itemGutters }}>Tools</ListSubheader>
-        <ListLink
-          to="/remote"
-          text="Hosted Task"
-          icon={<CastIcon />}
-          exact
-          gutters={classes.itemGutters}
-        />
+        {allowRemote && (
+          <ListLink
+            to="/remote"
+            text="Hosted Task"
+            icon={<CastIcon />}
+            exact
+            gutters={classes.itemGutters}
+          />
+        )}
         <ListLink
           to="/keyboard"
           text="IPA Keyboard"
@@ -156,9 +159,6 @@ const Header = (props: Props) => {
       </List>
     </div>
   );
-
-  const version = process.env.REACT_APP_VERSION;
-  const repo = process.env.REACT_APP_REPO;
 
   return (
     <div>
@@ -185,8 +185,8 @@ const Header = (props: Props) => {
             </Typography>
             <Typography variant="body2" component="div" align="center" color="textSecondary">
               Int IPA –{" "}
-              <MatLink href={repo} color="inherit">
-                {version}
+              <MatLink href={REPO} color="inherit">
+                {VERSION}
               </MatLink>
             </Typography>
           </Box>

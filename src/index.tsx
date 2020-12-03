@@ -10,9 +10,10 @@ import smoothscroll from "smoothscroll-polyfill";
 import { BrowserRouter, HashRouter } from "react-router-dom";
 
 import "./index.css";
+import { browserRouter } from "./config";
 
 const Router = ({ children }: { children: React.ReactNode }) => {
-  if (process.env.REACT_APP_ROUTER === "browser") {
+  if (browserRouter) {
     return <BrowserRouter children={children} />;
   } else {
     return <HashRouter children={children} />;
