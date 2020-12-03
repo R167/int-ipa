@@ -147,7 +147,7 @@ const Header = (props: Props) => {
           gutters={classes.itemGutters}
         />
         <ListLink
-          to="/type"
+          to="/keyboard"
           text="IPA Keyboard"
           icon={<KeyboardIcon />}
           exact

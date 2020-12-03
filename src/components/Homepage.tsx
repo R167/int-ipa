@@ -12,7 +12,7 @@ const Homepage = () => {
         This is just some place holder text right now. I'm not really sure what you want on this
         page. One possible option is a self description, etc. I don't really know. Here's a link to
         the{" "}
-        <Link component={RLink} to="/type" color="primary">
+        <Link component={RLink} to="/keyboard" color="primary">
           the IPA keyboard
         </Link>
         .
