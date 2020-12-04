@@ -31,7 +31,7 @@ import { useManifest } from "../Manifest";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import { grey } from "@material-ui/core/colors";
 import { notchGutters } from "../utils/styles";
-import { allowRemote, REPO, VERSION } from "../config";
+import { REPO, VERSION, allowRemote } from "../config";
 
 const DRAWER_WIDTH = 275;
 

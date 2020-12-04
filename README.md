@@ -1,46 +1,53 @@
-# Getting Started with Create React App
+# Interactive IPA transcription
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Int IPA is a tool for teaching IPA transcription with incremental feedback.
 
-## Available Scripts
+- [Interactive IPA transcription](#interactive-ipa-transcription)
+  - [Features](#features)
+  - [Config](#config)
+  - [Hosting](#hosting)
+    - [Prebuilt release](#prebuilt-release)
+    - [Hosted](#hosted)
+    - [Custom build](#custom-build)
 
-In the project directory, you can run:
+## Features
 
-### `yarn start`
+* Everything is client side
+  * No student data is saved to any server, etc. You just provide a config and then everything runs
+    locally in browser
+* Full interactive IPA keyboard
+* Multiple classes/assignment groupings
+* Verifiable submission codes
+  * includes student entered text–e.g. their name–and a timestamp/validation code).
+* Word segment matchers
+  * Segment macros, allowing the same message for multiple possible entries
+  * Wildcards to capture "any" type patterns
+* Unicode normalization
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+For a full list of changes, please see the [changelog](CHANGELOG.md).
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Config
 
-### `yarn test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `yarn build`
+## Hosting
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+There are several different options for hosting an instance of Int IPA.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prebuilt release
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Go to the [latest release](https://github.com/R167/int-ipa/releases/tag/latest) and download one of
+the build assets. In most cases, you want `relative-path-assets.zip`. Unzip the contents and place
+it wherever you want hosted on your statically hosted webserver.
 
-### `yarn eject`
+The `assets` and `static` folders must be copied to the server as well as `index.html`. The other
+files are optional and useful if this is the root folder of your site.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+`config` is where all config files live. An example configuration is included (it's largely the same
+as the [hosted](#hosted) version). Check out the [config section](#config) for more info.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Hosted
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+A
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Custom build

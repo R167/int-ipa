@@ -1,8 +1,8 @@
-import { Infer, array, boolean, object, optional, string, type } from "superstruct";
+import { Infer, array, boolean, object, optional, string } from "superstruct";
 
 export type ManifestDef = Infer<typeof ManifestFile>;
 
-export const ManifestFile = type({
+export const ManifestFile = object({
   classes: array(
     object({
       name: string(),

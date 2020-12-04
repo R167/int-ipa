@@ -9,5 +9,3 @@ classes:
   - name: Hidden class
     folder: none
     hidden: true
-
-allow_link: true
