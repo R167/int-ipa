@@ -6,6 +6,8 @@ import Homepage from "./components/Homepage";
 import NotFound from "./components/NotFound";
 import { RouteRemoteTask, RouteTask } from "./components/Task";
 import TypeIPA from "./components/TypeIPA";
+import ToolLoader from "./components/Tools/ToolLoader";
+
 import { allowRemote } from "./config";
 
 const Router = () => {
@@ -20,6 +22,8 @@ const Router = () => {
 
       {/* Old routes which have been moved */}
       <Redirect from="/type" exact to="/keyboard" />
+
+      <Route path="/tools" component={ToolLoader} />
 
       {/* Catchall */}
       <Route component={NotFound} />

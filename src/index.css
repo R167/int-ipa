@@ -3,3 +3,11 @@ pre {
   margin: 0;
   font-family: "Roboto Mono", monospace;
 }
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Roboto"), local("Roboto-Regular"), url(./Roboto-Regular.woff2) format("woff2");
+}

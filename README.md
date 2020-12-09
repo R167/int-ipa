@@ -9,6 +9,8 @@ Int IPA is a tool for teaching IPA transcription with incremental feedback.
     - [Prebuilt release](#prebuilt-release)
     - [Hosted](#hosted)
     - [Custom build](#custom-build)
+  - [Tools](#tools)
+  - [Development](#development)
 
 ## Features
 
@@ -28,7 +30,7 @@ For a full list of changes, please see the [changelog](CHANGELOG.md).
 
 ## Config
 
-
+TODO: Add config help
 
 ## Hosting
 
@@ -48,6 +50,12 @@ as the [hosted](#hosted) version). Check out the [config section](#config) for m
 
 ### Hosted
 
-A
+A prebuilt version of this website exists at
 
 ### Custom build
+
+## Tools
+
+TODO: Build out admin/teacher tools
+
+## Development
