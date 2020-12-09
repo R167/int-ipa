@@ -46,9 +46,11 @@ export const deinterleave = (encoded: string): [string, string] => {
   return [longer.join(""), shorter.join("")];
 };
 
+const DEFAULT_SALT = "vowelsAreCool!!!";
+
 export const computeHash = async (
   name: string | undefined,
-  salt: string,
+  salt: string | undefined,
   run: boolean = true,
   time?: string
 ) => {
@@ -56,10 +58,12 @@ export const computeHash = async (
     return;
   }
 
+  const effectiveSalt = salt || DEFAULT_SALT;
+
   const outName = normName(name);
   const outTime = (time || minuteOfYear().toString(36)).toLowerCase();
   const nameTime = `${outName}_${outTime}`;
-  const input = [nameTime, salt].join("_");
+  const input = [nameTime, effectiveSalt].join("_");
 
   const sha1 = await sha1sum(new TextEncoder().encode(input));
 
@@ -72,7 +76,9 @@ export const computeHash = async (
   return [outName, interleaved].join("_");
 };
 
-export const validateHash = async (hash: string, salt: string) => {
+export const validateHash = async (hash: string, salt?: string) => {
+  const effectiveSalt = salt || DEFAULT_SALT;
+
   const lowerHash = hash.toLowerCase();
   const [name, interleaved] = lowerHash.split("_", 2);
   if (!(name && interleaved)) {
@@ -82,6 +88,6 @@ export const validateHash = async (hash: string, salt: string) => {
   if (sha?.length !== SHA_LENGTH) {
     console.warn("sha segment differs from expected length.");
   }
-  const expected = await computeHash(name, salt, true, time);
+  const expected = await computeHash(name, effectiveSalt, true, time);
   return expected === lowerHash;
 };

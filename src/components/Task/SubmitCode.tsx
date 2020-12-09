@@ -16,7 +16,6 @@ interface Props {
 
 const DEFAULTS = {
   prompt: "Name",
-  salt: "R167",
   debug: false,
 } as const;
 

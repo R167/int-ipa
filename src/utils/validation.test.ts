@@ -13,6 +13,13 @@ describe("computeHash", () => {
     expect(await computeHash(undefined, SALT, true)).toBe(undefined);
     expect(await computeHash("winston", SALT, false)).toBe(undefined);
   });
+
+  it("uses the default salt when missing", async () => {
+    expect(await computeHash("winston", undefined, true, "r167")).toBe(
+      "winston_44rt1s6u7pcyrsmqpuq4u"
+    );
+    expect(await computeHash("winston", "", true, "r167")).toBe("winston_44rt1s6u7pcyrsmqpuq4u");
+  });
 });
 
 describe("validateHash", () => {
@@ -31,5 +38,10 @@ describe("validateHash", () => {
 
   it("fails when missing params", async () => {
     expect(await validateHash("winston", SALT)).toBe(false);
+  });
+
+  it("uses the default salt", async () => {
+    expect(await validateHash("winston_4ara1f6n7ararswwf7vzn")).toBe(false);
+    expect(await validateHash("winston_429dmel7lios3b4lp27kq")).toBe(true);
   });
 });
