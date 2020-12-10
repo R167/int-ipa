@@ -141,9 +141,6 @@ const IPAInput = (props: Props) => {
     </InputAdornment>
   );
 
-  // TODO: refactor so this uses the individual components rather than just TextField
-  //       honestly, it's starting to get pretty unwieldy and then I can have more control
-
   return (
     <FormControl fullWidth error={error} variant="outlined">
       <InputLabel htmlFor="ipa-typer" className={classes.label}>

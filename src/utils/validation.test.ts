@@ -1,11 +1,19 @@
-import { computeHash, validateHash } from "./validation";
+import { checkHash, computeHash } from "./validation";
 
 const SALT = "pepper";
+
+const R167_DATE = new Date("2022-06-26T20:31:00.000Z");
 
 describe("computeHash", () => {
   it("computes a hash correctly", async () => {
     expect(await computeHash("winston", SALT, true, "r167")).toEqual(
       "winston_4ara1f6n7ararswwf7vzn"
+    );
+  });
+
+  it("returns same capitalization", async () => {
+    expect(await computeHash("WInston", SALT, true, "r167")).toEqual(
+      "WInston_4ara1f6n7ararswwf7vzn"
     );
   });
 
@@ -22,10 +30,13 @@ describe("computeHash", () => {
   });
 });
 
-describe("validateHash", () => {
+describe("checkHash", () => {
   beforeEach(() => {
     console.warn = jest.fn();
   });
+
+  const validateHash = async (...args: Parameters<typeof checkHash>) =>
+    (await checkHash(...args)).correct;
 
   it("validates a hash correctly", async () => {
     expect(await validateHash("winston_4ara1f6n7ararswwf7vzn", SALT)).toBe(true);
@@ -38,6 +49,13 @@ describe("validateHash", () => {
 
   it("fails when missing params", async () => {
     expect(await validateHash("winston", SALT)).toBe(false);
+  });
+
+  it("correctly handles capital letters", async () => {
+    const val = await checkHash("WINSTON-durand_4trw1u697ca7il5o8anl2", SALT);
+    expect(val.correct).toBe(true);
+    expect(val.name).toEqual("WINSTON-durand");
+    expect(val.date).toEqual(R167_DATE);
   });
 
   it("uses the default salt", async () => {

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 import { useAsync } from "react-async-hook";
 import { Button, Grid, TextField, Tooltip, Typography } from "@material-ui/core";
 import { computeHash } from "../../utils/validation";
@@ -62,12 +62,6 @@ const SubmitCode = (props: Props) => {
       }
     }
   };
-
-  useEffect(() => {
-    if (run && result) {
-      copyText();
-    }
-  }, [result, run, copyText]);
 
   return (
     <form onSubmit={handleSubmit}>

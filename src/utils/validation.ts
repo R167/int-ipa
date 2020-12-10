@@ -1,10 +1,7 @@
 import { fromUint8Array } from "js-base64";
 
 const normName = (name: string) => {
-  return name
-    .toLowerCase()
-    .replace(/[\s-]+/g, "-")
-    .replace(/[^a-zA-Z0-9-]/g, "");
+  return name.replace(/[\s-]+/g, "-").replace(/[^a-zA-Z0-9-]/g, "");
 };
 
 async function sha1sum(bytes: ArrayBuffer) {
@@ -18,7 +15,13 @@ const SHA_LENGTH = 16;
 
 const minuteOfYear = () => {
   const now = new Date();
-  return Math.floor((now.getTime() - EPOCH.getTime()) / 1000 / 60);
+  return Math.floor((now.getTime() - EPOCH.getTime()) / 1000 / 60).toString(36);
+};
+
+const timestampToDate = (timestamp: string) => {
+  const minutes = parseInt(timestamp, 36);
+  const millis = minutes * 60 * 1000 + EPOCH.getTime();
+  return new Date(millis);
 };
 
 // Assume the second string is shorter
@@ -61,8 +64,9 @@ export const computeHash = async (
   const effectiveSalt = salt || DEFAULT_SALT;
 
   const outName = normName(name);
-  const outTime = (time || minuteOfYear().toString(36)).toLowerCase();
-  const nameTime = `${outName}_${outTime}`;
+  const hashName = outName.toLowerCase();
+  const outTime = (time || minuteOfYear()).toLowerCase();
+  const nameTime = `${hashName}_${outTime}`;
   const input = [nameTime, effectiveSalt].join("_");
 
   const sha1 = await sha1sum(new TextEncoder().encode(input));
@@ -76,18 +80,26 @@ export const computeHash = async (
   return [outName, interleaved].join("_");
 };
 
-export const validateHash = async (hash: string, salt?: string) => {
+interface HashResult {
+  correct: boolean;
+  name: string;
+  date?: Date;
+}
+
+export const checkHash = async (hash: string, salt?: string): Promise<HashResult> => {
   const effectiveSalt = salt || DEFAULT_SALT;
 
-  const lowerHash = hash.toLowerCase();
-  const [name, interleaved] = lowerHash.split("_", 2);
+  const [name, interleaved] = hash.split("_", 2);
   if (!(name && interleaved)) {
-    return false;
+    return { name: hash, correct: false };
   }
-  const [sha, time] = deinterleave(interleaved);
+  const [sha, time] = deinterleave(interleaved.toLowerCase());
+  const date = timestampToDate(time);
+
   if (sha?.length !== SHA_LENGTH) {
     console.warn("sha segment differs from expected length.");
   }
-  const expected = await computeHash(name, effectiveSalt, true, time);
-  return expected === lowerHash;
+  const lowerHash = hash.toLowerCase();
+  const expected = (await computeHash(name, effectiveSalt, true, time))?.toLowerCase();
+  return { name, date, correct: expected === lowerHash };
 };
