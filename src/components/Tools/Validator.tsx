@@ -52,6 +52,13 @@ const noAutoComplete = {
   autoComplete: "off",
 } as const;
 
+const FORMATTER = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  hour: "numeric",
+  minute: "2-digit",
+});
+
 const Validator = () => {
   const classes = useStyles();
   const [names, setNames] = useState("");
@@ -59,28 +66,17 @@ const Validator = () => {
   const [display, setDisplay] = useState({ names, salt });
   const hashes = useAsync(computeHashes, [display.names, display.salt]);
 
-  const formatter = useMemo(
-    () =>
-      new Intl.DateTimeFormat("en-US", {
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-      }),
-    []
-  );
-
   const handleText = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => setNames(event.target.value),
     []
   );
 
-  const hashList = hashes.result?.map(({ hash, name, date, correct }) => (
+  const hashList = hashes.result?.map(({ hash, message, name, date, correct }) => (
     <TableRow key={hash}>
       <TableCell>{name}</TableCell>
-      <TableCell>{formatter.format(date)}</TableCell>
+      <TableCell>{FORMATTER.format(date)}</TableCell>
       <TableCell>
-        <Tooltip title={hash}>
+        <Tooltip title={message}>
           {correct ? <CorrectIcon className={classes.correct} /> : <ErrorIcon color="error" />}
         </Tooltip>
       </TableCell>

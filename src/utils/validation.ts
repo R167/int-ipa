@@ -1,7 +1,9 @@
 import { fromUint8Array } from "js-base64";
 
+const INVALID = /[^a-zA-Z0-9-]/g;
+
 const normName = (name: string) => {
-  return name.replace(/[\s-]+/g, "-").replace(/[^a-zA-Z0-9-]/g, "");
+  return name.replace(/[\s-]+/g, "-").replace(INVALID, "");
 };
 
 async function sha1sum(bytes: ArrayBuffer) {
@@ -84,14 +86,18 @@ interface HashResult {
   correct: boolean;
   name: string;
   date?: Date;
+  message: string;
 }
 
 export const checkHash = async (hash: string, salt?: string): Promise<HashResult> => {
   const effectiveSalt = salt || DEFAULT_SALT;
 
-  const [name, interleaved] = hash.split("_", 2);
-  if (!(name && interleaved)) {
-    return { name: hash, correct: false };
+  const segments = hash.split("_");
+  const [name, interleaved] = segments;
+  if (segments.length !== 2 || interleaved.match(INVALID)) {
+    const message =
+      segments.length < 2 ? "Missing validation hash" : "Invalid characters in string";
+    return { name: hash, correct: false, message };
   }
   const [sha, time] = deinterleave(interleaved.toLowerCase());
   const date = timestampToDate(time);
@@ -101,5 +107,5 @@ export const checkHash = async (hash: string, salt?: string): Promise<HashResult
   }
   const lowerHash = hash.toLowerCase();
   const expected = (await computeHash(name, effectiveSalt, true, time))?.toLowerCase();
-  return { name, date, correct: expected === lowerHash };
+  return { name, date, correct: expected === lowerHash, message: hash };
 };
