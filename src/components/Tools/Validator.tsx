@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useState } from "react";
 
 import { checkHash } from "../../utils/validation";
 import { useAsync } from "react-async-hook";

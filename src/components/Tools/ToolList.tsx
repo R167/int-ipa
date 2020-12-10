@@ -2,7 +2,7 @@ import React from "react";
 
 import { Breadcrumbs, Link as MatLink } from "@material-ui/core";
 
-import { Route, Switch, match, Link, useLocation } from "react-router-dom";
+import { Link, Route, Switch, match, useLocation } from "react-router-dom";
 import NotFound from "../NotFound";
 import Validator from "./Validator";
 
