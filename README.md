@@ -32,6 +32,8 @@ For a full list of changes, please see the [changelog](CHANGELOG.md).
 
 TODO: Add config help
 
+see [here](public/config/README.md)
+
 ## Hosting
 
 There are several different options for hosting an instance of Int IPA.
