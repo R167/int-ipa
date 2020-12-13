@@ -19,12 +19,18 @@ const Macros = record(string(), array(string()));
 
 const Segment = record(string(), union([boolean(), string()]));
 
+// ensure the segment is a member of the parent (guard against version changes)
+// and get typescript guarantees later on.
+const isParentSegmentList = (list: any, segment: TaskFileSegment): list is TaskFileSegment[] =>
+  Array.isArray(list) && list.includes(segment);
+
 const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
   const index = context.path[context.path.length - 1];
-  const parent = context.branch[context.branch.length - 1];
+  // Grab the parent object so we can check against it for certain rules
+  const parent = context.branch[context.branch.length - 2];
 
   // Slightly hacky way of checking for current segment number and if last segment
-  if (typeof index === "string" || !Array.isArray(parent)) {
+  if (typeof index === "string" || !isParentSegmentList(parent, segment)) {
     return "Segments may only occur in arrays";
   }
 
