@@ -1,3 +1,5 @@
+import { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
+
 import {
   Collapse,
   Fade,
@@ -11,7 +13,6 @@ import {
   Typography,
   makeStyles,
 } from "@material-ui/core";
-import React, { KeyboardEvent, RefObject, useCallback, useEffect, useState } from "react";
 import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
 import CheckIcon from "@material-ui/icons/Check";
 

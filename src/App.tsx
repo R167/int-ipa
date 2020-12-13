@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
@@ -86,7 +86,7 @@ export default function App() {
 
   const darkMode = dark === null ? prefersDarkMode : dark;
 
-  const theme = React.useMemo(() => createMuiTheme(darkMode ? darkTheme : lightTheme), [darkMode]);
+  const theme = useMemo(() => createMuiTheme(darkMode ? darkTheme : lightTheme), [darkMode]);
 
   return (
     <ThemeProvider theme={theme}>

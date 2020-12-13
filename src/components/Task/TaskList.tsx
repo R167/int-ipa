@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Button, Grid, Paper, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 

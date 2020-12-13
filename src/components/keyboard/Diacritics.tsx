@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Clickable } from "./common";
 import { DIACRITICS, FILLER } from "../../utils/ipa";
 import GridDisplay from "./GridDisplay";
@@ -15,4 +15,4 @@ const Diacritics = (props: Clickable) => {
   );
 };
 
-export default React.memo(Diacritics);
+export default memo(Diacritics);

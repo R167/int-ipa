@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { memo, useCallback } from "react";
 import { Clickable, borderColor, shadowBorder } from "./common";
 
 import { Grid } from "@material-ui/core";
@@ -90,4 +90,4 @@ const GridDisplay = (props: Props) => {
   );
 };
 
-export default React.memo(GridDisplay);
+export default memo(GridDisplay);

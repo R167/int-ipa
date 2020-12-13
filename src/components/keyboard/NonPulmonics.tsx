@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 
 import { Clickable, borderColor } from "./common";
 
@@ -101,4 +101,4 @@ const NonPulmonics = (props: Props) => {
   );
 };
 
-export default React.memo(NonPulmonics);
+export default memo(NonPulmonics);

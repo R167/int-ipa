@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Clickable } from "./common";
 import { SUPRASEGMENTALS } from "../../utils/ipa";
 import GridDisplay from "./GridDisplay";
@@ -9,4 +9,4 @@ const Suprasegmentals = (props: Clickable) => {
   );
 };
 
-export default React.memo(Suprasegmentals);
+export default memo(Suprasegmentals);

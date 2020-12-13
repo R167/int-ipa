@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import Md, { MarkdownToJSX } from "markdown-to-jsx";
 import { Typography } from "@material-ui/core";
 import CodeBlock from "./CodeBlock";
@@ -36,4 +36,4 @@ const Markdown = (props: Props) => {
   return <Md children={children} options={opts} />;
 };
 
-export default React.memo(Markdown);
+export default memo(Markdown);

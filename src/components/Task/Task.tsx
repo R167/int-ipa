@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useReducer } from "react";
+import { memo, useCallback, useEffect, useReducer, useState } from "react";
 import {
   Box,
   Button,
@@ -96,7 +96,7 @@ const Task = (props: TaskProps) => {
     inputKey: "original", // This is a hacky way to force the inputWord to refresh on reset
   });
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const debug = useDebugContext();
   const showWord = currWord < words.length;
@@ -239,4 +239,4 @@ const Task = (props: TaskProps) => {
   );
 };
 
-export default React.memo(Task);
+export default memo(Task);

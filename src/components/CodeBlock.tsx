@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 
 import { Paper, makeStyles } from "@material-ui/core";
 
@@ -36,4 +36,4 @@ const CodeBlock = (props: Props) => {
   );
 };
 
-export default React.memo(CodeBlock);
+export default memo(CodeBlock);

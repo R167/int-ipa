@@ -1,5 +1,3 @@
-import React from "react";
-
 import { CircularProgress, Fade, Typography } from "@material-ui/core";
 import { useAsync } from "react-async-hook";
 import { parseTask } from "../../utils/parsers/task";

@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
@@ -114,4 +114,4 @@ const Keyboard = (props: Props) => {
   );
 };
 
-export default React.memo(Keyboard);
+export default memo(Keyboard);

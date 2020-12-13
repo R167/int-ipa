@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 const ToolList = lazy(() => import("./ToolList"));

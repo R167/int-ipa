@@ -1,4 +1,4 @@
-import React from "react";
+import { StrictMode } from "react";
 import ReactDOM from "react-dom";
 // import "./index.css";
 import App from "./App";
@@ -21,7 +21,7 @@ const Router = ({ children }: { children: React.ReactNode }) => {
 };
 
 ReactDOM.render(
-  <React.StrictMode>
+  <StrictMode>
     <Debug>
       <Manifest>
         <Router>
@@ -29,7 +29,7 @@ ReactDOM.render(
         </Router>
       </Manifest>
     </Debug>
-  </React.StrictMode>,
+  </StrictMode>,
   document.getElementById("root")
 );
 

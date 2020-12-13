@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from "react";
+import { memo, useCallback, useMemo } from "react";
 import clsx from "clsx";
 import { Clickable } from "./common";
 
@@ -216,4 +216,4 @@ const Vowels = (props: Props) => {
   );
 };
 
-export default React.memo(Vowels);
+export default memo(Vowels);

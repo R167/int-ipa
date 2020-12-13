@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { createContext, useContext } from "react";
 import { UseAsyncReturn, useAsync } from "react-async-hook";
 import { YAMLError } from "yaml/util";
 import { MANIFEST_FILE } from "./constants";
@@ -6,7 +6,7 @@ import { ValidateError } from "./utils/error";
 
 import { ManifestDef, parseManifest } from "./utils/parsers";
 
-const ManifestContext = React.createContext<UseAsyncReturn<ManifestDef, never[]> | null>(null);
+const ManifestContext = createContext<UseAsyncReturn<ManifestDef, never[]> | null>(null);
 
 const fetchManifest = async (): Promise<ManifestDef> => {
   // TODO: Change to force fetch even when cached

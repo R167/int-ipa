@@ -1,5 +1,3 @@
-import React from "react";
-
 import useKeyboard from "./keyboard/useKeyboard";
 
 import StickyIPA from "./keyboard/StickyIPA";

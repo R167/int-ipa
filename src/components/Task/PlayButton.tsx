@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import { Button, Tooltip } from "@material-ui/core";
 import PlayCircleFilledIcon from "@material-ui/icons/PlayCircleFilled";
 
@@ -54,4 +54,4 @@ const PlayButton = (props: Props) => {
   );
 };
 
-export default React.memo(PlayButton);
+export default memo(PlayButton);

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Box, Grid, Paper, makeStyles, useTheme } from "@material-ui/core";
 
 import IPAInput, { Props as InputProps } from "./IPAInput";

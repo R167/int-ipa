@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import { memo, useCallback } from "react";
 
 import clsx from "clsx";
 import { Clickable, borderColor } from "./common";
@@ -71,7 +71,7 @@ const Pulmonics = (props: Props) => {
   const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   // TODO: Fix this at some point
-  const Cell = React.useCallback(
+  const Cell = useCallback(
     ({ x, y }: { x: number; y: number }) => {
       const voiceless = PULMONICS[y]?.[x * 2];
       const voiced = PULMONICS[y]?.[x * 2 + 1];
@@ -148,4 +148,4 @@ const Pulmonics = (props: Props) => {
   );
 };
 
-export default React.memo(Pulmonics);
+export default memo(Pulmonics);
