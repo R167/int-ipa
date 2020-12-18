@@ -7,6 +7,7 @@ import {
   Drawer,
   Grid,
   IconButton,
+  LinearProgress,
   List,
   ListItem,
   ListItemIcon,
@@ -28,7 +29,6 @@ import CastIcon from "@material-ui/icons/Cast";
 import { Link, matchPath, useLocation } from "react-router-dom";
 
 import { useManifest } from "../Manifest";
-import LinearProgress from "@material-ui/core/LinearProgress";
 import { grey } from "@material-ui/core/colors";
 import { notchGutters } from "../utils/styles";
 import { REPO, VERSION, allowRemote } from "../config";

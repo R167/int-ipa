@@ -20,7 +20,7 @@ Int IPA is a tool for teaching IPA transcription with incremental feedback.
 * Full interactive IPA keyboard
 * Multiple classes/assignment groupings
 * Verifiable submission codes
-  * includes student entered text–e.g. their name–and a timestamp/validation code).
+  * includes student entered text (e.g. their name), timestamp, and verification.
 * Word segment matchers
   * Segment macros, allowing the same message for multiple possible entries
   * Wildcards to capture "any" type patterns

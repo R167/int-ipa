@@ -171,7 +171,7 @@ const Task = (props: TaskProps) => {
 
       <Collapse in={showWord}>
         <Box mb={2}>
-          <Markdown children={instructions || ""} />
+          <Markdown children={instructions || ""} baseUrl={baseUrl} />
         </Box>
         <Grid container spacing={1} justify="center" alignItems="center">
           <Grid item>
