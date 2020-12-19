@@ -3,6 +3,7 @@ import { useEffect, useMemo } from "react";
 import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 import { ThemeProvider } from "@material-ui/styles";
 import { ThemeOptions, createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
@@ -56,6 +57,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     background: "rgba(240, 240, 240, 0.25)",
     color: theme.palette.text.disabled,
   },
+  siteRoot: {
+    display: "flex",
+    minHeight: "100vh",
+    flexDirection: "column",
+  },
+  siteContent: {
+    flex: 1,
+  },
 }));
 
 const DARK_KEY = "useDarkMode";
@@ -89,22 +98,29 @@ export default function App() {
   const theme = useMemo(() => createMuiTheme(darkMode ? darkTheme : lightTheme), [darkMode]);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Header darkMode={darkMode} changeDarkMode={setDark} />
-      <Container maxWidth="lg" classes={{ root: classes.containerRoot }}>
-        <Router />
-      </Container>
-      <Snackbar
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "left",
-        }}
-        open={debug}
-        message="Debug mode"
-        className={classes.debug}
-        ContentProps={{ classes: { root: classes.debugRoot }, elevation: darkMode ? 1 : 0 }}
-      />
-    </ThemeProvider>
+    <div className={classes.siteRoot}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header darkMode={darkMode} changeDarkMode={setDark} />
+        <Container
+          maxWidth="lg"
+          classes={{ root: classes.containerRoot }}
+          className={classes.siteContent}
+        >
+          <Router />
+        </Container>
+        <Footer />
+        <Snackbar
+          anchorOrigin={{
+            vertical: "bottom",
+            horizontal: "left",
+          }}
+          open={debug}
+          message="Debug mode"
+          className={classes.debug}
+          ContentProps={{ classes: { root: classes.debugRoot }, elevation: darkMode ? 1 : 0 }}
+        />
+      </ThemeProvider>
+    </div>
   );
 }

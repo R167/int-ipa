@@ -24,8 +24,8 @@ interface ImgProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 
 const RelativeImg = (props: ImgProps) => {
   const { baseUrl, src, ...imgProps } = props;
-
   const imgSrc = baseUrl && src ? new URL(src, baseUrl).toString() : src;
+  // eslint-disable-next-line
   return <img {...imgProps} src={imgSrc} />;
 };
 
