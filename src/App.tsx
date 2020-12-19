@@ -42,10 +42,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   // Modified from source
   // https://github.com/mui-org/material-ui/blob/v4.11.0/packages/material-ui/src/Container/Container.js
   containerRoot: {
+    marginTop: `${theme.spacing(1)}px`,
     width: "100%",
     boxSizing: "border-box",
     display: "block", // Fix IE 11 layout when used with main.
-    margin: theme.spacing(1, "auto", "env(safe-area-inset-bottom, 0px)"),
     ...notchGutters(theme),
   },
   debug: {
@@ -58,6 +58,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     color: theme.palette.text.disabled,
   },
   siteRoot: {
+    marginBottom: "env(safe-area-inset-bottom, 0px)",
     display: "flex",
     minHeight: "100vh",
     flexDirection: "column",
