@@ -7,6 +7,7 @@ import { decode, encode } from "js-base64";
 
 import { Link } from "react-router-dom";
 import { Button, Grid, InputAdornment, TextField, Typography } from "@material-ui/core";
+import { SHORT_DOMAIN } from "../../config";
 
 const RouteTask = () => {
   const { klass, assignment } = useParams<{ klass: string; assignment: string }>();
@@ -20,7 +21,7 @@ export const RouteRemoteTask = () => {
 
   if (config) {
     const url = decode(config);
-    const target = url.includes("//") ? url : `https://${url}`;
+    const target = url.includes("://") ? url : `https://${url}`;
 
     return <LoadTask taskFileUrl={target} />;
   } else {
@@ -31,6 +32,12 @@ export const RouteRemoteTask = () => {
 const BuildTaskLink = () => {
   const [url, setUrl] = useState("");
   const params = new URLSearchParams({ config: encode(url, true) }).toString();
+
+  const base = new URL(window.location.href);
+  if (SHORT_DOMAIN) {
+    base.hostname = SHORT_DOMAIN;
+  }
+  const resultUrl = `${base}?${params}`;
 
   return (
     <Grid container spacing={2} alignItems="center" justify="center">
@@ -62,7 +69,7 @@ const BuildTaskLink = () => {
       </Grid>
       <Grid item xs={12}>
         <Typography variant="body1" align="center">
-          {window.location.href}?{params}
+          {resultUrl}
         </Typography>
       </Grid>
     </Grid>

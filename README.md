@@ -1,6 +1,7 @@
 # Interactive IPA transcription
 
-Int IPA is a tool for teaching IPA transcription with incremental feedback.
+Int IPA is a tool for teaching IPA transcription with incremental feedback. See some examples at
+ipa.wdurand.com!
 
 - [Interactive IPA transcription](#interactive-ipa-transcription)
   - [Features](#features)
@@ -10,7 +11,8 @@ Int IPA is a tool for teaching IPA transcription with incremental feedback.
     - [Hosted](#hosted)
     - [Custom build](#custom-build)
   - [Tools](#tools)
-  - [Development](#development)
+    - [Planned additional tools](#planned-additional-tools)
+  - [Contributing](#contributing)
 
 ## Features
 
@@ -44,7 +46,7 @@ assignment using all of the available features. Finally, an assignment may attac
 are assumed relative to the given config file. This means you can easily have assignments fully self
 contained in a folder as shown in the [nested](public/config/ex-lign101/nested) example.
 
-More specifics on configuration is available [here](public/config/README.md)
+More details on configuration is available [here](public/config/README.md)
 
 ## Hosting
 
@@ -64,12 +66,39 @@ as the [hosted](#hosted) version). Check out the [config section](#config) for m
 
 ### Hosted
 
-A prebuilt version of this website exists at
+A prebuilt version of this website exists at [ipa.wdurand.com](https://ipa.wdurand.com).
+
+Eventually, there will be a tool to write custom assignments and have them hosted remotely for verified
+users. At present, if you have interest in having your assignments hosted here as examples,
+ please reach out to Winston Durand at wdurand@ucsd.edu.
 
 ### Custom build
 
+Finally, you can create a custom build of the site. This involves compiling the site from source. To do
+so, install node and yarn, then run `yarn install`. After that, you can change any environment variables
+you want in `.env.production` and run `yarn build` to compile a new build. Most features are documented
+in the `.env` files. This installation process mostly makes sense if you are forking this repository,
+at which point you should probably be looking at the [contribution](#contributing) section below.
+
 ## Tools
 
-TODO: Build out admin/teacher tools
+This site currently has a tool to validate student submissions. It is available at an unlisted `/tools`
+URL on all builds, but can be most easily reached at ipa.wdurand.com/#/tools/validate.
 
-## Development
+### Planned additional tools
+
+- Assignment creator
+- Hosted assignment creation
+
+## Contributing
+
+Follow the steps below to setup Int IPA locally:
+
+```bash
+$ git clone https://github.com/R167/int-ipa
+$ cd int-ipa
+$ brew install yarn
+$ yarn install
+# Start dev server
+$ yarn start
+```
