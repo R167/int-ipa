@@ -10,11 +10,11 @@ tasks:
     file: assignment1.yaml
     hidden: false
 
-  - name: Just a duplicate
+  - name: Duplicate link to assignment 1
     description: >
-      The main difference is that this assignment has an unreasonably long description for some reason
-      and nobody really quite understands why. Most likely it's to test the overflow, etc. of how a
-      really long description interacts with stuff.
+      The only difference here is that this assignment has an unreasonably long description for some
+      reason and nobody really quite understands why. Most likely it's to test the overflow, etc. of
+      how a really long description interacts with stuff.
     file: assignment1.yaml
 
   - name: Broken sample
