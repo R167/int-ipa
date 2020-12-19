@@ -1,7 +1,7 @@
 # Interactive IPA transcription
 
 Int IPA is a tool for teaching IPA transcription with incremental feedback. See some examples at
-ipa.wdurand.com!
+[ipa.wdurand.com](https://ipa.wdurand.com)!
 
 - [Interactive IPA transcription](#interactive-ipa-transcription)
   - [Features](#features)
@@ -83,7 +83,7 @@ at which point you should probably be looking at the [contribution](#contributin
 ## Tools
 
 This site currently has a tool to validate student submissions. It is available at an unlisted `/tools`
-URL on all builds, but can be most easily reached at ipa.wdurand.com/#/tools/validate.
+URL on all builds, but can be most easily reached at [ipa.wdurand.com/#/tools/validate](https://ipa.wdurand.com/#/tools/validate).
 
 ### Planned additional tools
 
