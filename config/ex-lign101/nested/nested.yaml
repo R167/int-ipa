@@ -56,3 +56,19 @@ words:
         st: In this case, /s/ and /t/ are two segments, unlike in affricates or diphthongs. Submit the /s/ first!
       - t: true
         "": Although some dialects of English would simplify this cluster to just /s/, there's a /t/ in this audio file!
+  - display: ban
+    audio: ../ban.wav
+    segments:
+      - b: true
+        p: No, this is a voiced sound in English (although it sounds like a voiceless sound in many other languages!)
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+      - æ: true
+        ɑ: No, this vowel would sound like 'bahn' or 'bomb'
+        a: This vowel is really only used in diphthongs in English
+        ae: It's important to write this vowel as a digraph, /æ/, otherwise it's a VV sequence and very different
+        ɔ: Open o?  More like NOPE-n o.  Try another vowel.
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'bang', but the sound in this word is made more towards the front of the mouth
+      - "": true
