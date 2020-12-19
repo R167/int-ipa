@@ -1,5 +1,13 @@
 # This is the manifest file that describes all classes for this
 
+homepage:
+  title: Welcome to Int IPA!
+  body: | # The body is formatted markdown
+    This is an interactive tool for teaching IPA transcription to students. It is designed to
+    give students immediate feedback as they transcribe words in an assignment and help identify
+    common and known mistakes. It has supports all IPA characters.
+
+    Additionally, there is a standalone [IPA keyboard](/keyboard) for transcription outside of assignments.
 classes:
   - name: LIGN 101
     folder: ex-lign101

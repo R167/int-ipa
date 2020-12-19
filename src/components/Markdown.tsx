@@ -1,16 +1,20 @@
 import { memo } from "react";
 import Md from "markdown-to-jsx";
-import { Typography } from "@material-ui/core";
+import { Link, LinkProps, Typography, TypographyProps } from "@material-ui/core";
+import AppLink from "./Link";
 import CodeBlock from "./CodeBlock";
 
 type AnyURL = string | URL;
 
+const URL_PATTERN = /^(https?:)?\/\//i;
+
 interface Props {
   baseUrl?: AnyURL;
+  paragraph?: Var;
   children: string;
 }
 
-type Var = Parameters<typeof Typography>[0]["variant"];
+type Var = TypographyProps["variant"];
 
 const typeTag = (v: Var) =>
   ({
@@ -29,10 +33,20 @@ const RelativeImg = (props: ImgProps) => {
   return <img {...imgProps} src={imgSrc} />;
 };
 
+const SmartLink = (props: LinkProps) => {
+  const { href, ...rest } = props;
+  if (href?.match(URL_PATTERN)) {
+    return <Link href={href} {...rest} />;
+  } else {
+    return <AppLink to={href || "#"} {...rest} />;
+  }
+};
+
 const Markdown = (props: Props) => {
-  const { children, baseUrl } = props;
+  const { children, baseUrl, paragraph = "body1" } = props;
   const options = {
     disableParsingRawHTML: true,
+    forceBlock: true,
     overrides: {
       img: { component: RelativeImg, props: { baseUrl } },
       h1: typeTag("h1"),
@@ -41,7 +55,8 @@ const Markdown = (props: Props) => {
       h4: typeTag("h4"),
       h5: typeTag("h5"),
       h6: typeTag("h6"),
-      p: typeTag("body1"),
+      p: typeTag(paragraph),
+      a: { component: SmartLink },
       pre: { component: CodeBlock, props: { block: true } },
       code: { component: CodeBlock },
     },

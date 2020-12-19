@@ -1,6 +1,7 @@
-import { Breadcrumbs, Link as MatLink } from "@material-ui/core";
+import { Breadcrumbs } from "@material-ui/core";
 
-import { Link, Route, Switch, match, useLocation } from "react-router-dom";
+import { Route, Switch, match, useLocation } from "react-router-dom";
+import Link from "../Link";
 import NotFound from "../NotFound";
 import Validator from "./Validator";
 
@@ -14,9 +15,9 @@ const Home = ({ match }: Props) => {
     <ul>
       {links.map(({ path, name }) => (
         <li>
-          <MatLink component={Link} to={`${match.url}/${path}`} key={path}>
+          <Link to={`${match.url}/${path}`} key={path}>
             {name}
-          </MatLink>
+          </Link>
         </li>
       ))}
     </ul>
@@ -41,14 +42,9 @@ const ToolList = ({ match }: Props) => {
     <div>
       <Breadcrumbs aria-label="breadcrumb">
         {urls.map(({ path, name }, i) => (
-          <MatLink
-            key={path}
-            component={Link}
-            color={i === urls.length - 1 ? "textPrimary" : "inherit"}
-            to={path}
-          >
+          <Link key={path} color={i === urls.length - 1 ? "textPrimary" : "inherit"} to={path}>
             {name.replace(/\b\w/g, (c) => c.toUpperCase())}
-          </MatLink>
+          </Link>
         ))}
       </Breadcrumbs>
       <Switch>

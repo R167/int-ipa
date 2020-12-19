@@ -1,7 +1,7 @@
 import { memo, useCallback } from "react";
 import { Clickable, borderColor, shadowBorder } from "./common";
 
-import { Grid } from "@material-ui/core";
+import { Grid, GridProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { MiscList } from "../../utils/ipa";
 
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-type Breakpoints = Pick<Parameters<typeof Grid>[0], "xs" | "sm" | "md" | "lg" | "xl">;
+type Breakpoints = Pick<GridProps, "xs" | "sm" | "md" | "lg" | "xl">;
 
 interface Props extends Clickable {
   content: MiscList;
