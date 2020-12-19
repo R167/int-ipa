@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       REACT_APP_ALLOW_REMOTE: true
+      REACT_APP_ORIGINAL_HOSTED_SITE: true
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node

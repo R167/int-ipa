@@ -31,7 +31,7 @@ import { Link, matchPath, useLocation } from "react-router-dom";
 import { useManifest } from "../Manifest";
 import { grey } from "@material-ui/core/colors";
 import { notchGutters } from "../utils/styles";
-import { REPO, VERSION, allowRemote } from "../config";
+import { REPO_URL, VERSION, allowRemote } from "../config";
 
 const DRAWER_WIDTH = 275;
 
@@ -185,7 +185,7 @@ const Header = (props: Props) => {
             </Typography>
             <Typography variant="body2" component="div" align="center" color="textSecondary">
               Int IPA –{" "}
-              <MatLink href={REPO} color="inherit">
+              <MatLink href={REPO_URL} color="inherit">
                 {VERSION}
               </MatLink>
             </Typography>

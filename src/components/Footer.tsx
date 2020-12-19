@@ -1,4 +1,5 @@
 import { Container, Link, Typography, makeStyles } from "@material-ui/core";
+import { hostedSite } from "../config";
 
 // import GitHubIcon from "@material-ui/icons/GitHub";
 
@@ -9,13 +10,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// Only state "maintained" for the hosted variant
+const disclaimer = hostedSite ? "Created and maintained by " : "Originally created by ";
+
 const Footer = () => {
   const classes = useStyles();
+
   return (
     <Container maxWidth="lg" component="footer" classes={{ root: classes.root }}>
       <Typography align="center" variant="body2" color="textSecondary">
-        Created and maintained by{" "}
-        <Link href="https://github.com/R167" color="textPrimary">
+        {disclaimer}
+        <Link href="https://github.com/R167/int-ipa" color="textPrimary">
           Winston Durand
         </Link>
         . Source code and examples released under the{" "}
