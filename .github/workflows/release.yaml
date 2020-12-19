@@ -44,6 +44,14 @@ jobs:
         with:
           tag_name: ${{ github.ref }}
           release_name: Release ${{ github.ref }}
+          body: |
+            # ${{ github.ref }}
+
+            - TODO: CHANGELOG
+
+            ---
+            The absolute assets file must be hosted at the root of a domain.
+            The relative assets may be hosted at any path (this is usually the one you want).
           draft: true
           prerelease: false
 
