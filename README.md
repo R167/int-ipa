@@ -31,7 +31,7 @@ For a full list of changes, please see the [changelog](CHANGELOG.md).
 ## Config
 
 The application supports having multiple classes and multiple assignments for each class. All configuration
-is done using static files so that any file server can be used. Because of this, under [`/config`](public/config/), there
+is done using static files so that any file server can be used. Because of this, under [`/config`](public/config), there
 is a [`manifest.yaml`](public/config/manifest.yaml) that specifies a list of all classes. Each class is a folder with the given name
 and a [`tasks.yaml`](public/config/ex-lign101/tasks.yaml). The task file contains a list of all assignments
 for this class, what the assignment is called, and a short description.
@@ -42,7 +42,7 @@ a [sample](public/config/ex-lign101/format.sample.yaml) with annotations about w
 or optional. Additionally, [`assignment1.yaml`](public/config/ex-lign101/assignment1.yaml) is a full
 assignment using all of the available features. Finally, an assignment may attach sound files. All URLs
 are assumed relative to the given config file. This means you can easily have assignments fully self
-contained in a folder as shown in the [nested](public/config/nested/) example.
+contained in a folder as shown in the [nested](public/config/ex-lign101/nested) example.
 
 More specifics on configuration is available [here](public/config/README.md)
 
