@@ -3,7 +3,7 @@ name: Hosting request
 about: Requests about adding content to the hosted version
 title: ''
 labels: hosting
-assignees: ''
+assignees: R167
 
 ---
 

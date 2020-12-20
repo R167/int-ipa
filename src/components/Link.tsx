@@ -1,4 +1,4 @@
-import { Link as MatLink, LinkProps } from "@material-ui/core";
+import { LinkProps, Link as MatLink } from "@material-ui/core";
 import { Link as RouterLink } from "react-router-dom";
 
 type Props = LinkProps<typeof RouterLink>;
