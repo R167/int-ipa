@@ -1,4 +1,4 @@
-import { Box, Typography } from "@material-ui/core";
+import { Box, Grid, Typography } from "@material-ui/core";
 import Markdown from "./Markdown";
 import { useManifest } from "../Manifest";
 
@@ -12,7 +12,11 @@ const Homepage = () => {
         <Typography align="center" variant="h3" component="h2" gutterBottom>
           {title}
         </Typography>
-        <Markdown children={body} paragraph="h5" />
+        <Grid container justify="center">
+          <Grid item xs md={10} lg={8}>
+            <Markdown children={body} paragraph="h5" />
+          </Grid>
+        </Grid>
       </Box>
     );
   } else {

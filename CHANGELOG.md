@@ -2,6 +2,12 @@
 
 ## [master]
 
+## v0.5.0
+
+* Links now work correctly for Markdown
+* Homepage content set in `manifest.yaml`
+* Clarify versioning scheme
+
 ## v0.4.0
 
 * Allowing remote file loading is now optional under `REACT_APP_ALLOW_REMOTE`
