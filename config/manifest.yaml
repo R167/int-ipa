@@ -1,5 +1,24 @@
 # This is the manifest file that describes all classes for this
 
+homepage:
+  title: Welcome to Int IPA!
+  body: | # The body is formatted as markdown. Learn more at https://guides.github.com/features/mastering-markdown/
+    This is an interactive tool for teaching IPA transcription to students. It is designed to
+    give students immediate feedback as they transcribe words in an assignment and help identify
+    common and known mistakes. It has supports all IPA characters.
+
+    Additionally, there is a standalone [IPA keyboard](/keyboard) for transcription outside of assignments.
+
+    You can load any of the classes from the sidebar or view the first example task [here](/class/ex-lign101/assignment1)
+
+    ---
+
+    <!-- The following is a disclaimer for the hosted site. Please remove if this is your own personal copy -->
+    #### About
+
+    Int IPA is created and maintained by Winston Durand. All source code is freely available under the MIT license.
+    Any bugs, features requests, or feedback should be filed on the [projects issues page](https://github.com/R167/int-ipa/issues).
+    If you have any interest hosting your own classes here, please reach out on Github with a [hosting request](https://github.com/R167/int-ipa/issues/new).
 classes:
   - name: LIGN 101
     folder: ex-lign101
