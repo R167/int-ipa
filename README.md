@@ -12,7 +12,10 @@ Int IPA is a tool for teaching IPA transcription with incremental feedback. See 
     - [Custom build](#custom-build)
   - [Tools](#tools)
     - [Planned additional tools](#planned-additional-tools)
+  - [Versioning](#versioning)
+    - [Example](#example)
   - [Contributing](#contributing)
+  - [License](#license)
 
 ## Features
 
@@ -27,6 +30,7 @@ Int IPA is a tool for teaching IPA transcription with incremental feedback. See 
   * Segment macros, allowing the same message for multiple possible entries
   * Wildcards to capture "any" type patterns
 * Unicode normalization
+* Saves incremental progress on an assignment
 
 For a full list of changes, please see the [changelog](CHANGELOG.md).
 
@@ -90,6 +94,28 @@ URL on all builds, but can be most easily reached at [ipa.wdurand.com/#/tools/va
 - Assignment creator
 - Hosted assignment creation
 
+## Versioning
+
+This project aims to adhere to [Semantic Versioning 2.0.0](https://semver.org/). Violations of this
+scheme should be reported as bugs. While this should generally be the case for functionality across
+the whole site, it will be specifically adhered to for all configuration files. MINOR versions will
+**only** contain backwards compatible/additional features and deprecations. Any removal of
+functionality will **only** come in major versions.
+
+### Example
+
+For version `MAJOR.MINOR.PATCH`, the following is allowed
+
+- `MAJOR`: Any changes. Config files may need to be updated.
+  - Example: New required fields
+- `MINOR`: Backwards compatible changes. Older config files will continue to work.
+  - Example: New optional fields
+- `PATCH`: Bug fixes/copy changes/internal improvements.
+
+<!-- TODO: Remove once we hit v1.0.0 -->
+Note, this project is currently still on `0.Y.Z`. As per SemVer 2.0.0, breaking changes will only be
+made by bumping `Y`.
+
 ## Contributing
 
 Follow the steps below to setup Int IPA locally:
@@ -102,3 +128,8 @@ $ yarn install
 # Start dev server
 $ yarn start
 ```
+
+## License
+
+Source code and examples released under the [MIT license](http://opensource.org/licenses/MIT).
+Website and documentation licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

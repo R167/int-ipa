@@ -1,6 +1,6 @@
 import { memo } from "react";
 import Md from "markdown-to-jsx";
-import { Link, LinkProps, Typography, TypographyProps } from "@material-ui/core";
+import { Checkbox, Link, LinkProps, Typography, TypographyProps } from "@material-ui/core";
 import AppLink from "./Link";
 import CodeBlock from "./CodeBlock";
 
@@ -12,6 +12,7 @@ interface Props {
   baseUrl?: AnyURL;
   paragraph?: Var;
   children: string;
+  allowTags?: boolean;
 }
 
 type Var = TypographyProps["variant"];
@@ -42,10 +43,18 @@ const SmartLink = (props: LinkProps) => {
   }
 };
 
+const CustomInput = (props: React.ComponentProps<"input">) => {
+  if (props.type === "checkbox") {
+    return <Checkbox checked={props.checked} readOnly={props.readOnly} disabled={props.readOnly} />;
+  } else {
+    return <input {...props} />;
+  }
+};
+
 const Markdown = (props: Props) => {
-  const { children, baseUrl, paragraph = "body1" } = props;
+  const { children, baseUrl, allowTags, paragraph = "body1" } = props;
   const options = {
-    disableParsingRawHTML: true,
+    disableParsingRawHTML: !allowTags,
     forceBlock: true,
     overrides: {
       img: { component: RelativeImg, props: { baseUrl } },
@@ -59,6 +68,7 @@ const Markdown = (props: Props) => {
       a: { component: SmartLink },
       pre: { component: CodeBlock, props: { block: true } },
       code: { component: CodeBlock },
+      input: { component: CustomInput },
     },
   };
 
