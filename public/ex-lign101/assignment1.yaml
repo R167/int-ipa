@@ -9,7 +9,7 @@ instructions: > # <-- The ">" here indicates a multiline string.
   be a single IPA character, like 's', or, for something more complicated like
   affricates (e.g. 't͡ʃ') or diphthongs (e.g. 'ej') or other multi-symbol characters,
   you might enter multiple symbols at one.  When you think you've entered the
-  symbol(s) associated with the first sound completely, press 'Submit IPA Symbol(s) or Word' to
+  symbol(s) associated with the first sound completely, press 'Submit IPA Symbol(s)' to
   check your work. Then, do this for the remaining sounds, and when you feel like
   you've finished all the sounds in the word, click 'Submit' one last time.
 macros:
@@ -45,6 +45,9 @@ words:
     audio: test.wav
     segments:
       - t: true
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+        tɛst: That's correct, but submit segments one at a time, clicking 
         blah: > # <-- The ">" here indicates a multiline string.
           For each of the following words, you'll be given both a word in English, and a
           sound file. Making reference to the sound file, you'll give us each sound in the in word.
@@ -62,10 +65,10 @@ words:
         /...: No need to use slashes or brackets here!
         "[...": No need to use slashes or brackets here!
       - æ: true
-        ɑ: No, this vowel would sound like 'bahn' or 'bomb'
-        a: This vowel is really only used in diphthongs in English
+        ɑ: No, the /ɑ/ vowel would sound like 'bahn' or 'bomb'
+        a: The /a/ vowel is really only used in diphthongs in English, and isn't correct here anyways.
         ae: It's important to write this vowel as a digraph, /æ/, otherwise it's a VV sequence and very different
-        ɔ: Open o?  More like NOPE-n o.  Try another vowel.
+        ɔ: Open o?  More like NOPE-n o. This is more towards the front of the mouth. Try another vowel.
       - n: true
         m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
         ŋ: This is a velar nasal like in 'bang', but the sound in this word is made more towards the front of the mouth
@@ -131,3 +134,4 @@ words:
         c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English.  What -sound- is there?
       - _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
         ...: Don't let your writing system lie to you!
+  
