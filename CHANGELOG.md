@@ -2,6 +2,10 @@
 
 ## [master]
 
+## v0.5.1
+
+* Minor tweaks to the example assignment1
+
 ## v0.5.0
 
 * Links now work correctly for Markdown
