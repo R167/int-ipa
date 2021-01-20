@@ -100,6 +100,8 @@ words:
       - u: true
         _ow: Nope, that would be the vowel in 'soap'
         ʊ: Nope, that would be the vowel in 'soot'
+        o: Nope, that's just the writing system lying to you again
+        oo: Nope, that's just the writing system lying to you again
         ɔ: Open o?  More like NOPE-n o.  Try another vowel.
       - n: true
         m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
@@ -138,12 +140,11 @@ words:
         d: This isn't the whole affricate.  Write the whole sound before you submit.
         j: This is the sound at the start of "yacht", I think your writing system may have lied to you here.  What does the <j> here sound like?
       - ɑ: true
+        a: /a/ is only used in dipthongs in MUSE.  You want /ɑ/
         ɔ: This is probably a /ɑ/, whether you've got the cot/caught merger or not.
         o: Remember that /ow/ is always a diphthong in my dialect of MUSE
         _ow: This is the vowel in 'boat', and unless you're reading this word as the biblical name 'Job', it isn't the vowel you want here.
-      - ŋ: true
-        m: This would be a bilabial nasal, made with the lips, like in 'ram'. That's not what's going on here though!
-        n: This is an alveolar nasal like in 'din'.  Is your tongue really at the alveolar ridge for this, or is your writing system lying to you?
+      - b: true
       - "": true
         g: There's probably not a separate /g/ sound at the end of this word, unless you're really over-carefully articulating.
   - display: phone

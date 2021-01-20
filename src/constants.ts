@@ -12,4 +12,4 @@ export const TASK_FILE = "tasks.yaml";
 // Generate a full file URL given the folder and the pathname
 export const fileUrl = (folder: string, path: string) => `${BASE_URL}/${folder}/${path}`;
 
-export const fullBaseUrl = () => new URL(BASE_URL, window.origin);
+export const fullBaseUrl = () => new URL(BASE_URL, window.location.href);
