@@ -1,0 +1,12 @@
+# A list of tasks that need to be run.
+
+title: LIGN 101 - Intro to Linguistics
+description: >
+  This is an introductory linguistics class. You've just got one tutorial, below.
+
+tasks:
+  - name: LIGN 101 Homework 1 Tutorial
+    # optional field
+    description: This will help you come to terms with the IPA!
+    file: assignment1.yaml
+    hidden: false
