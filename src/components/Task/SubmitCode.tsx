@@ -82,7 +82,7 @@ const SubmitCode = (props: Props) => {
             title={<Typography variant="subtitle2">Copied code!</Typography>}
           >
             <TextField
-              label={prompt}
+              label={!!result ? "Validation code" : prompt}
               variant="filled"
               InputProps={{
                 readOnly: !!result,
