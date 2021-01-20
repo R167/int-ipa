@@ -20,8 +20,11 @@ homepage:
     Any bugs, features requests, or feedback should be filed on the [projects issues page](https://github.com/R167/int-ipa/issues).
     If you have any interest hosting your own classes here, please reach out on Github with a [hosting request](https://github.com/R167/int-ipa/issues/new).
 classes:
-  - name: LIGN 101
-    folder: lign101
+  - name: UCSD LIGN 101 (Styler)
+    folder: ling101
+    hidden: false
+  - name: Example Class
+    folder: ex-lign101
     hidden: false
 
   # Demonstrate a "hidden" class
