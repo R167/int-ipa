@@ -1,0 +1,137 @@
+---
+author: Winston Durand and Will Styler
+title: LIGN 101 IPA Training
+salt: vowelsarecool # This is a value unique to this assignment
+instructions: > # <-- The ">" here indicates a multiline string.
+  For each of the following words, you'll be given both a word in English, and a
+  sound file. Making reference to the sound file, you'll give us each sound in the
+  word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can
+  be a single IPA character, like 's', or, for something more complicated like
+  affricates (e.g. 't͡ʃ') or diphthongs (e.g. 'ej') or other multi-symbol characters,
+  you might enter multiple symbols at one.  When you think you've entered the
+  symbol(s) associated with the first sound completely, press 'Submit IPA Symbol(s)' to
+  check your work. Then, do this for the remaining sounds, and when you feel like
+  you've finished all the sounds in the word, click 'Submit' one last time.
+macros:
+  _ow:
+    - ow
+    - oʊ
+  _ej:
+    - ej
+    - eɪ
+  _e_is_a_lie: # lying orthography...
+    - _ej # macros can be expanded in other macros
+    - e
+    - ɛ
+    - ə
+  _ɔj:
+    - ɔj
+    - ɔɪ
+  _ch:
+    - tʃ
+    - t͡ʃ
+  _j:
+    - dʒ
+    - d͡ʒ
+  -aj:
+    - aj
+    - aɪ
+  # rhotics
+  _əɹ:
+    - əɹ
+    - ɚ
+words:
+  - display: test
+    audio: test.wav
+    segments:
+      - t: true
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+        tɛst: That's correct, but submit segments one at a time, clicking 
+        blah: > # <-- The ">" here indicates a multiline string.
+          For each of the following words, you'll be given both a word in English, and a
+          sound file. Making reference to the sound file, you'll give us each sound in the in word.
+      - ɛ: true
+        e: Your writing system is lying to you here. This vowel only occurs in the diphthong /ej/, and would sound like 'taste'
+      - s: true
+        st: In this case, /s/ and /t/ are two segments, unlike in affricates or diphthongs. Submit the /s/ first!
+      - t: true
+        "": Although some dialects of English would simplify this cluster to just /s/, there's a /t/ in this audio file!
+  - display: ban
+    audio: ban.wav
+    segments:
+      - b: true
+        p: No, this is a voiced sound in English (although it sounds like a voiceless sound in many other languages!)
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+      - æ: true
+        ɑ: No, the /ɑ/ vowel would sound like 'bahn' or 'bomb'
+        a: The /a/ vowel is really only used in diphthongs in English, and isn't correct here anyways.
+        ae: It's important to write this vowel as a digraph, /æ/, otherwise it's a VV sequence and very different
+        ɔ: Open o?  More like NOPE-n o. This is more towards the front of the mouth. Try another vowel.
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'bang', but the sound in this word is made more towards the front of the mouth
+      - "": true
+  - display: rain
+    audio: rain.wav
+    segments:
+      - ɹ: true
+        r: This is the Voiced Alveolar Trill, the Spanish 'Rolled R'. You want the English R, /ɹ/.
+        l: Nope, you've got the wrong liquid here.
+      - _ej: true
+        e: This vowel is a diphthong for most in mainstream US English, so you'll want to write it as such
+        ɛ: ɛ is the vowel in 'rent', not rain
+        ə: ə is only used in unstressed contexts, and would sound more like 'run' anyways
+        a: This is a low vowel.  Is your jaw really that low when making this sound?
+        _aj: I'm thinking your writing system is leading you astray.  This is the vowel in 'rhine' or 'rye'
+        ai: Remember, your writing system is a bucket of lies.  Don't let it lead you astray!  /ai/ isn't even a diphthong used in English
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'ram'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'rang', but the sound in this word is made more towards the front of the mouth
+  - display: horse
+    audio: horse.wav
+    segments:
+      - h: true
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+      - ɔ: true
+        o: In some dialects, /o/ occurs here, but for this class, use /ɔ/
+        _ow: In some dialects, /o/ occurs here, but certainly not the full diphthong. Try again!
+        u: Say 'boo', now 'horse'. Is your tongue in the same place?
+      - ɹ: true
+        r: Be careful, /r/ is a voiced alveolar trill (think the Spanish 'rolled' R). What's the English symbol?
+        _əɹ: This isn't a full on vowel (like in 'curb'), but just a consonant
+      - s: true
+        z: You're mostly right, but check if this is really voiced or voiceless
+        # passing in an explicit `""` symbol (the empty string) is fully optional. It's mostly just
+        # to make explicitly clear that this is the end of the word. If not provided
+        # it is implied. You don't even need to specify it.
+      - "": true
+        _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
+        # special symbol `...` is equivalent to any other inputs.
+        ...: Don't let your writing system lie to you!
+  - display: choice
+    audio: choice.wav
+    segments:
+      - _ch: true
+        _j: You're on the right track, but is this really voiced? Double check that
+        c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English
+        ch: The <ch> sound isn't done using a /c/ or an /h/ in IPA.  Think about where your tongue is to start, and remember the 'chocolate' example in lecture!
+        tsh: There's a different symbol for the <ch> sound. Use it!
+        ts: /ts/ is also an affricate, but it's the sound at the end of 'cats'
+        t: Remember, the <ch> sound is comprised of two sounds combined
+      - _ɔj: true
+        ɔ: This isn't just an /ɔ/, but something more.
+        ɔi: >
+          This isn't absolutely a diphthong, and you're on the right track,
+          but we write this diphthong as /ɔj/ in this class (because it's not ending quite as high as /i/.
+        _ej: This is the diphthong in 'bay' or 'rain'. Try another.
+        _aj: This is the diphthong in 'buy' or 'rice'. Try another.
+        o...: Generally speaking, in mainstream US English, /ɔ/ is used here.
+      - s: true
+        z: You're almost there, but is this a voiced or voiceless sound?
+        c: Remember, /c/ is a voiceless palatal stop, and that symbol isn't used in the IPA for English.  What -sound- is there?
+      - _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
+        ...: Don't let your writing system lie to you!
+  
