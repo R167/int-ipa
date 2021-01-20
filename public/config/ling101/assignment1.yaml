@@ -1,7 +1,7 @@
 ---
 author: Winston Durand and Will Styler
 title: LIGN 101 IPA Training
-salt: vowelsarecool # This is a value unique to this assignment
+salt: vowelsarereallycool # This is a value unique to this assignment
 instructions: | # <-- The "|" here indicates a multiline string
   For each of the following words, you'll be given both a word in English, and a sound file. Making reference to the
   sound file, you'll give us the IPA character representing each sound in the word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can be a single IPA character, like 's', or, for something more complicated like
@@ -117,7 +117,7 @@ words:
       - θ: true
         t: There's no /t/ in the English <th>. What symbol do we really want here?
         th: There's no /t/ in the English <th>. What symbol do we really want here?
-        ð: You've got that this is an interdental sound, but is it really voiced? (Hint: No)
+        ð: "You've got that this is an interdental sound, but is it really voiced? (Hint: No)"
       - ɪ: true
         i: Close, but not quite. /i/ is the vowel in "deed", and is usually longer than the vowel you want here
         e: This vowel is a diphthong for most in mainstream US English, so you'll want to write it as such
@@ -188,14 +188,14 @@ words:
       - ð: true
         t: There's no /t/ in the English <th>. What symbol do we really want here?
         th: There's no /t/ in the English <th>. What symbol do we really want here?
-        θ: You've got that this is an interdental sound, but is it really voiceless? (Hint: No)
+        θ: "You've got that this is an interdental sound, but is it really voiceless? (Hint: No)"
       - _ow: true
         o: This should be /ow/, the diphthong
         u: This would the vowel in 'fool'
         ʊ: This would be the vowel in 'foot'
       - "": true
         ...: Don't let your writing system lie to you!
- - display: rage
+  - display: rage
     audio: rage.wav
     segments:
       - ɹ: true
@@ -206,7 +206,7 @@ words:
         ɛ: ɛ is the vowel in 'rent', not rain
         ə: ə is only used in unstressed contexts, and would sound more like 'run' anyways
         a: This is a low vowel.  Is your jaw really that low when making this sound?
-      _aj: I'm thinking your writing system is leading you astray.  This is the vowel in 'rhine' or 'rye'
+        _aj: I'm thinking your writing system is leading you astray.  This is the vowel in 'rhine' or 'rye'
         ai: Remember, your writing system is a bucket of lies.  Don't let it lead you astray!  /ai/ isn't even a diphthong used in English
       - d͡ʒ: true
         dʒ: This is accurate, but you want the tie bar (d͡ʒ)
@@ -214,7 +214,7 @@ words:
         g: Does this really end with a /g/ like "rag" does? Or is this sound something else, and your writing system is lying to you?
       - "": true
         _e_is_a_lie: Are you sure there's another vowel there?  Remember, your writing system is lying to you.
- - display: yoshi
+  - display: yoshi
     audio: yoshi.wav
     segments:
       - j: true
