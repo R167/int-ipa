@@ -44,7 +44,7 @@ for this class, what the assignment is called, and a short description.
 
 The assignment file itself contains metadata about the assignment, instructions, and the list
 of all words to be transcribed (specified again as a list of correct and incorrect options). Here is
-a [sample](public/config/lign101/format.sample.yaml) with annotations about which fields are required
+a [sample](public/config/ex-lign101/format.sample.yaml) with annotations about which fields are required
 or optional. Additionally, [`assignment1.yaml`](public/config/ex-lign101/assignment1.yaml) is a full
 assignment using all of the available features. Finally, an assignment may attach sound files. All URLs
 are assumed relative to the given config file. This means you can easily have assignments fully self
