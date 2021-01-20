@@ -2,6 +2,16 @@
 
 ## [master]
 
+## v0.5.3
+
+* Fixed changelog
+* Add changelog check to version bump
+
+## v0.5.2
+
+* Update examples
+* Fix bug where sounds on relative assets didn't work
+
 ## v0.5.1
 
 * Minor tweaks to the example assignment1

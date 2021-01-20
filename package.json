@@ -34,7 +34,7 @@
     "zbase32": "^1.0.3"
   },
   "scripts": {
-    "preversion": "yarn prettier --check ./src && yarn lint-ci && yarn test --watchAll=false",
+    "preversion": "(git show :CHANGELOG.md | grep \"## v$npm_package_version\" || (echo \"Missing v$npm_package_version in changelog!\" && exit 100)) && yarn prettier --check ./src && yarn lint-ci && yarn test --watchAll=false",
     "postversion": "echo \"Pushing $npm_package_version to origin...\" && git push --follow-tags",
     "start": "react-scripts start",
     "build": "react-scripts build",
