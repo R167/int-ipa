@@ -1,7 +1,7 @@
 # This is the manifest file that describes all classes for this
 
 homepage:
-  title: Welcome to Int IPA!
+  title: Welcome to IntIPA!
   body: | # The body is formatted as markdown. Learn more at https://guides.github.com/features/mastering-markdown/
     This is an interactive tool for teaching IPA transcription to students. It is designed to
     give students immediate feedback as they transcribe words in an assignment and help identify
@@ -20,7 +20,10 @@ homepage:
     Any bugs, features requests, or feedback should be filed on the [projects issues page](https://github.com/R167/int-ipa/issues).
     If you have any interest hosting your own classes here, please reach out on Github with a [hosting request](https://github.com/R167/int-ipa/issues/new).
 classes:
-  - name: LIGN 101
+  - name: UCSD LIGN 101 (Styler)
+    folder: ling101
+    hidden: false
+  - name: Example Class
     folder: ex-lign101
     hidden: false
 

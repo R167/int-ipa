@@ -1,7 +1,7 @@
 ---
 author: Winston Durand and Will Styler
 title: LIGN 101 IPA Training
-salt: vowelsarecool # This is a value unique to this assignment
+salt: vowelsarereallycool # This is a value unique to this assignment
 instructions: | # <-- The "|" here indicates a multiline string
   For each of the following words, you'll be given both a word in English, and a sound file. Making reference to the
   sound file, you'll give us the IPA character representing each sound in the word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can be a single IPA character, like 's', or, for something more complicated like
