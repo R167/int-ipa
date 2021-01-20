@@ -1,0 +1,20 @@
+---
+author: _author_name_ # required
+title: _title_ # required
+salt: _optional_salt_value_ # optional
+instructions: | # required
+  Your instructions
+  go here
+macros: #optional
+  _macro_key_:
+    - _expansion_1_
+    - _expansion_2_
+words:
+  - display: _orthography_ # required
+    audio: _sound_file_ # optional
+    instructions: | # optional
+      This is word specific help text
+    segments:
+      - correct_value: true
+        wrong_value: incorrect message
+        ...: anything else message

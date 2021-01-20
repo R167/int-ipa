@@ -1,0 +1,32 @@
+# A list of tasks that need to be run.
+
+title: LIGN 101 - Intro to Phonetics
+description: >
+  This is an introductory phonetics class. Every week, you'll have a new assignment.
+tasks:
+  - name: Your first assignment!
+    # optional field
+    description: This is a "getting to know you" style assignment
+    file: assignment1.yaml
+    hidden: false
+
+  - name: Duplicate link to assignment 1
+    description: >
+      The only difference here is that this assignment has an unreasonably long description for some
+      reason and nobody really quite understands why. Most likely it's to test the overflow, etc. of
+      how a really long description interacts with stuff.
+    file: assignment1.yaml
+
+  - name: Broken sample
+    description: This is a "getting to know you" style assignment
+    file: format.sample.yaml
+    hidden: true
+
+  - name: A nested file...
+    description: Test for nested assignments
+    file: nested/nested.yaml
+
+  - name: Intentionally hidden
+    description: This assignment is currently **hidden**
+    file: assignment1.yaml
+    hidden: true
