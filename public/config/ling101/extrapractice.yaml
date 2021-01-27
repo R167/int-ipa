@@ -1,0 +1,321 @@
+---
+author: Winston Durand and Will Styler
+title: LIGN 101 IPA Practice
+salt: thepasttenseofyeetisyote # This is a value unique to this assignment
+instructions: | # <-- The "|" here indicates a multiline string
+  For each of the following words, you'll be given both a word in English, and a sound file. Making reference to the
+  sound file, you'll give us the IPA character representing each sound in the word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can be a single IPA character, like 's', or, for something more complicated like
+  affricates (e.g. 't͡ʃ') or diphthongs (e.g. 'ej') or other multi-symbol characters (e.g. /əɹ/), you might enter multiple symbols
+  at once. No need to mark stress with ' or ̩.  When you think you've entered the symbol(s) associated with the first sound completely, press 'Submit IPA
+  Symbol(s) or Word' to check your work. Then, do this for the remaining sounds, and when you feel like you've finished
+  all the sounds in the word, click 'Submit' one last time. You'll get less 'guidance' as the exercise goes on.  Godspeed!
+
+  Good luck!
+macros:
+  ow:
+    - ow
+    - oʊ
+  aw:
+    - aw
+    - aʊ
+  _olies:
+    - ow
+    - oʊ
+    - o
+    - ɔ
+  ej:
+    - ej
+    - eɪ
+  _e_is_a_lie: # lying orthography...
+    - _ej # macros can be expanded in other macros
+    - e
+    - ɛ
+    - ə
+  _ɔj:
+    - ɔj
+    - ɔɪ
+  _ch:
+    - tʃ
+    - t͡ʃ
+  _j:
+    - dʒ
+    - d͡ʒ
+  aj: # macros don't need a prefix
+    - aj # when a macro expands to its own name, it just uses the name literal
+    - aɪ
+  # rhotics
+  əɹ:
+    - əɹ
+    - ɚ
+# Also record mitten
+words:
+  - display: practice
+    audio: practice.wav
+    segments:
+      - p: true
+        /...: No need to use slashes or brackets for this activity!
+        "[...": No need to use slashes or brackets for this activity!
+        practice: Remember, not only is your orthography lying to you, but we also want you to type each sound individually
+        pɹæktɪs: While that's correct, we want you to transcribe each sound individually (i.e. start with submitting "p")
+      - ɹ: true
+        r: Remember, English <r> is the flipped /ɹ/
+        ə: Maybe you're going for əɹ here?  No, this is a plain old consonantal ɹ, part of the same syllable as p and the next vowel
+        əɹ: Maybe you're going for əɹ here?  No, this is a plain old consonantal ɹ, part of the same syllable as p and the next vowel
+      - æ: true
+        a: Nope, this is a bit more front than this, and /a/ only occurs in diphthongs in English
+        ae: Make sure to write this vowel with the digraph /æ/, otherwise it's a sequence of /a/ and /e/
+        ɑ: This is the vowel in 'proctor', not 'practice'
+        ɛ: This is the vowel in 'predict', not 'practice'
+      - k: true
+        c: Your writing system is lying to you.  Remember, the IPA /c/ isn't used in English, the written C is always /s/, /k/, or /t͡ʃ/
+      - t: true
+        ɾ: This isn't a tap, tap is VERY unlikely to occur after another consonant, mostly just between vowels
+        d: This can sound a bit /d/ like because it's not aspirated, but it's a /t/
+      - ɪ: true
+        i: This is the vowel in 'tease', not the one you want here
+        aj: This is the diphthongal vowel in 'entice', not what you want here
+        ɛ: This is the second vowel in 'countess', not this one
+      - s: true
+        c: Your writing system is lying to you.  Remember, the IPA /c/ isn't used in English, the written C is always /s/, /k/, or /t͡ʃ/
+      - "": true
+        _e_is_a_lie: Your writing system is lying to you.  Are you sure there's a vowel at the end of this?
+  - display: never
+    audio: never.wav
+    segments:
+      - n: true
+        m: Nope, the sound in this word is a nasal, but made with the tongue at the alveolar ridge, not by closing the lips
+        ŋ: This is a nasal, yes, but ŋ never occurs at the start of English words, and is in words like 'sing'. Is this really a velar sound?
+      - ɛ: true
+        e: Your writing system is lying to you.  This is always a diphthong in English
+        ej: This is the sound in 'neigh'
+        ə: This is the first unstressed vowel in 'damascus' not the never vowel
+      - v: true
+        f: You're looking for a voiced labiodental sound here, not voiceless.
+        w: This occasionally happens in some l2 English speakers, but not here
+      - əɹ: true
+        ɛ: This is the vowel in 'air' or 'tear'
+        ej: Nope, this doesn't happen in MUSE before /ɹ/
+        ə: This is accurate, but we're going to consider əɹ a single vowel chunk
+      - "": true
+  - display: gonna
+    audio: gonna.wav
+    segments:
+      - g: true
+        k: This may sound voiceless to you if you speak other languages, but this is a voiced sound
+      - ə: true
+        ʌ: This sounds like a wedge, but 'gonna' is a word that's usually not stressed at the phrase level, so let's use schwa (ə)
+        _olies: This is your writing system lying to you. Does this really sound <o> like?
+        ɑ: This would be the vowel in 'gone'
+        æ: This would be the vowel in 'gap'
+      - n: true
+        ɾ: This sure feels like a tap (a nasalized tap!) for some. Good instincts.  But let's write /n/ here.
+        ɾ̃: This is accurate for many people, but let's write /n/ here. Good thinking, though!
+      - ə: true 
+        ʌ: This sounds like a wedge, but 'gonna' is a word that's usually not stressed at the phrase level, so let's use schwa (ə)
+        a: Nope, this only happens in diphthongs, and is probably your writing system lying to you
+        aw: This would be the vowel in 'now'
+        ɑ: This would be the vowel in 'not'
+        æ: This is the vowel in 'gnat' or 'nab'
+      - "": true
+  - display: give 
+    audio: give.wav
+    segments:
+      - g: true
+      - ɪ: true
+        i: No, this would be the vowel in 'geese'.
+      - v: true
+        f: No, you want the voiceless one
+      - "": true
+  - display: you
+    audio: you.wav
+    segments:
+      - j: true
+        y: Remember, English doesn't use /y/, in the IPA, it's a high front vowel.  You want /j/
+      - u: true
+        ow: Nope, that would be the vowel in 'yo'
+        ʊ: Nope, that would be the vowel in 'soot'
+        o: Nope, that's just the writing system lying to you again
+        ɔ: Open o?  More like NOPE-n o.  Try another vowel.
+      - "": true
+  - display: up
+    audio: up.wav
+    segments:
+      - ʌ: true
+        ə: This sounds like schwa, but it's the only vowel here, and usually has some stress in sentences, so I'd go with /ʌ/
+      - p: true
+        b: This is a voiced stop, but you want voiceless
+      - "": true
+  - display: dog
+    audio: dog.wav
+    segments:
+      - d: true
+      - ɑ: true
+        a: /a/ is only used in dipthongs in MUSE.  You want /ɑ/
+        ɔ: This is probably a /ɑ/, whether you've got the cot/caught merger or not.
+        o: Remember that /ow/ is always a diphthong in my dialect of MUSE
+        _ow: This is the vowel in 'boat', and unless you're reading this word as 'doge', it isn't the vowel you want here.
+      - g: true
+      - "": true
+  - display: danger
+    audio: danger.wav
+    segments:
+      - d: true
+      - ej: true
+      - n: true
+      - d͡ʒ: true
+      - əɹ: true
+        ɛ: This is the vowel in 'air' or 'tear'
+        ej: Nope, this doesn't happen in MUSE before /ɹ/
+        ə: This is accurate, but we're going to consider əɹ a single vowel chunk
+      - "": true
+  - display: zones
+    audio: zones.wav
+    segments:
+      - z: true
+        s: Nope, you want the voiced variant
+        ʒ: This is the sound in 'pleasure' or 'garage', try again.
+      - ow: true
+        o: This should be /ow/, the diphthong
+        u: This would the vowel in 'zoom'
+        ʊ: This would be the vowel in 'soot'
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'foam'. That's not what's going on here though!
+      - z: true
+        s: Is this really voiceless?  Your writing system is probably lying to you (although word final voiced sounds can be less voiced than you'd expect in English!)
+        _e_is_a_lie: This is your writing system doing a LOT of lying to you.  How many syllables are here?  Is there another vowel? 
+      - "": true
+  - display: shudder
+    audio: shudder.wav
+    segments:
+      - ʃ: true
+        z: This is a voiced alveolar, and that's not the sound you want
+        s: Nope, this is too far forward in the mouth
+        ʒ: This is the sound in 'pleasure' or 'garage', try again.
+      - ʌ: true 
+        ə: This sounds like a schwa, but it's a stressed vowel and doesn't 'change' into something else when stressed.  You want /ʌ/
+        a: Nope, this only happens in diphthongs, and is probably your writing system lying to you
+        aw: This would be the vowel in 'now'
+        ɑ: This would be the vowel in 'not'
+        æ: This is the vowel in 'gnat' or 'nab'
+      - ɾ: true
+        t: This isn't a /t/, it's a tap /ɾ/ for most people in connected speech in MUSE
+        d: This isn't a /d/, it's a tap /ɾ/, much shorter.
+        r: You're right that this sound is a lot like the /r/ in Spanish, but in English, it's /ɾ/
+      - əɹ: true
+        ɛ: This is the vowel in 'air' or 'tear'
+        ej: Nope, this doesn't happen in MUSE before /ɹ/
+        ə: This is accurate, but we're going to consider əɹ a single vowel chunk
+      - "": true
+  - display: chop
+    audio: chop.wav
+    segments:
+      - t͡ʃ: true
+        tʃ: This is accurate, but you want the tie bar (t͡ʃ) to mark it as an affricate, not a /t/ /ʃ/ sequence
+        ʒ: No, this is the last sound in garage
+        ʃ: No, this is the consonant in 'shoosh'
+        _j: No, you want the voiceless version
+        c: C is a lie in English. What does this actually sound like?
+        ch: <ch> is not IPA.  What does this actually sound like?
+      - ɑ: true
+        a: This is close, but we use /a/ only in diphthongs.
+        ɔ: This is probably a /ɑ/, whether you've got the cot/caught merger or not.
+        o: Remember that /ow/ is always a diphthong in my dialect of MUSE
+        _ow: This is the vowel in 'boat', and unless you're reading this word as the biblical name 'Job', it isn't the vowel you want here.
+        æ: This would be the vowel in 'chat' instead
+      - p: true
+      - "": true
+  - display: laptop
+    audio: laptop.wav
+    segments:
+      - l: true
+      - æ: true
+      - p: true
+      - t: true
+      - ɑ: true
+      - p: true
+      - "": true
+  - display: bear
+    audio: bear.wav
+    segments:
+      - b: true
+      - ɛ: true
+        e: Nope, your writing system is lying to you!
+        ej: Is the vowel in 'bear' really the same as the vowel in 'bay'?
+      - ɹ: true
+        r: Your /ɹ/ is upside down
+        a: Your writing system has told you a tall tale
+      - "": true
+  - display: gauge
+    audio: gauge.wav
+    segments:
+      - g: true
+      - ej: true
+        a: Your writing system is lying to you
+        ɑ: Your writing system is very much lying to you.
+      - d͡ʒ: true
+        g: Your writing system is lying to you
+        ʒ: This is the sound at the end of garage. Here, it's an affricate, not a fricative
+        t͡ʃ: Is this voiceless?
+      - "": true
+  - display: patricia
+    audio: patricia.wav
+    segments:
+      - p: true
+      - ə: true
+        ʌ: This isn't a stressed vowel, so it can't be wedge
+      - t͡ʃ: true
+        t: For some, this chunk is /tɹ/, but go ahead and give me /t͡ʃ/ followed by /ɹ/, which is closer.
+        tɹ: For some, this chunk is /tɹ/, but go ahead and give me /t͡ʃ/ followed by /ɹ/, which is closer.
+      - ɹ: true
+        r: Flip that /r/!
+      - ɪ: true
+        i: In this pronunciation, there's not 'tree' in the middle of 'patricia'
+      - ʃ: true
+      - ə: true 
+        ʌ: This sounds like a wedge, but 'gonna' is a word that's usually not stressed at the phrase level, so let's use schwa (ə)
+        a: Nope, this only happens in diphthongs, and is probably your writing system lying to you
+        aw: This would be the vowel in 'now'
+        ɑ: This would be the vowel in 'not'
+        æ: This is the vowel in 'gnat' or 'nab'
+      - "": true
+  - display: cloud
+    audio: cloud.wav
+    segments:
+      - k: true
+        c: Your writing system is lying to you
+      - l: true
+      - aw: true
+        ow: This is the vowel in 'clone', not what you want
+        o: This isn't the vowel you want here
+        ɑ: This is the vowel in 'clod'
+        ɔ: This is the vowel in 'clawed' for folks who don't merge /ɑ/ and /ɔ/
+      - d: true
+      - "": true
+  - display: yeet
+    audio: yeet.wav
+    segments:
+      - j: true
+        y: Your writing system is lying to you
+      - i: true
+        ɪ: This isn't what you're after here.
+        ɛ: This would be 'yet'.
+      - t: true
+        ʔ: It's true that for many this ends with a glottal stop and /t/, or just a glottal stop. For this, choose /t/
+      - "": true
+  - display: greeted
+    audio: greeted.wav
+    segments:
+      - g: true
+      - ɹ: true
+        r: Your /ɹ/ is upside down
+      - i: true
+        ɪ: This isn't what you're after here.
+        ɛ: This would be 'yet'
+      - ɾ: true
+        t: This is a /t/ underlyingly, but it turns into a tap (ɾ) in this context.
+        d: This might sound a bit like a /d/, but it's really a tap (ɾ)
+        ʔ: It's true that for some dialects it has a glottal stop, but that's not what's going on here.
+      - ə: true
+        ɪ: This is very often /ɪ/-like, and some would use /ɪ/ or even /ɨ/ here.  But for this class, use schwa
+      - d: true
+      - "": true

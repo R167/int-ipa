@@ -173,8 +173,8 @@ words:
         o: Remember that /ow/ is always a diphthong in my dialect of MUSE
         _ow: This is the vowel in 'boat', and unless you're reading this word as the biblical name 'Job', it isn't the vowel you want here.
       - ɾ: true
-        t: Phonologically this is a /t/ for sure, but in practice, it's a tap for most people in connected speech in MUSE
-        d: This isn't a /d/, it's a tap, much shorter.
+        t: Phonologically this is a /t/ for sure, but in practice, it's a tap /ɾ/ for most people in connected speech in MUSE
+        d: This isn't a /d/, it's a tap /ɾ/, much shorter.
         r: You're right that this sound is a lot like the /r/ in Spanish, but in English, it's /ɾ/
       - ə: true
         əɹ: This is correct, but you'll want to submit the /ɹ/ separately
@@ -196,6 +196,25 @@ words:
         ʊ: This would be the vowel in 'foot'
       - "": true
         ...: Don't let your writing system lie to you!
+  - display: mitten
+    audio: mitten.wav
+    segments:
+      - m: true
+      - ɪ: true
+        i: Nope, this is the vowel in 'meat'
+        ə: No, this is a stressed vowel, and not schwa-like
+        ʌ: No, this doesn't sound like 'mutt'
+      - ʔ: true
+        t: It's certainly spelled with a /t/, and there's often a bit of /t/ like articulation, and you could say it with a full on /t/, but is it really just a /t/ in the sound file? What's going on in the larynx?
+        d: Not a voiced sound in the middle here.  What else could be going on?
+        ɾ: Taps are the sounds in 'later' or 'ladder'. Not the same thing here.
+      - n̩: true
+        ə: Yes, this is often written /ən/, but for this, let's use a syllabic /n/ (n̩)
+        n: This is all /n/, you're right, but since it's its own syllable, mark it syllabic (n̩)
+        ɪ: This can feel like a final /ɪn/ in careful speech, but in practice, it's usually a syllabic /n/ (n̩).  Use that.
+        e: Your writing system is lying to you
+        ʌ: Yes, this is often written /ən/, which sounds a lot like /ʌ/, but for this, let's use a syllabic /n/ (n̩)
+      - "": true
   - display: rage
     audio: rage.wav
     segments:
