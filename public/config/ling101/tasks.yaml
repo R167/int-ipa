@@ -10,3 +10,8 @@ tasks:
     description: This will help you come to terms with the IPA!
     file: assignment1.yaml
     hidden: false
+  - name: LIGN 101 Bonus IPA Practice
+    # optional field
+    description: This will give you some extra practice with IPA.  Not required.
+    file: extrapractice.yaml
+    hidden: false
