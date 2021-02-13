@@ -20,7 +20,8 @@ check yarn test --watchAll=false
 
 echo "Creating tag $version"
 
-check "git tag -a $version -m 'Release $version'"
+git commit -m "Release $version" && \
+git tag -a $version -m "Release $version" || exit 100
 
 echo "Pushing $version to origin..."
 

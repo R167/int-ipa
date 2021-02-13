@@ -2,6 +2,8 @@
 
 ## [master]
 
+## v0.6.0
+
 * (Internal) switch to yarn berry for installation/package management
 * Revamp reslease mechanism (again...)
 * Update github actions to work with new yarn version
