@@ -42,7 +42,7 @@
     "zbase32": "^1.0.3"
   },
   "scripts": {
-    "release": "(git show :CHANGELOG.md | grep \"## v$npm_package_version\" || (echo \"Missing v$npm_package_version in changelog!\" && exit 100)) && yarn prettier --check ./src && yarn lint-ci && yarn test --watchAll=false && echo \"Pushing $npm_package_version to origin...\" && exit 2 && git push --follow-tags",
+    "release": "scripts/release.sh",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
