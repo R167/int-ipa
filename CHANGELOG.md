@@ -2,6 +2,11 @@
 
 ## [master]
 
+* (Internal) switch to yarn berry for installation/package management
+* Revamp reslease mechanism (again...)
+* Update github actions to work with new yarn version
+* Dependency updates
+
 ## v0.5.3
 
 * Fixed changelog
