@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Changed
-- Began using keep a changelog format
+- Began using [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
 
 ## [0.6.0] - 2021-02-16
 - (Internal) switch to yarn berry for installation/package management
