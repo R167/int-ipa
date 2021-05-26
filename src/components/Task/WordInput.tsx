@@ -8,6 +8,8 @@ import StickyIPA from "../keyboard/StickyIPA";
 import { Word, matchSegment } from "../../utils/parsers/task";
 import { useDebugContext } from "../../utils/Debug";
 
+const ATTEMPTS_BEFORE_HINT = 5;
+
 const useStyles = makeStyles((theme) => ({
   correct: {
     color: theme.palette.type === "dark" ? theme.palette.success.main : theme.palette.success.dark,
@@ -34,6 +36,7 @@ interface State {
   header: string;
   errorMessage?: string;
   error: boolean;
+  attempt: number;
 }
 
 interface Action<T> {
@@ -58,6 +61,7 @@ const reset = (word: Word) => {
     segment: 0,
     header: "",
     error: false,
+    attempt: 0,
   };
 };
 
@@ -70,11 +74,20 @@ const reducer = (state: State, action: Act): State => {
     case Op.SetHeader:
       return { ...state, header: action.value };
     case Op.NextSegment: // Inc segment and add value to header
-      return { ...state, segment: state.segment + 1, header: state.header + action.value };
+      return {
+        ...state,
+        segment: state.segment + 1,
+        header: state.header + action.value,
+        attempt: 0,
+      };
     case Op.ClearError:
       return state.error ? { ...state, error: false } : state;
     case Op.ErrorMessage:
-      return { ...state, error: true, errorMessage: action.value };
+      const { attempt } = state;
+      const { hint } = state.word.segments[state.segment];
+      // if the user has failed too many times, display the hint instead of error message if it exists
+      const errorMessage = attempt >= ATTEMPTS_BEFORE_HINT && hint ? hint : action.value;
+      return { ...state, error: true, errorMessage, attempt: attempt + 1 };
   }
 };
 

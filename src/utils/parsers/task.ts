@@ -23,6 +23,7 @@ export interface WordSegment {
   correct: string[];
   explanations: Explanations;
   wildcards?: Wildcard[];
+  hint?: string;
 }
 
 export interface Word {
@@ -136,6 +137,7 @@ const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[]
       let correct: string[] = [];
       let wildcards: Wildcard[] = [];
       const explanations = new Map<string, string>();
+      let hint: string | undefined;
 
       // Record iteration
       for (const key in segment) {
@@ -147,6 +149,9 @@ const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[]
         } else if (sym.includes("...") || sym.includes("%")) {
           // Wildcard matcher
           wildcards.push({ matcher: sym, message: value || DEFAULT_MESSAGE });
+        } else if (sym === "HINT" && typeof value === "string") {
+          // Require the optional hint to be all caps
+          hint = value;
         } else {
           // We just have a normal explanation
           expandMacro(sym, macros).forEach((expand) => {
@@ -154,7 +159,7 @@ const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[]
           });
         }
       }
-      return { correct, explanations, wildcards };
+      return { correct, explanations, wildcards, hint };
     }
   );
 
