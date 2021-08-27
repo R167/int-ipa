@@ -229,6 +229,7 @@ words:
     segments:
       - l: true
       - æ: true
+        a: This is your writing system again!
       - p: true
       - t: true
       - ɑ: true
