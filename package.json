@@ -49,7 +49,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint-ci": "yarn lint --max-warnings=0",
-    "fix": "eslint --fix ./src",
+    "fix": "yarn prettier -w ./src && eslint --fix ./src",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
@@ -93,7 +93,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.1",
     "@types/react-router-dom": "^5.1.6",
-    "@typescript-eslint/eslint-plugin": "^4.25.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
     "eslint-plugin-flowtype": "^5.3.1",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jest": "^24.1.5",

@@ -133,10 +133,10 @@ const WordInput = (props: Props) => {
 
   const { header, error, errorMessage } = state;
 
-  const headerValue = useMemo(() => header && <span className={classes.correct}>{header}</span>, [
-    header,
-    classes.correct,
-  ]);
+  const headerValue = useMemo(
+    () => header && <span className={classes.correct}>{header}</span>,
+    [header, classes.correct]
+  );
 
   return (
     <StickyIPA
