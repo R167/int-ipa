@@ -8723,6 +8723,7 @@ fsevents@^1.2.7:
     react: ^17.0.2
     react-async-hook: ^3.6.2
     react-dom: ^17.0.2
+    react-meta-tags: ^1.0.1
     react-router: ^5.2.0
     react-router-dom: ^5.2.0
     react-scripts: ^4.0.3
@@ -13350,6 +13351,16 @@ pvutils@latest:
   version: 17.0.1
   resolution: "react-is@npm:17.0.1"
   checksum: 5e6945a286367894d11b24f41a0065607ba62bdac0df0b567294b2e299c037e3641434e66f9be30536b8c47f7ad94d44e633feb2ba25959c2c42423844e6c2f1
+  languageName: node
+  linkType: hard
+
+"react-meta-tags@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "react-meta-tags@npm:1.0.1"
+  peerDependencies:
+    react: ^16.6.0
+    react-dom: ^16.6.0
+  checksum: 3db13eded654ad6e84391b23b6ba74135dc4d61e09e2f444d77a926aeed62ca9b63d1e2caf1b364bbc4b0c55c481bb9fa807bb0eea08cd374a1521bc705637b2
   languageName: node
   linkType: hard
 

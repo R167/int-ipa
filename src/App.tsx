@@ -1,18 +1,22 @@
 import { useEffect, useMemo } from "react";
 
-import Router from "./Router";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
 import { ThemeProvider } from "@material-ui/styles";
 import { ThemeOptions, createMuiTheme } from "@material-ui/core/styles";
 import { blue, indigo } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
+
+import Router from "./Router";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 import { notchGutters } from "./utils/styles";
 import { useDebugContext } from "./utils/Debug";
 import { usePersistentState } from "./utils/usePersistentState";
 
 import AudioContext from "./utils/AudioContext";
+
+import MetaTags from "react-meta-tags";
 
 const lightTheme: ThemeOptions = {
   palette: {
@@ -101,6 +105,10 @@ export default function App() {
   return (
     <div className={classes.siteRoot}>
       <ThemeProvider theme={theme}>
+        <MetaTags>
+          <meta name="theme-color" content={theme.palette.secondary.main} />
+        </MetaTags>
+
         <CssBaseline />
         <Header darkMode={darkMode} changeDarkMode={setDark} />
         <Container
