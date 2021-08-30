@@ -56,6 +56,7 @@ words:
         blah: | # <-- The "|" here indicates a multiline string.
           For each of the following words, you'll be given both a word in English, and a
           sound file. Making reference to the sound file, you'll give us each sound in the in word.
+        HINT: The answer is /t/
       - ɛ: true
         e: Your writing system is lying to you here. This vowel only occurs in the diphthong /ej/ in MUSE, and would sound like 'taste'
       - s: true
