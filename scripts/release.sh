@@ -7,10 +7,23 @@ function check() {
   fi
 }
 
+if git status -u --porcelain | grep "^.M"; then
+  git status
+  echo "Dirty files exist! Please stage everything before running."
+  exit 100
+fi
+
 version="v$npm_package_version"
 
-if ! git show :CHANGELOG.md | grep "## $version"; then
+# Check for version
+if ! git show :CHANGELOG.md | grep -F "## [$npm_package_version] -" > /dev/null; then
   echo "Missing $version in changelog!"
+  exit 100
+fi
+
+# Check for version link
+if ! git show :CHANGELOG.md | grep -F "[$npm_package_version]: https://" > /dev/null; then
+  echo "Missing $version link. Please run ./scripts/changelog.rb"
   exit 100
 fi
 
