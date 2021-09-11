@@ -1,8 +1,33 @@
+import { useMemo } from "react";
 import { Theme, darken, fade, lighten } from "@material-ui/core/styles";
 
 export interface Clickable {
   onClick?: (char: string) => void;
 }
+
+export interface ClickableSubset extends Clickable {
+  subset?: Subset;
+}
+
+type SubsetFunc = (char: string) => boolean;
+type Subset = undefined | Set<string> | string[] | SubsetFunc;
+
+const subsetFunc = (subset: Subset): SubsetFunc => {
+  if (subset === undefined) {
+    return () => true;
+  } else if (typeof subset === "function") {
+    return subset;
+  } else if (Array.isArray(subset)) {
+    const set = new Set(subset);
+    return (char) => set.has(char);
+  } else {
+    return (char) => subset.has(char);
+  }
+};
+
+export const useSubset = (subset: Subset): SubsetFunc => {
+  return useMemo(() => subsetFunc(subset), [subset]);
+};
 
 export const borderColor = (theme: Theme) =>
   theme.palette.type === "light"
