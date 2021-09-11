@@ -30,6 +30,8 @@ jobs:
       - run: yarn install --immutable
       - name: Linting sanity check
         run: yarn lint-ci
+      - name: Run tests
+        run: yarn test-ci
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
