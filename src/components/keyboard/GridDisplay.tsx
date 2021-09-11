@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { Clickable, borderColor, shadowBorder } from "./common";
+import { ClickableSubset, borderColor, shadowBorder, useSubset } from "./common";
 
 import { Grid, GridProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Breakpoints = Pick<GridProps, "xs" | "sm" | "md" | "lg" | "xl">;
 
-interface Props extends Clickable {
+interface Props extends ClickableSubset {
   content: MiscList;
   genSym?: (ipa: string) => string;
   breakpoints?: Breakpoints;
@@ -45,8 +45,14 @@ interface Props extends Clickable {
 
 const GridDisplay = (props: Props) => {
   const classes = useStyles();
-  const { onClick = () => {}, content, breakpoints = {}, genSym = (ipa) => ipa, combine } = props;
+  const { onClick, content, breakpoints = {}, genSym = (ipa) => ipa, combine, subset } = props;
+  const canClick = useSubset(subset);
   const preventDefault = useCallback((e) => e.preventDefault(), []);
+
+  const clickCallback = useCallback(
+    (symbol) => (onClick && canClick(symbol) ? () => onClick(symbol) : undefined),
+    [canClick, onClick]
+  );
 
   return (
     <Grid container spacing={0}>
@@ -57,7 +63,7 @@ const GridDisplay = (props: Props) => {
               item
               xs={2}
               className={classes.symbol}
-              onClick={() => onClick(ipa)}
+              onClick={clickCallback(ipa)}
               onMouseDown={preventDefault}
             >
               {sym || genSym(ipa)}
@@ -76,7 +82,7 @@ const GridDisplay = (props: Props) => {
                   item
                   xs={2}
                   className={classes.symbol}
-                  onClick={() => onClick(combined)}
+                  onClick={clickCallback(combined)}
                   onMouseDown={preventDefault}
                 >
                   {combined}
