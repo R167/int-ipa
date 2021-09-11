@@ -50,6 +50,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint ./src",
     "lint-ci": "yarn lint --max-warnings=0",
+    "test-ci": "yarn test --ci --all",
     "fix": "yarn prettier -w ./src && eslint --fix ./src",
     "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
