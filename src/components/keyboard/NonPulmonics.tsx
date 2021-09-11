@@ -48,7 +48,7 @@ interface Props extends ClickableSubset {}
 
 const NonPulmonics = (props: Props) => {
   const classes = useStyles();
-  const { onClick = () => {}, subset } = props;
+  const { onClick, subset } = props;
   const canClick = useSubset(subset);
 
   const sounds = useMemo(() => {
@@ -59,11 +59,12 @@ const NonPulmonics = (props: Props) => {
 
   const Cell = useCallback(
     ({ symbol, name }: { symbol: string; name: string }) => {
+      const handleClick = onClick && canClick(symbol) ? () => onClick(symbol) : undefined;
       return (
         <>
           <TableCell
             className={clsx(classes.symbol, canClick(symbol) ? classes.hover : classes.disabled)}
-            onClick={() => canClick(symbol) && onClick(symbol)}
+            onClick={handleClick}
             onMouseDown={preventDefault}
           >
             {symbol}
