@@ -19,7 +19,7 @@ export const PLACES = [
  * Manners of articulation
  */
 export const MANNERS = [
-  "Plosive",
+  "Stop",
   "Nasal",
   "Trill",
   "Tap",
