@@ -1,10 +1,12 @@
 import { memo } from "react";
-import { Clickable } from "./common";
+import { ClickableSubset } from "./common";
 import { MISC } from "../../utils/ipa";
 import GridDisplay from "./GridDisplay";
 
-const Other = (props: Clickable) => {
-  return <GridDisplay {...props} content={MISC} breakpoints={{ sm: 6 }} />;
+export const breakpoints = { sm: 6 } as const;
+
+const Other = (props: ClickableSubset) => {
+  return <GridDisplay {...props} content={MISC} breakpoints={breakpoints} />;
 };
 
 export default memo(Other);

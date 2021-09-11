@@ -2,7 +2,7 @@ import { memo } from "react";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
-import { Clickable } from "./common";
+import { ClickableSubset, useSubset } from "./common";
 import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
@@ -33,14 +33,15 @@ const orderChildren = (...children: number[]) => {
   return styles;
 };
 
-interface Props extends Clickable {}
+interface Props extends ClickableSubset {}
 
 /**
  * Accepts an onClick option. This is assumed to be memoized.
  */
 const Keyboard = (props: Props) => {
   const classes = useStyles();
-  const { onClick } = props;
+  const { onClick, subset } = props;
+  const handleSubset = useSubset(subset);
 
   return (
     // 1
@@ -50,7 +51,7 @@ const Keyboard = (props: Props) => {
           <Typography variant="h6" component="p" gutterBottom>
             Consonants (Pulmonics)
           </Typography>
-          <Pulmonics onClick={onClick} />
+          <Pulmonics onClick={onClick} subset={handleSubset} />
           <Typography variant="caption" align="center" component="p">
             Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas
             denote articulations judged impossible.
@@ -60,7 +61,7 @@ const Keyboard = (props: Props) => {
       {/* 2 */}
       <Grid item xs={12} md={6}>
         <Paper className={classes.paper}>
-          <Vowels onClick={onClick} />
+          <Vowels onClick={onClick} subset={handleSubset} />
         </Paper>
       </Grid>
       {/* 3 */}
@@ -69,7 +70,7 @@ const Keyboard = (props: Props) => {
           <Typography variant="h6" component="p" gutterBottom>
             Other
           </Typography>
-          <Other onClick={onClick} />
+          <Other onClick={onClick} subset={handleSubset} />
         </Paper>
       </Grid>
 
@@ -78,7 +79,7 @@ const Keyboard = (props: Props) => {
           <Typography variant="h6" component="p" gutterBottom>
             Diacritics
           </Typography>
-          <Diacritics onClick={onClick} />
+          <Diacritics onClick={onClick} subset={handleSubset} />
         </Paper>
       </Grid>
 
@@ -87,7 +88,7 @@ const Keyboard = (props: Props) => {
           <Typography variant="h6" component="p" gutterBottom>
             Suprasegmentals
           </Typography>
-          <Suprasegmentals onClick={onClick} />
+          <Suprasegmentals onClick={onClick} subset={handleSubset} />
         </Paper>
       </Grid>
 
@@ -97,7 +98,7 @@ const Keyboard = (props: Props) => {
           <Typography variant="h6" component="p" gutterBottom>
             Consonants (Non-pulmonics)
           </Typography>
-          <NonPulmonics onClick={onClick} />
+          <NonPulmonics onClick={onClick} subset={handleSubset} />
         </Paper>
       </Grid>
 

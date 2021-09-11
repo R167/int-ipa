@@ -1,12 +1,12 @@
 import { memo } from "react";
-import { Clickable } from "./common";
+import { ClickableSubset } from "./common";
 import { SUPRASEGMENTALS } from "../../utils/ipa";
 import GridDisplay from "./GridDisplay";
 
-const Suprasegmentals = (props: Clickable) => {
-  return (
-    <GridDisplay {...props} content={SUPRASEGMENTALS} breakpoints={{ md: 12, sm: 6, xs: 12 }} />
-  );
+export const breakpoints = { md: 12, sm: 6, xs: 12 } as const;
+
+const Suprasegmentals = (props: ClickableSubset) => {
+  return <GridDisplay {...props} content={SUPRASEGMENTALS} breakpoints={breakpoints} />;
 };
 
 export default memo(Suprasegmentals);

@@ -1,6 +1,8 @@
 import { memo, useCallback } from "react";
 import { ClickableSubset, borderColor, shadowBorder, useSubset } from "./common";
 
+import clsx from "clsx";
+
 import { Grid, GridProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { MiscList } from "../../utils/ipa";
@@ -13,8 +15,12 @@ const useStyles = makeStyles((theme) => ({
   symbol: {
     userSelect: "none",
     textAlign: "center",
-    cursor: "pointer",
     fontSize: "1.5rem",
+    color: theme.palette.action.disabled,
+  },
+  clickable: {
+    color: theme.palette.action.active,
+    cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
@@ -62,7 +68,7 @@ const GridDisplay = (props: Props) => {
             <Grid
               item
               xs={2}
-              className={classes.symbol}
+              className={clsx(classes.symbol, canClick(ipa) && classes.clickable)}
               onClick={clickCallback(ipa)}
               onMouseDown={preventDefault}
             >
@@ -81,7 +87,7 @@ const GridDisplay = (props: Props) => {
                   key={combined}
                   item
                   xs={2}
-                  className={classes.symbol}
+                  className={clsx(classes.symbol, canClick(combined) && classes.clickable)}
                   onClick={clickCallback(combined)}
                   onMouseDown={preventDefault}
                 >
