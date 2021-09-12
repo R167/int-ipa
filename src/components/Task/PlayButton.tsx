@@ -19,36 +19,34 @@ export const useAudioFile = (file?: string, baseUrl?: string): (() => void) | un
     if (!audioFile) return undefined;
 
     return () => {
-      if (audioFile) {
-        try {
+      try {
+        if (!audioFile.paused) {
           audioFile.currentTime = 0;
-          // There is a bug in recent versions of webkit (Safari 15) which causes
-          // the player to stall on seeking to the beginning of the audio file. If the file hasn't started
-          // or is already in memory, then seeking should be false after ~0 time, in which case we can be
-          // fairly confident everything is working correctly. OTHERWISE: we keep forcing this audio file
-          // to load after failing the check
-          if (hasSeekingIssues.current) {
-            console.info("This player has seeking issues. Forcing load");
-            audioFile.load();
-          } else {
-            setTimeout(() => {
-              if (audioFile.seeking) {
-                console.log("Player has seeking issues. Switching to LOAD approach");
-                hasSeekingIssues.current = true;
-                audioFile.load();
-                audioFile.play();
-              }
-            }, 50);
-          }
-          // audioFile.load();
-          audioFile.play().catch((e) => {
-            console.error({ message: "unable to play url", src: audioFile.src, err: e });
-          });
-        } catch (e) {
-          console.error({ message: "unable to play url", src: audioFile.src, err: e });
         }
-      } else {
-        console.info("no audio file");
+        // There is a bug in recent versions of webkit (Safari 15) which causes
+        // the player to stall on seeking to the beginning of the audio file. If the file hasn't started
+        // or is already in memory, then seeking should be false after ~0 time, in which case we can be
+        // fairly confident everything is working correctly. OTHERWISE: we keep forcing this audio file
+        // to load after failing the check
+        if (hasSeekingIssues.current) {
+          console.info("This player has seeking issues. Forcing load");
+          audioFile.load();
+        } else {
+          setTimeout(() => {
+            if (audioFile.seeking) {
+              console.log("Player has seeking issues. Switching to LOAD approach");
+              hasSeekingIssues.current = true;
+              audioFile.load();
+              audioFile.play();
+            }
+          }, 50);
+        }
+        // audioFile.load();
+        audioFile.play().catch((e) => {
+          console.error({ message: "unable to play url", src: audioFile.src, err: e });
+        });
+      } catch (e) {
+        console.error({ message: "unable to play url", src: audioFile.src, err: e });
       }
     };
   }, [file, baseUrl]);
