@@ -10,7 +10,7 @@ export interface ClickableSubset extends Clickable {
 }
 
 type SubsetFunc = (char: string) => boolean;
-type Subset = undefined | Set<string> | string[] | SubsetFunc;
+export type Subset = undefined | Set<string> | string[] | SubsetFunc;
 
 const subsetFunc = (subset: Subset): SubsetFunc => {
   if (subset === undefined) {

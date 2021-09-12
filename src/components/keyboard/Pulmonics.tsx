@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(0, 0.5),
     userSelect: "none",
     fontSize: "1.5rem",
+    cursor: "default",
     color: theme.palette.action.disabled,
   },
   clickable: {

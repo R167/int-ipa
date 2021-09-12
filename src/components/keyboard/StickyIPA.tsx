@@ -5,6 +5,7 @@ import useKeyboard from "./useKeyboard";
 
 // const Keyboard = React.lazy(() => import("./Keyboard"));
 import Keyboard from "./Keyboard";
+import { Subset } from "./common";
 
 const useStyles = makeStyles((theme) => ({
   sticky: {
@@ -26,13 +27,14 @@ const useStyles = makeStyles((theme) => ({
 
 interface Props extends InputProps {
   handleKeyboard: ReturnType<typeof useKeyboard>["handleKeyboard"];
+  subset?: Subset;
 }
 
 const StickyIPA = (props: Props) => {
   const theme = useTheme();
   const classes = useStyles();
 
-  const { handleKeyboard, ...inputProps } = props;
+  const { handleKeyboard, subset, ...inputProps } = props;
 
   // Testing revealed an elevated paper was preferred in light mode and contrastive flat in dark mode
   const elevation = theme.palette.type === "dark" ? 0 : 3;
@@ -47,7 +49,7 @@ const StickyIPA = (props: Props) => {
         </Grid>
       </Box>
 
-      <Keyboard onClick={handleKeyboard} />
+      <Keyboard onClick={handleKeyboard} subset={subset} />
     </div>
   );
 };

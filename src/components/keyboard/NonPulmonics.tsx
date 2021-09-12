@@ -23,9 +23,10 @@ const useStyles = makeStyles((theme) => ({
     borderLeft: `1px solid ${borderColor(theme)}`,
   },
   disabled: {
+    cursor: "default",
     color: theme.palette.action.disabled,
   },
-  hover: {
+  clickable: {
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
@@ -63,7 +64,10 @@ const NonPulmonics = (props: Props) => {
       return (
         <>
           <TableCell
-            className={clsx(classes.symbol, canClick(symbol) ? classes.hover : classes.disabled)}
+            className={clsx(
+              classes.symbol,
+              canClick(symbol) ? classes.clickable : classes.disabled
+            )}
             onClick={handleClick}
             onMouseDown={preventDefault}
           >

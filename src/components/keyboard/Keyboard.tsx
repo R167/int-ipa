@@ -10,8 +10,6 @@ import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import Other from "./Other";
 import Suprasegmentals from "./Suprasegmentals";
 
-// import BackspaceOutlinedIcon from "@material-ui/icons/BackspaceOutlined";
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     padding: theme.spacing(1),

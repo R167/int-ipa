@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     userSelect: "none",
     textAlign: "center",
     fontSize: "1.5rem",
+    cursor: "default",
     color: theme.palette.action.disabled,
   },
   clickable: {
