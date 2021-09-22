@@ -23,6 +23,7 @@ export interface WordSegment {
   correct: string[];
   explanations: Explanations;
   wildcards?: Wildcard[];
+  hint?: string;
 }
 
 export interface Word {
@@ -131,32 +132,34 @@ const getMacros = (macros: TaskFileMacros | undefined): Macros => {
 };
 
 const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[] => {
-  const validSegments = segments.map(
-    (segment, i): WordSegment => {
-      let correct: string[] = [];
-      let wildcards: Wildcard[] = [];
-      const explanations = new Map<string, string>();
+  const validSegments = segments.map((segment, i): WordSegment => {
+    let correct: string[] = [];
+    let wildcards: Wildcard[] = [];
+    const explanations = new Map<string, string>();
+    let hint: string | undefined;
 
-      // Record iteration
-      for (const key in segment) {
-        const sym = normalize(key);
-        const value = segment[key];
-        if (value === true) {
-          // Correct value(s)
-          correct = correct.concat(expandMacro(sym, macros));
-        } else if (sym.includes("...") || sym.includes("%")) {
-          // Wildcard matcher
-          wildcards.push({ matcher: sym, message: value || DEFAULT_MESSAGE });
-        } else {
-          // We just have a normal explanation
-          expandMacro(sym, macros).forEach((expand) => {
-            explanations.set(expand, value || DEFAULT_MESSAGE);
-          });
-        }
+    // Record iteration
+    for (const key in segment) {
+      const sym = normalize(key);
+      const value = segment[key];
+      if (value === true) {
+        // Correct value(s)
+        correct = correct.concat(expandMacro(sym, macros));
+      } else if (sym.includes("...") || sym.includes("%")) {
+        // Wildcard matcher
+        wildcards.push({ matcher: sym, message: value || DEFAULT_MESSAGE });
+      } else if (sym === "HINT" && typeof value === "string") {
+        // Require the optional hint to be all caps
+        hint = value;
+      } else {
+        // We just have a normal explanation
+        expandMacro(sym, macros).forEach((expand) => {
+          explanations.set(expand, value || DEFAULT_MESSAGE);
+        });
       }
-      return { correct, explanations, wildcards };
     }
-  );
+    return { correct, explanations, wildcards, hint };
+  });
 
   // Ensure we have a final element listed
   const lastElement = validSegments[validSegments.length - 1];
@@ -181,13 +184,11 @@ export const parseTask = (contents: string): TaskDef => {
 
   const metadata = pickValues(valid, ["author", "title", "salt", "instructions"]);
   const macros = getMacros(valid.macros);
-  const words = valid.words.map(
-    (word): Word => {
-      const meta = pickValues(word, ["display", "audio", "instructions"]);
-      const segments = getSegments(word.segments, macros);
-      return { ...meta, segments };
-    }
-  );
+  const words = valid.words.map((word): Word => {
+    const meta = pickValues(word, ["display", "audio", "instructions"]);
+    const segments = getSegments(word.segments, macros);
+    return { ...meta, segments };
+  });
 
   return { ...metadata, macros, words };
 };

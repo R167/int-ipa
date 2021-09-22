@@ -88,7 +88,8 @@ export class ValidateError extends IPAError implements ContextError {
   }
 
   context(n = 1) {
-    const node = this.doc.getIn(this.err.path, true);
+    // issues importing type Node and function Document#getIn
+    const node = (this.doc as any).getIn(this.err.path, true) as { range: [number, number] };
     return indexToLines(this.dat, node.range[0], n);
   }
 }

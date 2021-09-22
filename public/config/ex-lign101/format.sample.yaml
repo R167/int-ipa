@@ -18,3 +18,4 @@ words:
       - correct_value: true
         wrong_value: incorrect message
         ...: anything else message
+        HINT: an optional hint for this segment if the user gets it wrong too many times (e.g. just isn't hearing glottal stop)
