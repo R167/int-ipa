@@ -14,8 +14,8 @@ export const ManifestFile = object({
   ipaPlayer: optional(
     object({
       enabled: boolean(),
-      baseUrl: optional(string()),
-      config: string(),
+      // Like everything, this is resolved relative to the base of the install
+      url: string(),
     })
   ),
 });

@@ -19,7 +19,3 @@ const describePulmonics = (): Map<Pulmonics, string> => {
 };
 
 export const PulmonicDescriptions = describePulmonics();
-
-[...PulmonicDescriptions].forEach(([sym, name]) => {
-  console.log(`${name.toLowerCase().replace(/ /g, "_")}.mp4`);
-});
