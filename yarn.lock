@@ -8734,7 +8734,7 @@ fsevents@^1.2.7:
     path: ^0.12.7
     prettier: ^2.3.2
     react: ^17.0.2
-    react-async-hook: ^3.6.2
+    react-async-hook: ^4.0.0
     react-dom: ^17.0.2
     react-meta-tags: ^1.0.1
     react-router: ^5.2.0
@@ -13299,12 +13299,12 @@ pvutils@latest:
   languageName: node
   linkType: hard
 
-"react-async-hook@npm:^3.6.2":
-  version: 3.6.2
-  resolution: "react-async-hook@npm:3.6.2"
+"react-async-hook@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "react-async-hook@npm:4.0.0"
   peerDependencies:
     react: ">=16.8"
-  checksum: 6ec988a2336a62b2eebbf2fc3cc44ac6b2e2cb91124d94a36cbdb23a7c79307cb23e9a2f16cb4e943f367bfdebf1ce3599a8124c3b50aa4848ea80db3c042eb3
+  checksum: 059042027bff2751c89d1226ce7b463e73b54ad4018c627bd27d57c029469280d8e37e282bb943b35f91050fbd7d330965f65f0d8b1b7c0b9492fc848c6d82a3
   languageName: node
   linkType: hard
 
