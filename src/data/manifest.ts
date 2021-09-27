@@ -11,4 +11,11 @@ export const ManifestFile = object({
       hidden: optional(boolean()),
     })
   ),
+  ipaPlayer: optional(
+    object({
+      enabled: boolean(),
+      baseUrl: optional(string()),
+      config: string(),
+    })
+  ),
 });
