@@ -21,3 +21,5 @@ export const parseIpaSounds = (contents: string) => {
 
   return { symbols, baseUrl, sections: additionalSections };
 };
+
+export type IpaSoundsParsed = ReturnType<typeof parseIpaSounds>;
