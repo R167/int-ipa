@@ -7,12 +7,12 @@ import { fullBaseUrl } from "../constants";
 
 import ErrorMessage from "./ErrorMessage";
 import { ResourceError } from "../utils/error";
+import { useManifest } from "../Manifest";
 
 const fetchSounds = async (ipaUrl: string) => {
   if (!ipaUrl) {
     // Absurd. klass will actually always be defined
-    console.log("no url");
-    return;
+    throw new ResourceError("url doesn't exist");
   }
 
   const req = await fetch(ipaUrl).catch((error) => {
@@ -54,10 +54,12 @@ interface Props {
 const LoadListen = (props: Props) => {
   const { url } = props;
   const sounds = useAsync(fetchSounds, [url]);
-  const baseUrl = new URL(url, fullBaseUrl()).toString();
+
+  // Sound files will default to being relative to the soundFile if no full URL is specified
+  const defaultBaseUrl = new URL(url, fullBaseUrl()).toString();
 
   if (sounds.result) {
-    return <Listen sounds={sounds.result} baseUrl={sounds.result.baseUrl || baseUrl} />;
+    return <Listen sounds={sounds.result} baseUrl={sounds.result.baseUrl || defaultBaseUrl} />;
   } else if (sounds.loading) {
     return (
       <Fade
@@ -73,7 +75,7 @@ const LoadListen = (props: Props) => {
       </Fade>
     );
   } else if (sounds.error) {
-    return <ErrorMessage error={sounds.error} context={3} defaultHeader="Cannot load task file" />;
+    return <ErrorMessage error={sounds.error} context={3} defaultHeader="Cannot load sounds file" />;
   } else {
     return <Status error children="Unreachable state???" />;
   }
@@ -87,4 +89,30 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
   return <Keyboard subset={validKeys} />;
 };
 
-export default LoadListen;
+const ListenWithManifest = () => {
+  const manifest = useManifest()
+
+  if (manifest.result && manifest.result.ipaPlayer?.enabled) {
+    return <LoadListen url={manifest.result.ipaPlayer.url} />;
+  } else if (manifest.loading) {
+    return (
+      <Fade
+        in
+        style={{
+          transitionDelay: "500ms",
+        }}
+        unmountOnExit
+      >
+        <Typography variant="h4" component="h1" align="center">
+          <CircularProgress />
+        </Typography>
+      </Fade>
+    );
+  } else if (manifest.error) {
+    return <ErrorMessage error={manifest.error} context={3} defaultHeader="Cannot load task file" />;
+  } else {
+    return <Status error children="Unreachable state???" />;
+  }
+}
+
+export default ListenWithManifest;
