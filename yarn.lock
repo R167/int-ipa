@@ -557,6 +557,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/plugin-proposal-class-properties@npm:^7.16.7":
+  version: 7.16.7
+  resolution: "@babel/plugin-proposal-class-properties@npm:7.16.7"
+  dependencies:
+    "@babel/helper-create-class-features-plugin": ^7.16.7
+    "@babel/helper-plugin-utils": ^7.16.7
+  peerDependencies:
+    "@babel/core": ^7.0.0-0
+  checksum: 3977e841e17b45b47be749b9a5b67b9e8b25ff0840f9fdad3f00cbcb35db4f5ff15f074939fe19b01207a29688c432cc2c682351959350834d62920b7881f803
+  languageName: node
+  linkType: hard
+
 "@babel/plugin-proposal-decorators@npm:7.12.1":
   version: 7.12.1
   resolution: "@babel/plugin-proposal-decorators@npm:7.12.1"
@@ -2693,6 +2705,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/debounce@npm:*":
+  version: 3.0.0
+  resolution: "@types/debounce@npm:3.0.0"
+  checksum: af99f44f8ce90388aa5a909066c64b4ddc5efdff72bccf7dcef1fe8a04f03d03a7a42cc1f42ff14620c66923f92600ccfeb768bd77ad250f12a6ebca116ca719
+  languageName: node
+  linkType: hard
+
 "@types/emscripten@npm:^1.38.0":
   version: 1.39.4
   resolution: "@types/emscripten@npm:1.39.4"
@@ -3016,6 +3035,15 @@ __metadata:
   dependencies:
     source-map: ^0.6.1
   checksum: 5378f9384e976555bfe0476030c7f77b89f0563337ce710b76900f00fd83a0f20d506e4a22993fde29cefeeed2f97fafb6da281a61c40a99b4e8c1469530df0d
+  languageName: node
+  linkType: hard
+
+"@types/wavesurfer.js@npm:^6":
+  version: 6.0.2
+  resolution: "@types/wavesurfer.js@npm:6.0.2"
+  dependencies:
+    "@types/debounce": "*"
+  checksum: b4c944672d211e54c1cf78180c2d95023202cf189675881e15ad1dbcc410eabb711d03f531dd13e2edb5d9393f99221324cece8e02fa9cd901d296d4c7c0348d
   languageName: node
   linkType: hard
 
@@ -9096,7 +9124,7 @@ fsevents@^1.2.7:
   resolution: "int-ipa@workspace:."
   dependencies:
     "@babel/core": ^7.12.3
-    "@babel/plugin-proposal-class-properties": ^7.12.1
+    "@babel/plugin-proposal-class-properties": ^7.16.7
     "@babel/preset-env": ^7.12.1
     "@babel/preset-react": ^7.12.1
     "@material-ui/core": ^4.11.0
@@ -9113,6 +9141,7 @@ fsevents@^1.2.7:
     "@types/react-router": ^5.1.11
     "@types/react-router-dom": ^5.1.6
     "@types/smoothscroll-polyfill": ^0.3.1
+    "@types/wavesurfer.js": ^6
     "@typescript-eslint/eslint-plugin": ^5.17.0
     "@typescript-eslint/parser": ^5.17.0
     "@yarnpkg/pnpify": ^2.4.0
@@ -9143,6 +9172,7 @@ fsevents@^1.2.7:
     source-map-explorer: ^2.5.2
     superstruct: ^0.15.2
     typescript: ^4.5.0
+    wavesurfer.js: ^6.1.0
     web-vitals: ^1.1.0
     yaml: ^1.10.2
     zbase32: ^1.0.4
@@ -16717,6 +16747,13 @@ typescript@^4.5.0:
     watchpack-chokidar2:
       optional: true
   checksum: 8b7cb8c8df8f4dd0e8ac47693c0141c4f020a4b031411247d600eca31522fde6f1f9a3a6f6518b46e71f7971b0ed5734c08c60d7fdd2530e7262776286f69236
+  languageName: node
+  linkType: hard
+
+"wavesurfer.js@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "wavesurfer.js@npm:6.1.0"
+  checksum: a0f940d6240d28e7e816c7f74e47561c199a290a0411420b188069e0934fd0652515d7809e67cf92af307ef264090d6bc9802721cb5e7ec81241900ead4459f8
   languageName: node
   linkType: hard
 

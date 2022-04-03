@@ -8,6 +8,8 @@ import { fullBaseUrl } from "../constants";
 import ErrorMessage from "./ErrorMessage";
 import { ResourceError } from "../utils/error";
 import { useManifest } from "../Manifest";
+import { useCallback, useRef, useState } from "react";
+import Waveform from "./Waveform";
 
 const fetchSounds = async (ipaUrl: string) => {
   if (!ipaUrl) {
@@ -75,22 +77,50 @@ const LoadListen = (props: Props) => {
       </Fade>
     );
   } else if (sounds.error) {
-    return <ErrorMessage error={sounds.error} context={3} defaultHeader="Cannot load sounds file" />;
+    return (
+      <ErrorMessage error={sounds.error} context={3} defaultHeader="Cannot load sounds file" />
+    );
   } else {
     return <Status error children="Unreachable state???" />;
   }
 };
 
 const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string }) => {
-  const validKeys = (key: string): boolean => {
-    return sounds.symbols.has(key);
-  };
+  const [src, setSrc] = useState<string | undefined>();
 
-  return <Keyboard subset={validKeys} />;
+  const validKeys = useCallback(
+    (key: string): boolean => {
+      return sounds.symbols.has(key);
+    },
+    [sounds]
+  );
+  const audioRef = useRef(new Audio());
+  const playAudio = useCallback(
+    (char: string) => {
+      const sound = sounds.symbols.get(char);
+
+      if (!sound?.audio) {
+        console.warn(`Cannot find a sound for ${char}`);
+        return;
+      }
+
+      const url = new URL(sound.audio, baseUrl);
+
+      setSrc(url.toString());
+    },
+    [baseUrl, sounds.symbols]
+  );
+
+  return (
+    <>
+      <Waveform src={src} />
+      <Keyboard subset={validKeys} onClick={playAudio} />
+    </>
+  );
 };
 
 const ListenWithManifest = () => {
-  const manifest = useManifest()
+  const manifest = useManifest();
 
   if (manifest.result && manifest.result.ipaPlayer?.enabled) {
     return <LoadListen url={manifest.result.ipaPlayer.url} />;
@@ -109,10 +139,12 @@ const ListenWithManifest = () => {
       </Fade>
     );
   } else if (manifest.error) {
-    return <ErrorMessage error={manifest.error} context={3} defaultHeader="Cannot load task file" />;
+    return (
+      <ErrorMessage error={manifest.error} context={3} defaultHeader="Cannot load task file" />
+    );
   } else {
     return <Status error children="Unreachable state???" />;
   }
-}
+};
 
 export default ListenWithManifest;
