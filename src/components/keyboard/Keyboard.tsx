@@ -1,5 +1,5 @@
-import { memo } from "react";
-import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
+import { memo, ReactNode } from "react";
+import { Grid, Paper, Typography, makeStyles, GridSize } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
 import { ClickableSubset, useSubset } from "./common";
@@ -32,83 +32,92 @@ const orderChildren = (...children: number[]) => {
 };
 
 interface Props extends ClickableSubset {}
-
-/**
- * Accepts an onClick option. This is assumed to be memoized.
- */
-const Keyboard = (props: Props) => {
+interface BaseProps extends Props {
+  children?: ReactNode;
+}
+export const BaseKeyboard = (props: BaseProps) => {
   const classes = useStyles();
-  const { onClick, subset } = props;
+  const { onClick, subset, children } = props;
   const handleSubset = useSubset(subset);
 
   return (
     // 1
     <Grid container spacing={2} className={classes.childOrder}>
-      <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" component="p" gutterBottom>
-            Consonants (Pulmonics)
-          </Typography>
-          <Pulmonics onClick={onClick} subset={handleSubset} />
-          <Typography variant="caption" align="center" component="p">
-            Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas
-            denote articulations judged impossible.
-          </Typography>
-        </Paper>
-      </Grid>
+      <Item
+        size="full"
+        header="Consonants (Pulmonics)"
+        footer="Symbols to the right in a cell are voiced, to the left are voiceless. Shaded areas denote articulations judged impossible."
+      >
+        <Pulmonics onClick={onClick} subset={handleSubset} />
+      </Item>
       {/* 2 */}
-      <Grid item xs={12} md={6}>
-        <Paper className={classes.paper}>
-          <Vowels onClick={onClick} subset={handleSubset} />
-        </Paper>
-      </Grid>
+      <Item size="half">
+        <Vowels onClick={onClick} subset={handleSubset} />
+      </Item>
       {/* 3 */}
-      <Grid item xs={12} md={6}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" component="p" gutterBottom>
-            Other
-          </Typography>
-          <Other onClick={onClick} subset={handleSubset} />
-        </Paper>
-      </Grid>
+      <Item size="half" header="Other">
+        <Other onClick={onClick} subset={handleSubset} />
+      </Item>
+      {children}
+    </Grid>
+  );
+};
 
-      <Grid item xs={12} md={8}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" component="p" gutterBottom>
-            Diacritics
-          </Typography>
-          <Diacritics onClick={onClick} subset={handleSubset} />
-        </Paper>
-      </Grid>
+/**
+ * Accepts an onClick option. This is assumed to be memoized.
+ */
+const Keyboard = (props: Props) => {
+  const { onClick, subset } = props;
+  const handleSubset = useSubset(subset);
 
-      <Grid item xs={12} md={4}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" component="p" gutterBottom>
-            Suprasegmentals
-          </Typography>
-          <Suprasegmentals onClick={onClick} subset={handleSubset} />
-        </Paper>
-      </Grid>
+  return (
+    // 1
+    <BaseKeyboard>
+      <Item size="more" header="Diacritics">
+        <Diacritics onClick={onClick} subset={handleSubset} />
+      </Item>
 
-      {/* Ugh... non-pulmonics are the worst... */}
-      <Grid item xs={12} md={6}>
-        <Paper className={classes.paper}>
-          <Typography variant="h6" component="p" gutterBottom>
-            Consonants (Non-pulmonics)
-          </Typography>
-          <NonPulmonics onClick={onClick} subset={handleSubset} />
-        </Paper>
-      </Grid>
+      <Item size="less" header="Suprasegmentals">
+        <Suprasegmentals onClick={onClick} subset={handleSubset} />
+      </Item>
 
-      {/* Placeholder for adding phonology symbols? */}
-      <Grid item xs={12} md={6} hidden>
-        <Paper className={classes.paper}>
+      <Item size="half" header="Consonants (Non-pulmonics)">
+        <NonPulmonics onClick={onClick} subset={handleSubset} />
+      </Item>
+    </BaseKeyboard>
+  );
+};
+
+const sizes = {
+  full: undefined,
+  more: 8,
+  half: 6,
+  less: 4,
+} as const;
+
+interface ItemProps {
+  header?: string;
+  footer?: string;
+  children: ReactNode;
+  size: keyof typeof sizes;
+}
+const Item = ({ header, footer, children, size }: ItemProps) => {
+  const classes = useStyles();
+  return (
+    <Grid item xs={12} md={size && sizes[size]}>
+      <Paper className={classes.paper}>
+        {header && (
           <Typography variant="h6" component="p" gutterBottom>
-            Common non-IPA symbols
+            {header}
           </Typography>
-          <Typography>Coming soon...</Typography>
-        </Paper>
-      </Grid>
+        )}
+        {children}
+        {footer && (
+          <Typography variant="caption" align="center" component="p">
+            {footer}
+          </Typography>
+        )}
+      </Paper>
     </Grid>
   );
 };

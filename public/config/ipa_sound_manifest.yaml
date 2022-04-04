@@ -1,5 +1,10 @@
 ---
-baseUrl: "https://wstyler.ucsd.edu/talks/ipa/"
+# All files are originally available from Will Styler and are rehosted solely for reasons of convenience
+# baseUrl: "https://wstyler.ucsd.edu/talks/ipa/"
+baseUrl: "https://int-ipa-assets.winstondurand.com/static-assets/ipa/"
+# This is a somewhat "magical" file. Refer to the README.md. If you update this file, make sure you update
+# the version which lives in production
+packFile: "https://int-ipa-assets.winstondurand.com/static-assets/ipa.msgpack"
 symbols:
   # Pulmonics
   - ipa: p

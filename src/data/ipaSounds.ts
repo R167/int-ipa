@@ -1,4 +1,4 @@
-import { Infer, array, object, optional, string } from "superstruct";
+import { Infer, array, object, omit, optional, string } from "superstruct";
 
 export type IpaSoundsDef = Infer<typeof IpaSounds>;
 
@@ -29,6 +29,7 @@ const Section = object({
 
 export const IpaSounds = object({
   baseUrl: optional(string()),
+  packFile: optional(string()),
   symbols: array(Sound),
   additionalSections: optional(array(Section)),
 });

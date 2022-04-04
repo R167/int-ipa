@@ -24,9 +24,11 @@ class Runner
     @input_file = nil
     @output_file = nil
     @source = nil
+    @temp_source = true
     @verbose = false
-
-    @input_type = :download
+    @download = true
+    @override = false
+    @video = false
 
     parse!
     assert_cli!('aria2c')
@@ -46,15 +48,22 @@ class Runner
         @output_file = output
       end
 
-      opts.on("-l", "--local-source FOLDER", "A local directory to pull files from") do |folder|
+      opts.on("-s", "--sources FOLDER", "A local directory to pull files from/download to") do |folder|
         @source = folder
-        @input_type = :local
+        @temp_source = false
+      end
+
+      opts.on("-l", "--local", "Skip downloads and only pull from the local source") do
+        @download = false
       end
 
       opts.on("-v", "--verbose", "Verbose mode") do |verbosity|
         @verbose = verbosity
       end
 
+      opts.on("--video", "Also download video files") do
+        @video = true
+      end
 
       opts.on("-h", "--help", "Print this help message") do
         puts options
@@ -64,12 +73,14 @@ class Runner
   end
 
   def parse!
-    options.parse!(@args)
+    options.parse(@args)
   end
 
   def assert_args!
     err "No input specified" unless @input_file
     err "No output specified" unless @output_file
+    err "Cannot download videos without specifying a sources directory" if @video && @temp_source
+    err "Video download requires non-local mode" if @video && !download?
   end
 
   # Add a failure message
@@ -78,7 +89,14 @@ class Runner
   end
 
   def download?
-    @input_type == :download
+    @download
+  end
+
+  def confirm_destroy
+    unless @override
+      print "Write to a non-empty directory? [yN]: "
+      exit 1 unless STDIN.gets.downcase[0] == "y"
+    end
   end
 
   def maybe_fail!
@@ -104,7 +122,7 @@ class Runner
       uris.write(commands)
       uris.flush
 
-      cmd!("aria2c -i '#{uris.path}' -j 10 -d '#{@source}'", fail: false)
+      cmd!("aria2c -i '#{uris.path}' -j 10 -d '#{@source}' --auto-file-renaming false --allow-overwrite true", fail: false)
 
       failed = files - Dir[File.join(@source, "*")].map{|f| File.basename(f)}
       unless failed.empty?
@@ -125,37 +143,50 @@ class Runner
     output
   end
 
-  def run!
-    data = YAML.safe_load_file(@input_file, aliases: true, symbolize_names: true)
+  def paths(data, key)
     symbols = []
-
-    base_url = URI.parse(data[:baseUrl])
-
     data[:symbols].each do |symbol|
-      symbols << symbol[:audio]
+      symbols << symbol[key]
     end
 
     data[:additionalSections].each do |section|
       section[:symbols].each do |symbol|
-        symbols << symbol[:audio]
+        symbols << symbol[key]
       end
     end
 
     symbols.sort!.uniq!
     # Reject any "complex" paths
     symbols.reject! do |symbol|
-      symbol.match?(/\/|:/).tap { |m| verbose "Ignoring '#{symbol}'" if m }
+      symbol&.match?(/\/|:/).tap { |m| verbose "Ignoring '#{symbol}'" if m }
     end
+
+    symbols
+  end
+
+  def run!
+    data = YAML.safe_load_file(@input_file, aliases: true, symbolize_names: true)
+    base_url = URI.parse(data[:baseUrl])
+
+    symbols = paths(data, :audio)
 
     setup!
 
     puts "Found #{symbols.length}"
 
-    download_files(base_url, symbols) if download?
+    if download?
+      confirm_destroy unless Dir.empty?(@source)
+      if @video
+        symbols.concat(paths(data, :video))
+      end
+      download_files(base_url, symbols)
+    end
+
     File.open(@output_file, "w") do |f|
       f.write(create_pack(symbols))
     end
   ensure
+    verbose "running cleanup"
     cleanup!
   end
 
@@ -177,11 +208,11 @@ class Runner
   end
 
   def setup!
-    @source = Dir.mktmpdir("files") if download?
+    @source = Dir.mktmpdir("files") if @temp_source
   end
 
   def cleanup!
-    FileUtils.remove_entry(@source) if download?
+    FileUtils.remove_entry(@source) if @temp_source
   end
 end
 

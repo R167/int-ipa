@@ -8,7 +8,7 @@ import TypeIPA from "./components/TypeIPA";
 import ToolLoader from "./components/Tools/ToolLoader";
 
 import { allowRemote } from "./config";
-import Listen from "./components/Listen";
+import Listen from "./components/Listen/ListenWrapper";
 
 const Router = () => {
   return (

@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 import WaveSurfer from "wavesurfer.js";
-import AudioContext from "../utils/AudioContext";
+import AudioContext from "../../utils/AudioContext";
 
 interface Props {
   src?: string;
