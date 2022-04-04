@@ -1,5 +1,5 @@
-import { memo, ReactNode } from "react";
-import { Grid, Paper, Typography, makeStyles, GridSize } from "@material-ui/core";
+import { ReactNode, memo } from "react";
+import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
 import { ClickableSubset, useSubset } from "./common";

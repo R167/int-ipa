@@ -1,4 +1,4 @@
-import { Infer, array, object, omit, optional, string } from "superstruct";
+import { Infer, array, object, optional, string } from "superstruct";
 
 export type IpaSoundsDef = Infer<typeof IpaSounds>;
 

@@ -3,13 +3,11 @@ import { Breadcrumbs } from "@material-ui/core";
 import { Route, Switch, match, useLocation } from "react-router-dom";
 import Link from "../Link";
 import NotFound from "../NotFound";
-import Matcher from "./Matcher";
 import Validator from "./Validator";
 
 const links = [
   { path: "test", name: "Test" },
   { path: "validate", name: "Validate" },
-  { path: "matcher", name: "Matcher" },
 ];
 
 const Home = ({ match }: Props) => {
@@ -53,7 +51,6 @@ const ToolList = ({ match }: Props) => {
         <Route exact path={match.url} component={Home} />
         <Route path={`${match.url}/test`} render={() => "Test!"} />
         <Route path={`${match.url}/validate`} component={Validator} />
-        <Route path={`${match.url}/matcher`} component={Matcher} />
 
         {/* Catchall */}
         <Route component={NotFound} />

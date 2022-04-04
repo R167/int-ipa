@@ -1,6 +1,6 @@
-import { useCallback, useRef } from "react";
+import { useCallback } from "react";
 import { IpaSoundsParsed } from "../../utils/parsers";
-import Keyboard, { BaseKeyboard } from "../keyboard/Keyboard";
+import { BaseKeyboard } from "../keyboard/Keyboard";
 import { useAudioPlayer } from "./player";
 
 const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string }) => {

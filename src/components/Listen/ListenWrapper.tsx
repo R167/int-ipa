@@ -8,7 +8,6 @@ import { ResourceError } from "../../utils/error";
 import { useManifest } from "../../Manifest";
 
 import Listen from "./Listen";
-import { useRef } from "react";
 
 const fetchSounds = async (ipaUrl: string | undefined) => {
   if (!ipaUrl) {
