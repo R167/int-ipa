@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.action.disabled,
   },
   clickable: {
-    color: theme.palette.action.active,
+    color: theme.palette.text.primary,
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
