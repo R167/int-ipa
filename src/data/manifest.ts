@@ -11,4 +11,11 @@ export const ManifestFile = object({
       hidden: optional(boolean()),
     })
   ),
+  ipaPlayer: optional(
+    object({
+      enabled: boolean(),
+      // Like everything, this is resolved relative to the base of the install
+      url: string(),
+    })
+  ),
 });

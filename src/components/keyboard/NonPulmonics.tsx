@@ -1,6 +1,7 @@
 import { memo, useCallback, useMemo } from "react";
+import clsx from "clsx";
 
-import { Clickable, borderColor } from "./common";
+import { ClickableSubset, borderColor, useSubset } from "./common";
 
 import {
   Table,
@@ -19,11 +20,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     userSelect: "none",
     fontSize: "1.5rem",
+    borderLeft: `1px solid ${borderColor(theme)}`,
+  },
+  disabled: {
+    cursor: "default",
+    color: theme.palette.action.disabled,
+  },
+  clickable: {
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
-    borderLeft: `1px solid ${borderColor(theme)}`,
   },
   descr: {
     fontSize: "0.8rem",
@@ -38,11 +45,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props extends Clickable {}
+interface Props extends ClickableSubset {}
 
 const NonPulmonics = (props: Props) => {
   const classes = useStyles();
-  const { onClick = () => {} } = props;
+  const { onClick, subset } = props;
+  const canClick = useSubset(subset);
 
   const sounds = useMemo(() => {
     return CLICKS.map((click, i) => [click, IMPLOSIVES[i], EJECTIVES[i]]);
@@ -52,11 +60,15 @@ const NonPulmonics = (props: Props) => {
 
   const Cell = useCallback(
     ({ symbol, name }: { symbol: string; name: string }) => {
+      const handleClick = onClick && canClick(symbol) ? () => onClick(symbol) : undefined;
       return (
         <>
           <TableCell
-            className={classes.symbol}
-            onClick={() => onClick(symbol)}
+            className={clsx(
+              classes.symbol,
+              canClick(symbol) ? classes.clickable : classes.disabled
+            )}
+            onClick={handleClick}
             onMouseDown={preventDefault}
           >
             {symbol}
@@ -65,7 +77,7 @@ const NonPulmonics = (props: Props) => {
         </>
       );
     },
-    [classes, onClick, preventDefault]
+    [classes, onClick, preventDefault, canClick]
   );
 
   return (

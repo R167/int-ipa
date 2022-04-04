@@ -8,12 +8,14 @@ import TypeIPA from "./components/TypeIPA";
 import ToolLoader from "./components/Tools/ToolLoader";
 
 import { allowRemote } from "./config";
+import Listen from "./components/Listen/ListenWrapper";
 
 const Router = () => {
   return (
     <Switch>
       <Route path="/" exact component={Homepage} />
       <Route path="/keyboard" exact component={TypeIPA} />
+      <Route path="/listen" exact component={Listen} />
       <Route path="/class/:klass" exact component={ClassPage} />
       {/* Allow slashes for nested assignments */}
       <Route path="/class/:klass/:assignment+" exact component={RouteTask} />

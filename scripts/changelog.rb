@@ -7,7 +7,7 @@ COMMAND = "<!-- Run `./scripts/changelog.rb` to generate -->"
 
 HEAD = "Unreleased"
 
-VERSION = /^## \[(?<version>\d+\.\d+\.\d+|#{HEAD})\]/
+VERSION = /^## \[(?<version>\d+\.\d+\.\d+(-[\w\.]+)?|#{HEAD})\]/
 
 log = []
 

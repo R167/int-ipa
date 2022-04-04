@@ -1,6 +1,6 @@
 import { memo, useCallback, useMemo } from "react";
 import clsx from "clsx";
-import { Clickable } from "./common";
+import { ClickableSubset, useSubset } from "./common";
 
 import { Box, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -47,6 +47,9 @@ const useStyles = makeStyles((theme) => ({
     overflow: "visible",
     width: "1.2em",
     textAlign: "center",
+    "& > div": {
+      display: "inline-block",
+    },
   },
   rounded: {
     position: "absolute",
@@ -61,14 +64,14 @@ const useStyles = makeStyles((theme) => ({
   mid: {
     width: "100%",
   },
-  symbol: {
-    display: "inline-block",
+  clickable: {
     cursor: "pointer",
     "&:hover": {
       borderRadius: "3px",
       backgroundColor: theme.palette.action.hover,
     },
   },
+  disabled: { color: theme.palette.action.disabled },
   paperBack: {
     "&::before": {
       zIndex: "-1",
@@ -93,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props extends Clickable {}
+interface Props extends ClickableSubset {}
 
 const vowelCoords = ([x, y]: Coords): { left: string; top: string } => {
   const offset = y * 0.5;
@@ -106,21 +109,31 @@ const vowelCoords = ([x, y]: Coords): { left: string; top: string } => {
  */
 const Vowels = (props: Props) => {
   const classes = useStyles();
-  const { onClick = () => {} } = props;
+  const { onClick, subset } = props;
+  const canClick = useSubset(subset);
 
   const preventDefault = useCallback((e) => e.preventDefault(), []);
+  const clickCallback = useCallback(
+    (symbol) => (onClick && canClick(symbol) ? () => onClick(symbol) : undefined),
+    [canClick, onClick]
+  );
+  const clickable = useCallback(
+    (symbol) => (canClick(symbol) ? classes.clickable : classes.disabled),
+    [canClick, classes]
+  );
 
   const VowelElement = useCallback(
     ({ vowels, coords }: { vowels: VowelLiteral; coords: Coords }) => {
       if (typeof vowels === "string") {
+        const vowel = vowels;
         return (
           <Box className={clsx(classes.element, classes.paperBack)} style={vowelCoords(coords)}>
             <div
-              className={clsx(classes.mid, classes.symbol)}
-              onClick={() => onClick(vowels)}
+              className={clsx(classes.mid, clickable(vowel))}
+              onClick={clickCallback(vowel)}
               onMouseDown={preventDefault}
             >
-              {vowels}
+              {vowel}
             </div>
           </Box>
         );
@@ -128,6 +141,7 @@ const Vowels = (props: Props) => {
         const noCenter = vowels.join("").length < 2;
         // Zero width space or dot
         const center = noCenter ? "\u00A0" : "•";
+        const [unrounded, rounded] = vowels;
         return (
           <Box
             className={clsx(classes.element, { [classes.paperBack]: !noCenter })}
@@ -135,24 +149,24 @@ const Vowels = (props: Props) => {
           >
             {center}
             <div
-              className={clsx(classes.unrounded, classes.symbol, classes.paperBack)}
-              onClick={() => onClick(vowels[0])}
+              className={clsx(classes.unrounded, clickable(unrounded), classes.paperBack)}
+              onClick={clickCallback(unrounded)}
               onMouseDown={preventDefault}
             >
-              {vowels[0]}
+              {unrounded}
             </div>
             <div
-              className={clsx(classes.rounded, classes.symbol, classes.paperBack)}
-              onClick={() => onClick(vowels[1])}
+              className={clsx(classes.rounded, clickable(rounded), classes.paperBack)}
+              onClick={clickCallback(rounded)}
               onMouseDown={preventDefault}
             >
-              {vowels[1]}
+              {rounded}
             </div>
           </Box>
         );
       }
     },
-    [classes, onClick, preventDefault]
+    [clickable, classes, clickCallback, preventDefault]
   );
 
   const vowelChart = useMemo(

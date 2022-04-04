@@ -1,5 +1,7 @@
 import { memo, useCallback } from "react";
-import { Clickable, borderColor, shadowBorder } from "./common";
+import { ClickableSubset, borderColor, shadowBorder, useSubset } from "./common";
+
+import clsx from "clsx";
 
 import { Grid, GridProps } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
@@ -13,8 +15,13 @@ const useStyles = makeStyles((theme) => ({
   symbol: {
     userSelect: "none",
     textAlign: "center",
-    cursor: "pointer",
     fontSize: "1.5rem",
+    cursor: "default",
+    color: theme.palette.action.disabled,
+  },
+  clickable: {
+    color: theme.palette.text.primary,
+    cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
     },
@@ -36,7 +43,7 @@ const useStyles = makeStyles((theme) => ({
 
 type Breakpoints = Pick<GridProps, "xs" | "sm" | "md" | "lg" | "xl">;
 
-interface Props extends Clickable {
+interface Props extends ClickableSubset {
   content: MiscList;
   genSym?: (ipa: string) => string;
   breakpoints?: Breakpoints;
@@ -45,8 +52,14 @@ interface Props extends Clickable {
 
 const GridDisplay = (props: Props) => {
   const classes = useStyles();
-  const { onClick = () => {}, content, breakpoints = {}, genSym = (ipa) => ipa, combine } = props;
+  const { onClick, content, breakpoints = {}, genSym = (ipa) => ipa, combine, subset } = props;
+  const canClick = useSubset(subset);
   const preventDefault = useCallback((e) => e.preventDefault(), []);
+
+  const clickCallback = useCallback(
+    (symbol) => (onClick && canClick(symbol) ? () => onClick(symbol) : undefined),
+    [canClick, onClick]
+  );
 
   return (
     <Grid container spacing={0}>
@@ -56,8 +69,8 @@ const GridDisplay = (props: Props) => {
             <Grid
               item
               xs={2}
-              className={classes.symbol}
-              onClick={() => onClick(ipa)}
+              className={clsx(classes.symbol, canClick(ipa) && classes.clickable)}
+              onClick={clickCallback(ipa)}
               onMouseDown={preventDefault}
             >
               {sym || genSym(ipa)}
@@ -75,8 +88,8 @@ const GridDisplay = (props: Props) => {
                   key={combined}
                   item
                   xs={2}
-                  className={classes.symbol}
-                  onClick={() => onClick(combined)}
+                  className={clsx(classes.symbol, canClick(combined) && classes.clickable)}
+                  onClick={clickCallback(combined)}
                   onMouseDown={preventDefault}
                 >
                   {combined}

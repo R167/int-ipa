@@ -1,7 +1,7 @@
 import { memo, useCallback } from "react";
 
 import clsx from "clsx";
-import { Clickable, borderColor } from "./common";
+import { ClickableSubset, borderColor, useSubset } from "./common";
 
 import {
   Table,
@@ -16,13 +16,15 @@ import { makeStyles } from "@material-ui/core/styles";
 import { IMPOSSIBLE, MANNERS, NOT_USED, PLACES, PULMONICS } from "../../utils/ipa";
 
 const useStyles = makeStyles((theme) => ({
-  voiceless: {
-    cursor: "pointer",
-    "&:hover": {
-      backgroundColor: theme.palette.action.hover,
-    },
+  symbol: {
+    padding: theme.spacing(0, 0.5),
+    userSelect: "none",
+    fontSize: "1.5rem",
+    cursor: "default",
+    color: theme.palette.action.disabled,
   },
-  voiced: {
+  clickable: {
+    color: theme.palette.text.primary,
     cursor: "pointer",
     "&:hover": {
       backgroundColor: theme.palette.action.hover,
@@ -35,11 +37,6 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: theme.palette.action.disabledBackground,
     },
-  },
-  symbol: {
-    padding: theme.spacing(0, 0.5),
-    userSelect: "none",
-    fontSize: "1.5rem",
   },
   leftSideBorder: {
     borderLeft: `1px solid ${borderColor(theme)}`,
@@ -57,15 +54,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-interface Props extends Clickable {}
+interface Props extends ClickableSubset {}
 
 const Pulmonics = (props: Props) => {
   const classes = useStyles();
-  const { onClick } = props;
+  const { onClick, subset } = props;
+  const canClick = useSubset(subset);
   const clickCallback = useCallback(
     (char) =>
-      (char !== IMPOSSIBLE && char !== NOT_USED && onClick && (() => onClick(char))) || undefined,
-    [onClick]
+      char !== IMPOSSIBLE && char !== NOT_USED && onClick && canClick(char)
+        ? () => onClick(char)
+        : undefined,
+    [onClick, canClick]
   );
 
   const preventDefault = useCallback((e) => e.preventDefault(), []);
@@ -84,7 +84,7 @@ const Pulmonics = (props: Props) => {
             align="center"
             className={clsx(
               classes.symbol,
-              voiceless && classes.voiceless,
+              voiceless && canClick(voiceless) && classes.clickable,
               voiceless === IMPOSSIBLE && classes.impossible,
               hasBorders && classes.leftSideBorder
             )}
@@ -98,7 +98,7 @@ const Pulmonics = (props: Props) => {
             align="center"
             className={clsx(
               classes.symbol,
-              voiced && classes.voiced,
+              voiced && canClick(voiced) && classes.clickable,
               voiced === IMPOSSIBLE && classes.impossible,
               hasBorders && classes.rightSideBorder
             )}
@@ -111,7 +111,7 @@ const Pulmonics = (props: Props) => {
         </>
       );
     },
-    [classes, clickCallback, preventDefault]
+    [canClick, classes, clickCallback, preventDefault]
   );
 
   return (
