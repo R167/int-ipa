@@ -1,16 +1,8 @@
-import {
-  ReactNode,
-  memo,
-  ReactChild,
-  ReactElement,
-  ReactChildren,
-  ReactFragment,
-  ReactNodeArray,
-} from "react";
+import { ReactElement, memo } from "react";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
-import { ClickableSubset, useSubset } from "./common";
+import { ClickableSubset } from "./common";
 import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
