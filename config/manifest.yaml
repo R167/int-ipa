@@ -2,7 +2,8 @@
 
 homepage:
   title: Welcome to IntIPA!
-  body: | # The body is formatted as markdown. Learn more at https://guides.github.com/features/mastering-markdown/
+  body:
+    | # The body is formatted as markdown. Learn more at https://guides.github.com/features/mastering-markdown/
     This is an interactive tool for teaching IPA transcription to students. It is designed to
     give students immediate feedback as they transcribe words in an assignment and help identify
     common and known mistakes. It has supports all IPA characters.
@@ -31,3 +32,7 @@ classes:
   - name: Hidden class
     folder: none
     hidden: true
+ipaPlayer:
+  enabled: true
+  # url: config/ipa_sound_manifest.yaml
+  url: https://int-ipa-assets.winstondurand.com/static-assets/ipa_sound_manifest.yaml
