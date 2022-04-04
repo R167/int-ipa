@@ -346,15 +346,6 @@ symbols:
   - ipa: ɧ
     audio: voiceless_postalveolar-velar_fricative.mp3
     video: voiceless_postalveolar-velar_fricative.mp4
-  - ipa: "ə\u02DE"
-    audio: mid_central_unrounded_rhotacized_vowel.mp3
-    video: mid_central_unrounded_rhotacized_vowel.mp4
-  - ipa: "\u0324"
-    audio: breathy_voice.mp3
-    video: breathy_voice.mp4
-  - ipa: "\u0330"
-    audio: creaky_voice.mp3
-    video: creaky_voice.mp4
 
 additionalSections:
   - name: Other examples
@@ -363,3 +354,15 @@ additionalSections:
         audio: voiceless_aspirated_bilabial_stop.mp3
         video: voiceless_aspirated_bilabial_stop.mp4
         description: Voiceless aspirated bilabial stop
+      - ipa: "ə\u02DE"
+        audio: mid_central_unrounded_rhotacized_vowel.mp3
+        video: mid_central_unrounded_rhotacized_vowel.mp4
+        description: Rhotacized vowel
+      - ipa: "a\u0324"
+        audio: breathy_voice.mp3
+        video: breathy_voice.mp4
+        description: Breathy voice
+      - ipa: "a\u0330"
+        audio: creaky_voice.mp3
+        video: creaky_voice.mp4
+        description: Creaky voice

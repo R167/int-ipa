@@ -34,4 +34,5 @@ classes:
     hidden: true
 ipaPlayer:
   enabled: true
+  # url: config/ipa_sound_manifest.yaml
   url: https://int-ipa-assets.winstondurand.com/static-assets/ipa_sound_manifest.yaml
