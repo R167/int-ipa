@@ -17,6 +17,8 @@ class Runner
     end
   end
 
+  WILL_STYLER = "https://wstyler.ucsd.edu/talks/ipa/"
+
   def initialize(args)
     @args = args.dup
     @errors = []
@@ -29,6 +31,7 @@ class Runner
     @download = true
     @override = false
     @video = false
+    @use_base = false
 
     parse!
     assert_cli!('aria2c')
@@ -63,6 +66,10 @@ class Runner
 
       opts.on("--video", "Also download video files") do
         @video = true
+      end
+
+      opts.on("--respect-base-url", "Use the baseUrl in the manifest") do
+        @use_base = true
       end
 
       opts.on("-h", "--help", "Print this help message") do
@@ -166,7 +173,7 @@ class Runner
 
   def run!
     data = YAML.safe_load_file(@input_file, aliases: true, symbolize_names: true)
-    base_url = URI.parse(data[:baseUrl])
+    base_url = URI.parse(@use_base ? data[:baseUrl] : WILL_STYLER)
 
     symbols = paths(data, :audio)
 
