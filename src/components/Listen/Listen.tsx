@@ -18,7 +18,7 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
 
   const sections = useMemo(() => {
     const sections = [
-      <Item size="half" header="Consonants (Non-pulmonics)">
+      <Item size="half" header="Consonants (Non-pulmonics)" key="non-pulmonic">
         <NonPulmonics />
       </Item>,
     ];
@@ -31,7 +31,7 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
       }));
 
       sections.push(
-        <Item size="half" header={name}>
+        <Item size="half" header={name} key={name}>
           <GridDisplay content={list} />
         </Item>
       );

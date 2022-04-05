@@ -5,6 +5,7 @@ import { IpaSoundsParsed } from "../../utils/parsers";
 
 const fetchAsync = async (packUrl: string | undefined) => {
   if (!packUrl) return;
+  console.debug("Fetching packFile", packUrl);
 
   const res = await fetch(packUrl);
 
@@ -15,10 +16,38 @@ const fetchAsync = async (packUrl: string | undefined) => {
   // If this isn't the case, welp, we're screwed and it should hopefully fail and not cause issues
   const contents = (await decodeAsync(res.body)) as Record<string, Uint8Array>;
 
-  return new Map<string, Uint8Array>(
-    Object.keys(contents).map((k) => [k, Uint8Array.from(contents[k])])
-  );
+  return contents;
 };
+
+interface BufferContext {
+  context: AudioContext;
+  buffers: Map<string, AudioBuffer>;
+}
+
+const createContextAsync = async (
+  contents: Record<string, Uint8Array> | undefined
+): Promise<BufferContext | undefined> => {
+  if (!contents) return;
+  console.debug("Creating audio context");
+
+  const context = new AudioContext({ latencyHint: "interactive" });
+  const promises = Object.keys(contents).map(
+    async (k) => [k, await context.decodeAudioData(copyBuffer(contents[k]))] as const
+  );
+  const buffers = new Map<string, AudioBuffer>(await Promise.all(promises));
+
+  return { context, buffers };
+};
+
+/**
+ * Get a copy of a Uint8Array as a raw ArrayBuffer
+ *
+ * Avoid 2 gotchas of Uint8Array with regards to Web Audio API
+ * 1. Uint8Array.buffer => potentially a shared backing store
+ * 2. decodeAudioData will detach a buffer, necessitating a copy be made
+ */
+const copyBuffer = (buffer: Uint8Array): ArrayBuffer =>
+  buffer.buffer.slice(buffer.byteOffset, buffer.byteOffset + buffer.byteLength);
 
 type AudioSource = MutableRefObject<HTMLAudioElement | null>;
 type BufferSource = MutableRefObject<AudioBufferSourceNode | null>;
@@ -38,25 +67,21 @@ const stopBuffer = (buffer: BufferSource) => {
   buffer.current = null;
 };
 
-const ctx = new AudioContext();
-const audioDataCache = new Map<string, AudioBuffer>();
-
 const playBuffer = async (
   source: BufferSource,
-  buffer: Uint8Array | undefined,
+  result: BufferContext | undefined,
   key: string
 ): Promise<boolean> => {
-  if (!buffer) {
-    return false;
-  }
-  ctx.resume();
+  if (!result) return false;
+  const { context, buffers } = result;
+  const buffer = buffers.get(key);
+  if (!buffer) return false;
 
-  const buf = audioDataCache.get(key) || (await ctx.decodeAudioData(buffer.buffer.slice(0)));
-  audioDataCache.set(key, buf);
+  context.resume();
 
-  const node = ctx.createBufferSource();
-  node.buffer = buf;
-  node.connect(ctx.destination);
+  const node = context.createBufferSource();
+  node.buffer = buffer;
+  node.connect(context.destination);
   node.start(0);
 
   source.current = node;
@@ -74,16 +99,18 @@ const playFallback = (audio: AudioSource, src: string): boolean => {
 };
 
 export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
-  const { result: response } = useAsync(fetchAsync, [sounds?.packFile]);
+  const { result: response, error: downloadError } = useAsync(fetchAsync, [sounds?.packFile]);
+  const { result, error: decodeError } = useAsync(createContextAsync, [response]);
   const source = useRef<AudioBufferSourceNode | null>(null);
   const audio = useRef<HTMLAudioElement | null>(null);
+
+  if (downloadError) throw downloadError;
+  if (decodeError) throw decodeError;
 
   const stop = useCallback(() => {
     stopAudio(audio);
     stopBuffer(source);
   }, []);
-
-  const buffers = response;
 
   const play = useCallback(
     async (sym: string): Promise<boolean> => {
@@ -94,11 +121,11 @@ export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
       }
 
       return (
-        (await playBuffer(source, buffers?.get(sound.audio), sound.audio)) ||
+        (await playBuffer(source, result, sound.audio)) ||
         playFallback(audio, new URL(sound.audio, baseUrl).toString())
       );
     },
-    [stop, sounds.symbols, buffers, baseUrl]
+    [stop, sounds.symbols, result, baseUrl]
   );
 
   return { play, stop };
