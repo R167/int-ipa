@@ -34,8 +34,9 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
 
   const playSound = useCallback(
     (char: string) => {
-      setSound(sounds.symbols.get(char));
-      if (!video) {
+      if (video) {
+        setSound(sounds.symbols.get(char));
+      } else {
         play(char);
       }
     },
