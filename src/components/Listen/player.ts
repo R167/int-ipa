@@ -67,11 +67,7 @@ const stopBuffer = (buffer: BufferSource) => {
   buffer.current = null;
 };
 
-const playBuffer = async (
-  source: BufferSource,
-  result: BufferContext | undefined,
-  key: string
-): Promise<boolean> => {
+const playBuffer = (source: BufferSource, result: BufferContext | undefined, key: string) => {
   if (!result) return false;
   const { context, buffers } = result;
   const buffer = buffers.get(key);
@@ -113,7 +109,7 @@ export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
   }, []);
 
   const play = useCallback(
-    async (sym: string): Promise<boolean> => {
+    (sym: string): boolean => {
       stop();
       const sound = sounds.symbols.get(sym);
       if (!sound) {
@@ -121,7 +117,7 @@ export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
       }
 
       return (
-        (await playBuffer(source, result, sound.audio)) ||
+        playBuffer(source, result, sound.audio) ||
         playFallback(audio, new URL(sound.audio, baseUrl).toString())
       );
     },
