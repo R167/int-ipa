@@ -31,9 +31,10 @@ const createContextAsync = async (
   console.debug("Creating audio context");
 
   const context = new AudioContext({ latencyHint: "interactive" });
-  const promises = Object.keys(contents).map(
-    async (k) => [k, await context.decodeAudioData(copyBuffer(contents[k]))] as const
-  );
+  const promises = Object.keys(contents).map(async (k) => {
+    const data = await context.decodeAudioData(copyBuffer(contents[k]));
+    return [k, data] as const;
+  });
   const buffers = new Map<string, AudioBuffer>(await Promise.all(promises));
 
   return { context, buffers };
@@ -67,8 +68,7 @@ const stopBuffer = (buffer: BufferSource) => {
   buffer.current = null;
 };
 
-const playBuffer = (source: BufferSource, result: BufferContext | undefined, key: string) => {
-  if (!result) return false;
+const playBuffer = (source: BufferSource, result: BufferContext, key: string) => {
   const { context, buffers } = result;
   const buffer = buffers.get(key);
   if (!buffer) return false;
@@ -100,8 +100,9 @@ export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
   const source = useRef<AudioBufferSourceNode | null>(null);
   const audio = useRef<HTMLAudioElement | null>(null);
 
-  if (downloadError) throw downloadError;
-  if (decodeError) throw decodeError;
+  // Only log errors because we want the AudioContext to gracefully degrade
+  if (downloadError) console.error(downloadError);
+  if (decodeError) console.error(decodeError);
 
   const stop = useCallback(() => {
     stopAudio(audio);
@@ -117,7 +118,7 @@ export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
       }
 
       return (
-        playBuffer(source, result, sound.audio) ||
+        (result && playBuffer(source, result, sound.audio)) ||
         playFallback(audio, new URL(sound.audio, baseUrl).toString())
       );
     },
