@@ -25,6 +25,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import HomeIcon from "@material-ui/icons/Home";
 import KeyboardIcon from "@material-ui/icons/Keyboard";
 import CastIcon from "@material-ui/icons/Cast";
+import RecordVoiceOverIcon from "@material-ui/icons/RecordVoiceOver";
 
 import { Link, matchPath, useLocation } from "react-router-dom";
 
@@ -99,6 +100,7 @@ const Header = (props: Props) => {
   const { changeDarkMode } = props;
 
   const { result, loading, error } = useManifest();
+  const playerEnabled = result?.ipaPlayer?.enabled;
 
   const openDrawer = useCallback(() => {
     setDrawer(true);
@@ -156,6 +158,15 @@ const Header = (props: Props) => {
           exact
           gutters={classes.itemGutters}
         />
+        {playerEnabled && (
+          <ListLink
+            to="/ipa-player"
+            text="IPA Player"
+            icon={<RecordVoiceOverIcon />}
+            exact
+            gutters={classes.itemGutters}
+          />
+        )}
       </List>
     </div>
   );

@@ -15,14 +15,15 @@ const Router = () => {
     <Switch>
       <Route path="/" exact component={Homepage} />
       <Route path="/keyboard" exact component={TypeIPA} />
-      <Route path="/listen" exact component={Listen} />
       <Route path="/class/:klass" exact component={ClassPage} />
       {/* Allow slashes for nested assignments */}
       <Route path="/class/:klass/:assignment+" exact component={RouteTask} />
       {allowRemote && <Route path="/remote" exact component={RouteRemoteTask} />}
+      <Route path="/ipa-player" exact component={Listen} />
 
       {/* Old routes which have been moved */}
       <Redirect from="/type" exact to="/keyboard" />
+      <Redirect from="/listen" exact to="/ipa-player" />
 
       <Route path="/tools" component={ToolLoader} />
 

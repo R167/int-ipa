@@ -9178,7 +9178,6 @@ fsevents@^1.2.7:
     source-map-explorer: ^2.5.2
     superstruct: ^0.15.2
     typescript: ^4.5.0
-    wavesurfer.js: ^6.1.0
     web-vitals: ^1.1.0
     yaml: ^1.10.2
     zbase32: ^1.0.4
@@ -16746,13 +16745,6 @@ typescript@^4.5.0:
     watchpack-chokidar2:
       optional: true
   checksum: 8b7cb8c8df8f4dd0e8ac47693c0141c4f020a4b031411247d600eca31522fde6f1f9a3a6f6518b46e71f7971b0ed5734c08c60d7fdd2530e7262776286f69236
-  languageName: node
-  linkType: hard
-
-"wavesurfer.js@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "wavesurfer.js@npm:6.1.0"
-  checksum: a0f940d6240d28e7e816c7f74e47561c199a290a0411420b188069e0934fd0652515d7809e67cf92af307ef264090d6bc9802721cb5e7ec81241900ead4459f8
   languageName: node
   linkType: hard
 

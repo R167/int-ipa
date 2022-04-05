@@ -13,4 +13,4 @@ zip -r -qdgds 10m converted.zip converted
 
 b2 sync --threads=10 --delete --replaceNewer converted b2://int-ipa/static-assets/ipa/
 b2 upload-file int-ipa converted.zip static-assets/ipa.zip
-b2 upload-file int-ipa data.msgpack static-assets/ipa.msgpack
+b2 upload-file --contentType application/msgpack int-ipa data.msgpack static-assets/ipa.msgpack
