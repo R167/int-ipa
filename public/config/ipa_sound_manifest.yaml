@@ -1,10 +1,13 @@
 ---
 # All files are originally available from Will Styler and are rehosted solely for reasons of convenience
 # baseUrl: "https://wstyler.ucsd.edu/talks/ipa/"
+# You can download all the files necessary for this page from https://int-ipa-assets.winstondurand.com/static-assets/ipa.zip
 baseUrl: "https://int-ipa-assets.winstondurand.com/static-assets/ipa/"
 # This is a somewhat "magical" file. Refer to the README.md. If you update this file, make sure you update
 # the version which lives in production
 packFile: "https://int-ipa-assets.winstondurand.com/static-assets/ipa.msgpack"
+footer: |
+  Sound files created and performed by [Marc Garellek](https://pages.ucsd.edu/~mgarellek/) of UCSD
 symbols:
   # Pulmonics
   - ipa: p

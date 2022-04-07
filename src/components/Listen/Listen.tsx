@@ -13,6 +13,7 @@ import { IpaSoundsParsed, SoundParsed } from "../../utils/parsers";
 import GridDisplay from "../keyboard/GridDisplay";
 import { BaseKeyboard, Item } from "../keyboard/Keyboard";
 import NonPulmonics from "../keyboard/NonPulmonics";
+import Markdown from "../Markdown";
 import { useAudioPlayer } from "./player";
 
 const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string }) => {
@@ -87,14 +88,19 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
             control={<Switch checked={video} onChange={toggleVideo} color="primary" />}
             label="Play Video"
           />
-          {video && (
-            <VideoDialog sound={sound} baseUrl={baseUrl} close={() => setSound(undefined)} />
-          )}
         </Grid>
       </Grid>
+      {video && <VideoDialog sound={sound} baseUrl={baseUrl} close={() => setSound(undefined)} />}
       <BaseKeyboard subset={validKeys} onClick={playSound}>
         {sections}
       </BaseKeyboard>
+      {sounds.footer && (
+        <Grid container spacing={2} justify="center">
+          <Grid item md={8} xs={12}>
+            <Markdown children={sounds.footer} />
+          </Grid>
+        </Grid>
+      )}
     </div>
   );
 };

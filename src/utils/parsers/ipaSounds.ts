@@ -8,7 +8,13 @@ const cleanSymbol = (sym: string): string => sym.replace(fillerRegex, "");
 export type SoundParsed = Sound & { extra: boolean };
 
 export const parseIpaSounds = (contents: string) => {
-  const { symbols: rawSymbols, packFile, baseUrl, additionalSections } = parse(contents, IpaSounds);
+  const {
+    symbols: rawSymbols,
+    packFile,
+    baseUrl,
+    footer,
+    additionalSections,
+  } = parse(contents, IpaSounds);
 
   const symbols = new Map<string, SoundParsed>();
 
@@ -21,7 +27,7 @@ export const parseIpaSounds = (contents: string) => {
     section.symbols.forEach((line) => symbols.set(cleanSymbol(line.ipa), { ...line, extra: true }))
   );
 
-  return { symbols, baseUrl, packFile, sections: additionalSections };
+  return { symbols, baseUrl, packFile, footer, sections: additionalSections };
 };
 
 export type IpaSoundsParsed = ReturnType<typeof parseIpaSounds>;
