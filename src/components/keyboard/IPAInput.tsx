@@ -45,6 +45,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const preventDefault = (e: any) => e.preventDefault();
+
 export interface Props {
   inputRef: RefObject<HTMLInputElement>;
   value: string;
@@ -92,8 +94,6 @@ const IPAInput = (props: Props) => {
     },
     [handleSubmit]
   );
-
-  const preventDefault = useCallback((e) => e.preventDefault(), []);
 
   const check = onCheck && (
     <Tooltip title={checkDescription || "Submit IPA Symbol or End Word"} enterDelay={500}>

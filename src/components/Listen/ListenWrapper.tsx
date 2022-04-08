@@ -48,7 +48,10 @@ const Status = ({ children, error }: StatusProps) => (
   </Typography>
 );
 
-const ListenWithManifest = () => {
+interface Props {
+  video?: boolean;
+}
+const ListenWrapper = ({ video }: Props) => {
   const manifest = useManifest();
   const sounds = useAsync(fetchSounds, [manifest.result?.ipaPlayer?.url]);
 
@@ -59,7 +62,7 @@ const ListenWithManifest = () => {
       fullBaseUrl()
     ).toString();
 
-    return <Listen baseUrl={defaultBaseUrl} sounds={sounds.result} />;
+    return <Listen baseUrl={defaultBaseUrl} sounds={sounds.result} video={video} />;
   } else if (manifest.error) {
     return <ErrorMessage error={manifest.error} context={3} defaultHeader="Cannot manifest" />;
   } else if (sounds.error) {
@@ -79,8 +82,8 @@ const ListenWithManifest = () => {
       </Fade>
     );
   } else {
-    return <Status error children="Unreachable state???" />;
+    return <Status error children="Audible IPA Chart is not available" />;
   }
 };
 
-export default ListenWithManifest;
+export default ListenWrapper;

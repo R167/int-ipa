@@ -89,13 +89,13 @@ const Keyboard = (props: Props) => {
   const { onClick, subset } = props;
   return (
     // 1
-    <BaseKeyboard>
+    <BaseKeyboard onClick={onClick} subset={subset}>
       <Item size="more" header="Diacritics">
-        <Diacritics onClick={onClick} subset={subset} />
+        <Diacritics />
       </Item>
 
       <Item size="less" header="Suprasegmentals">
-        <Suprasegmentals onClick={onClick} subset={subset} />
+        <Suprasegmentals />
       </Item>
 
       <Item size="half" header="Consonants (Non-pulmonics)">

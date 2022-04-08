@@ -17,7 +17,7 @@ interface AsyncManifest {
 const ManifestContext = createContext<AsyncManifest | null>(null);
 
 const fetchManifest = async () => {
-  const req = await fetch(MANIFEST_FILE);
+  const req = await fetch(MANIFEST_FILE, { credentials: "same-origin" });
   const body = await req.text();
   // console.log(YAML.parseDocument(body, { prettyErrors: true }));
   return { manifest: parseManifest(body), raw: body };

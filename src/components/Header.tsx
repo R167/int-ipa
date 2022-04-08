@@ -152,7 +152,7 @@ const Header = (props: Props) => {
           />
         )}
         <ListLink
-          to="/keyboard"
+          to="/keyboard/type"
           text="IPA Keyboard"
           icon={<KeyboardIcon />}
           exact
@@ -160,7 +160,7 @@ const Header = (props: Props) => {
         />
         {playerEnabled && (
           <ListLink
-            to="/ipa-player"
+            to="/keyboard/audio"
             text="IPA Player"
             icon={<RecordVoiceOverIcon />}
             exact

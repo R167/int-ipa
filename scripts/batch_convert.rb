@@ -13,7 +13,7 @@ output = 'converted'
 img_tmp = 'tmp_images'
 img_cmp = 'compare'
 
-images = false
+images = true
 
 [output, img_cmp, img_tmp].each do |folder|
   FileUtils.rm_rf(folder)
@@ -60,7 +60,7 @@ def thread_pool(input, threads: 10, &block)
       end
     end
   end
-  pool.map(&:join)
+  pool.map(&:value)
 end
 
 thread_pool(files) do |f|
@@ -74,9 +74,9 @@ thread_pool(files) do |f|
     orig = "#{img_tmp}/#{basename}.orig.png"
     trim = "#{img_tmp}/#{basename}.trim.png"
     # convert the original
-    run!("audiowaveform -i '#{f}' -o '#{orig}' -e 1 -w 200 --amplitude-scale 20")
+    run!("audiowaveform -i '#{f}' -o '#{orig}' -e 1.5 -w 400 --amplitude-scale 10")
     # convert the trimmed
-    run!("audiowaveform -i '#{out}' -o '#{trim}' -e 1 -w 200 --amplitude-scale 20")
+    run!("audiowaveform -i '#{out}' -o '#{trim}' -e 1.5 -w 400 --amplitude-scale 10")
     combined = "#{img_cmp}/#{basename}.png"
     run!("convert +append '#{trim}' '#{orig}' '#{combined}'")
   end

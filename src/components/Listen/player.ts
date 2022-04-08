@@ -94,7 +94,14 @@ const playFallback = (audio: AudioSource, src: string): boolean => {
   return true;
 };
 
-export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string) => {
+interface Player {
+  // Play the sound for an IPA symbol
+  play: (sym: string) => boolean;
+  // Stop playing any sounds
+  stop: () => void;
+}
+
+export const useAudioPlayer = (sounds: IpaSoundsParsed, baseUrl: string): Player => {
   const { result: response, error: downloadError } = useAsync(fetchAsync, [sounds?.packFile]);
   const { result, error: decodeError } = useAsync(createContextAsync, [response]);
   const source = useRef<AudioBufferSourceNode | null>(null);
