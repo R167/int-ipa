@@ -1,9 +1,7 @@
 import { IpaSounds, Sound } from "../../data/ipaSounds";
 import { parse } from "./parse";
-import { FILLER } from "../ipa";
 
-const fillerRegex = new RegExp(FILLER, "ug");
-const cleanSymbol = (sym: string): string => sym.replace(fillerRegex, "");
+import normalize from "../normalize";
 
 export type SoundParsed = Sound & { extra: boolean };
 
@@ -18,14 +16,18 @@ export const parseIpaSounds = (contents: string) => {
 
   const symbols = new Map<string, SoundParsed>();
 
-  // TODO: Raise error if a duplicate is encountered
-  rawSymbols.forEach((line) => {
-    symbols.set(cleanSymbol(line.ipa), { ...line, extra: false });
-  });
+  const addSound = (extra: boolean) => (snd: Sound) => {
+    const normalized = normalize(snd.ipa);
+    if (symbols.has(normalized)) {
+      throw new Error(`Duplicate entry for ${normalized}`);
+    } else {
+      symbols.set(normalized, { ...snd, extra });
+    }
+  };
 
-  additionalSections?.forEach((section) =>
-    section.symbols.forEach((line) => symbols.set(cleanSymbol(line.ipa), { ...line, extra: true }))
-  );
+  rawSymbols.forEach(addSound(false));
+
+  additionalSections?.forEach((section) => section.symbols.forEach(addSound(true)));
 
   return { symbols, baseUrl, packFile, footer, sections: additionalSections };
 };
