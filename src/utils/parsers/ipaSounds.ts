@@ -1,8 +1,6 @@
 import { IpaSounds, Sound } from "../../data/ipaSounds";
 import { parse } from "./parse";
 
-import normalize from "../normalize";
-
 export type SoundParsed = Sound & { extra: boolean };
 
 export const parseIpaSounds = (contents: string) => {
@@ -17,11 +15,11 @@ export const parseIpaSounds = (contents: string) => {
   const symbols = new Map<string, SoundParsed>();
 
   const addSound = (extra: boolean) => (snd: Sound) => {
-    const normalized = normalize(snd.ipa);
-    if (symbols.has(normalized)) {
-      throw new Error(`Duplicate entry for ${normalized}`);
+    const { ipa } = snd;
+    if (symbols.has(ipa)) {
+      throw new Error(`Duplicate entry for ${ipa}`);
     } else {
-      symbols.set(normalized, { ...snd, extra });
+      symbols.set(ipa, { ...snd, extra });
     }
   };
 
