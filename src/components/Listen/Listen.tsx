@@ -2,24 +2,40 @@ import {
   Dialog,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
   Grid,
-  Switch,
+  Paper,
+  Tab,
+  Tabs,
   Typography,
 } from "@material-ui/core";
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { MiscList } from "../../utils/ipa";
 import { IpaSoundsParsed, SoundParsed } from "../../utils/parsers";
 import GridDisplay from "../keyboard/GridDisplay";
 import { BaseKeyboard, Item } from "../keyboard/Keyboard";
 import NonPulmonics from "../keyboard/NonPulmonics";
 import Markdown from "../Markdown";
+import TypeIPA from "../TypeIPA";
 import { useAudioPlayer } from "./player";
+
+enum KbTab {
+  Type = 0,
+  Audio = 1,
+  Video = 2,
+}
 
 const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string }) => {
   const { play, stop } = useAudioPlayer(sounds, baseUrl);
-  const [video, setVideo] = useState(false);
   const [sound, setSound] = useState<SoundParsed | undefined>();
+
+  const [value, setValue] = useState(KbTab.Audio);
+  const video = value === KbTab.Video;
+
+  const handleChange = (_event: React.ChangeEvent<{}>, newValue: number) => {
+    setValue(newValue);
+  };
+
+  useEffect(() => stop(), [value, stop]);
 
   const validKeys = useCallback(
     (key: string): boolean => {
@@ -27,11 +43,6 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
     },
     [sounds]
   );
-
-  const toggleVideo = useCallback(() => {
-    stop();
-    setVideo((v) => !v);
-  }, [stop]);
 
   const playSound = useCallback(
     (char: string) => {
@@ -70,9 +81,26 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
 
   return (
     <div>
-      <Typography variant="h4" component="h2" align="center">
+      <Typography variant="h4" component="h2" align="center" gutterBottom>
         Interactive IPA Chart
       </Typography>
+      <Grid container justify="center" spacing={2}>
+        <Grid item>
+          <Paper square>
+            <Tabs
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={handleChange}
+              value={value}
+              centered
+            >
+              <Tab label="Type" />
+              <Tab label="Audio" />
+              <Tab label="Audio + Video" />
+            </Tabs>
+          </Paper>
+        </Grid>
+      </Grid>
       <Grid container spacing={2} justify="center">
         <Grid item md={8}>
           <Typography gutterBottom>
@@ -82,18 +110,15 @@ const Listen = ({ sounds, baseUrl }: { sounds: IpaSoundsParsed; baseUrl: string 
           </Typography>
         </Grid>
       </Grid>
-      <Grid container spacing={2} justify="center">
-        <Grid item>
-          <FormControlLabel
-            control={<Switch checked={video} onChange={toggleVideo} color="primary" />}
-            label="Play Video"
-          />
-        </Grid>
-      </Grid>
       {video && <VideoDialog sound={sound} baseUrl={baseUrl} close={() => setSound(undefined)} />}
-      <BaseKeyboard subset={validKeys} onClick={playSound}>
-        {sections}
-      </BaseKeyboard>
+      {value === KbTab.Type ? (
+        <TypeIPA />
+      ) : (
+        <BaseKeyboard subset={validKeys} onClick={playSound}>
+          {sections}
+        </BaseKeyboard>
+      )}
+
       {sounds.footer && (
         <Grid container spacing={2} justify="center">
           <Grid item md={8} xs={12}>
