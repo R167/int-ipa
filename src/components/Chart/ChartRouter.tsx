@@ -1,10 +1,10 @@
 import { Box, Grid, Paper, Tab, Tabs, Typography } from "@material-ui/core";
-import { useCallback, useEffect, useMemo } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import ListenWrapper from "../Listen/ListenWrapper";
 import NotFound from "../NotFound";
-import TypeIPA from "../TypeIPA";
+import TypeIPA from "./TypeIPA";
 import LoadOnce from "./LoadOnce";
+import { useManifest } from "../../Manifest";
 
 enum Pages {
   Type = "type",
@@ -20,19 +20,7 @@ const TABS = [
 
 const ChartRouter = () => {
   const { page } = useParams<{ page: string | undefined }>();
-  const history = useHistory();
-
-  const changeTab = useCallback(
-    (_event: React.ChangeEvent<{}>, newValue: number) => {
-      history.push(`/keyboard/${TABS[newValue].path}`);
-    },
-    [history]
-  );
-
-  // useEffect(() => {
-  //   setTimeout(() => history.push("/keyboard/type"), 1000);
-  // }, []);
-  // const tabs = useMemo(() => TABS.map(({ name, path }) => <Tab label={name} key={path} />), []);
+  const { result: manifest } = useManifest();
 
   const tab = page ? TABS.findIndex(({ path }) => path === page) : 0;
   if (tab < 0) return <NotFound />;
@@ -43,29 +31,37 @@ const ChartRouter = () => {
       <Typography variant="h4" component="h2" align="center">
         Interactive IPA Chart
       </Typography>
-      <Grid container justify="center" component={Box} mb={1}>
-        <Grid item>
-          <Paper square>
-            <Tabs indicatorColor="primary" textColor="primary" onChange={changeTab} value={tab}>
-              <Tab label="Type" />
-              <Tab label="Audio" />
-              <Tab label="Audio + Video" />
-            </Tabs>
-          </Paper>
-        </Grid>
-      </Grid>
+      {manifest?.ipaPlayer?.enabled && <NavTabs tab={tab} />}
 
       <LoadOnce visible={path === Pages.Type}>
-        <TypeIPA key="ipa" />
+        <TypeIPA />
       </LoadOnce>
-      {/* {path === Pages.Type && <TypeIPA key="ipa" />} */}
-      {(path === Pages.Audio || path === Pages.Video) && (
+      <LoadOnce visible={path === Pages.Audio || path === Pages.Video}>
         <ListenWrapper video={path === Pages.Video} />
-      )}
-      {/* <LoadOnce visible={path === Pages.Audio || path === Pages.Video}>
-        <ListenWrapper video={path === Pages.Video} />
-      </LoadOnce> */}
+      </LoadOnce>
     </div>
+  );
+};
+
+const NavTabs = ({ tab }: { tab: number }) => {
+  const history = useHistory();
+
+  const changeTab = (_event: React.ChangeEvent<{}>, newValue: number) => {
+    history.push(`/keyboard/${TABS[newValue].path}`);
+  };
+
+  return (
+    <Grid container justify="center" component={Box} mb={1}>
+      <Grid item>
+        <Paper square>
+          <Tabs indicatorColor="primary" textColor="primary" onChange={changeTab} value={tab}>
+            {TABS.map(({ name, path }) => (
+              <Tab label={name} key={path} />
+            ))}
+          </Tabs>
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 

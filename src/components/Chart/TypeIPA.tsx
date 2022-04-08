@@ -1,6 +1,6 @@
-import useKeyboard from "./keyboard/useKeyboard";
+import useKeyboard from "../keyboard/useKeyboard";
 
-import StickyIPA from "./keyboard/StickyIPA";
+import StickyIPA from "../keyboard/StickyIPA";
 
 const TypeIPA = () => {
   const { handleKeyboard, handleDelete, handleType, value, ref } = useKeyboard();

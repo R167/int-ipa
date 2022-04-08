@@ -7,7 +7,6 @@ import { RouteRemoteTask, RouteTask } from "./components/Task";
 import ToolLoader from "./components/Tools/ToolLoader";
 
 import { allowRemote } from "./config";
-import Listen from "./components/Listen/ListenWrapper";
 import ChartRouter from "./components/Chart/ChartRouter";
 
 const Router = () => {
@@ -22,7 +21,7 @@ const Router = () => {
       <Route path="/keyboard/:page?" exact component={ChartRouter} />
 
       {/* Old routes which have been moved */}
-      <Redirect from="/type" exact to="/keyboard" />
+      <Redirect from="/type" exact to="/keyboard/type" />
       <Redirect from="/listen" exact to="/keyboard/audio" />
       <Redirect from="/ipa-player" exact to="/keyboard/audio" />
 

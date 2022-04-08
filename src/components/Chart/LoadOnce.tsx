@@ -6,7 +6,7 @@ interface Props {
 }
 
 /**
- * Lazy load elements, but once loaded, keep them on the page and just mark as invisible
+ * Lazy load elements, but once loaded, keep them on the page and just mark as hidden to avoid reload flashing
  */
 const LoadOnce = (props: Props) => {
   const seen = useRef<boolean>(props.visible);
