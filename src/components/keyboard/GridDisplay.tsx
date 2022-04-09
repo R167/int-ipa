@@ -68,7 +68,8 @@ const GridDisplay = (props: Props) => {
           <Grid container>
             <Grid
               item
-              xs={2}
+              // Nasty hasck for making the free form entry for ipa_sound_metadata.yaml work
+              xs={(sym && sym.length > 8) || 2}
               className={clsx(classes.symbol, canClick(ipa) && classes.clickable)}
               onClick={clickCallback(ipa)}
               onMouseDown={preventDefault}

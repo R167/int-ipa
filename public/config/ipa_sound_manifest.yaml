@@ -351,6 +351,54 @@ symbols:
     video: voiceless_postalveolar-velar_fricative_small.mp4
 
 additionalSections:
+  - name: Other examples
+    symbols:
+      - ipa: "pʰa"
+        description: Voiceless aspirated bilabial stop
+        audio: voiceless_aspirated_bilabial_stop.mp3
+        video: voiceless_aspirated_bilabial_stop_small.mp4
+      - ipa: "t͡s"
+        description: Mid central unrounded rhotacized vowel
+        audio: voiceless_alveolar_affricate.mp3
+        video: voiceless_alveolar_affricate_small.mp4
+      - ipa: "k͡p"
+        description: Mid central unrounded rhotacized vowel
+        audio: voiceless_labial-velar_stop.mp3
+        video: voiceless_labial-velar_stop_small.mp4
+      - ipa: "ə˞"
+        description: Mid central unrounded rhotacized vowel
+        audio: mid_central_unrounded_rhotacized_vowel.mp3
+        video: mid_central_unrounded_rhotacized_vowel_small.mp4
+      - ipa: "a̤"
+        description: Breathy voice
+        audio: breathy_voice.mp3
+        video: breathy_voice_small.mp4
+      - ipa: "a̰"
+        description: Creaky voice
+        audio: creaky_voice.mp3
+        video: creaky_voice_small.mp4
+  - name: Contrasts
+    symbols:
+      - ipa: "pa pʼa k͡ʘa ba ɓa"
+        description: Airstrem mechanisms
+        audio: airstream_mechanisms.mp3
+        video: airstream_mechanisms_small.mp4
+      - ipa: "k͡ǂʰa k͡ǂa g͡ǂa ŋ͡ǂa"
+        description: Click accompaniments
+        audio: click_accompaniments.mp3
+        video: click_accompaniments_small.mp4
+      - ipa: "ħa ʜa ʕa ʢa"
+        description: Pharyngeal epiglottal
+        audio: pharyngeal_epiglottal.mp3
+        video: pharyngeal_epiglottal_small.mp4
+      - ipa: "ta tʷa tʲa tˠa tˤa"
+        description: Secondary articulations
+        audio: secondary articulations.mp3
+        video: secondary articulations_small.mp4
+      - ipa: "pʰa pa ba"
+        description: Stop voicing contrasts
+        audio: stop voicing contrasts.mp3
+        video: stop voicing contrasts_small.mp4
   - name: Tone
     columns: 2
     symbols:
@@ -394,21 +442,3 @@ additionalSections:
         audio: rising-falling_tone.mp3
         video: rising-falling_tone_small.mp4
         description: Rising-falling
-  - name: Other examples
-    symbols:
-      - ipa: "p\u02B0"
-        audio: voiceless_aspirated_bilabial_stop.mp3
-        video: voiceless_aspirated_bilabial_stop_small.mp4
-        description: Voiceless aspirated bilabial stop
-      - ipa: "ə\u02DE"
-        audio: mid_central_unrounded_rhotacized_vowel.mp3
-        video: mid_central_unrounded_rhotacized_vowel_small.mp4
-        description: Rhotacized vowel
-      - ipa: "a\u0324"
-        audio: breathy_voice.mp3
-        video: breathy_voice_small.mp4
-        description: Breathy voice
-      - ipa: "a\u0330"
-        audio: creaky_voice.mp3
-        video: creaky_voice_small.mp4
-        description: Creaky voice
