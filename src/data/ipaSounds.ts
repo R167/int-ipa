@@ -1,4 +1,4 @@
-import { Infer, array, object, optional, string, type } from "superstruct";
+import { Infer, array, number, object, optional, string, type } from "superstruct";
 
 export type IpaSoundsDef = Infer<typeof IpaSounds>;
 
@@ -19,6 +19,7 @@ export type { SoundDef as Sound };
 // Sections follos
 const Section = object({
   name: string(),
+  columns: optional(number()),
   symbols: array(
     object({
       ...commonSound,

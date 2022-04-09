@@ -43,16 +43,18 @@ const Listen = ({ sounds, baseUrl, video }: Props) => {
       </Item>,
     ];
 
-    sounds?.sections?.forEach(({ name, symbols }) => {
+    sounds?.sections?.forEach(({ name, symbols, columns }) => {
       const list: MiscList = symbols.map(({ ipa, description }) => ({
         ipa,
         sym: ipa,
         description,
       }));
 
+      const width = columns === 2 ? 6 : columns === 3 ? 4 : 12;
+
       sections.push(
         <Item size="half" header={name} key={name}>
-          <GridDisplay content={list} />
+          <GridDisplay content={list} breakpoints={{ xs: width }} />
         </Item>
       );
     });
