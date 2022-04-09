@@ -35,9 +35,10 @@ end
 def target_level(file)
   current = sound_level(file)
   target = case file
-  when /palatoalveolar_click/ then 5 # this click goes really high, so make it even higher
+  when /palatoalveolar_click/, /click_accompaniments/ then 5 # this click goes really high, so make it even higher
   when /high(_|er-mid).+vowel/ then -14
-  when /vowel/ then -10
+  when /vowel/, /_tone/ then -10
+  when /(breathy|creaky)_voice/ then -8
   else
     -5
   end
