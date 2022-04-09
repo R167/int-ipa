@@ -359,11 +359,11 @@ additionalSections:
         audio: voiceless_aspirated_bilabial_stop.mp3
         video: voiceless_aspirated_bilabial_stop_small.mp4
       - ipa: "t͡s"
-        description: Mid central unrounded rhotacized vowel
+        description: Voiceles alveolar affricate
         audio: voiceless_alveolar_affricate.mp3
         video: voiceless_alveolar_affricate_small.mp4
       - ipa: "k͡p"
-        description: Mid central unrounded rhotacized vowel
+        description: Voiceless labial-velar stop
         audio: voiceless_labial-velar_stop.mp3
         video: voiceless_labial-velar_stop_small.mp4
       - ipa: "ə˞"
