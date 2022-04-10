@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Type/Listen page have been unified
 
+### Changed
+
+- Rewrote the IPAInput cursor position handling
+
 ### Fixed
 
 - Random scrolling on ipa keyboard typing
