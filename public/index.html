@@ -21,6 +21,8 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <!--
       This preload syntax is designed to begin loading our fonts but not block loading anything else.
@@ -37,7 +39,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap"
     />
-    <link rel="preload" as="fetch" href="%PUBLIC_URL%/config/manifest.yaml" crossorigin="use-credentials">
+    <link rel="preload" as="fetch" href="%PUBLIC_URL%/config/manifest.yaml" crossorigin="same-origin">
     <title>Int IPA</title>
   </head>
   <body>

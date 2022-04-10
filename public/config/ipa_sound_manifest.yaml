@@ -352,7 +352,7 @@ symbols:
     video: voiceless_postalveolar-velar_fricative_small.mp4
 
 additionalSections:
-  - name: Other examples
+  - name: Diacritics
     symbols:
       - ipa: "pʰa"
         description: Voiceless aspirated bilabial stop
