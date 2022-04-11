@@ -3,7 +3,7 @@ import { useEffect, useMemo } from "react";
 import { Container, CssBaseline, Snackbar } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { ThemeOptions, createMuiTheme } from "@material-ui/core/styles";
-import { blue, indigo } from "@material-ui/core/colors";
+import { pink } from "@material-ui/core/colors";
 import { Theme, makeStyles, useMediaQuery } from "@material-ui/core";
 
 import Router from "./Router";
@@ -22,10 +22,10 @@ const lightTheme: ThemeOptions = {
   palette: {
     type: "light",
     primary: {
-      main: blue[900],
+      main: pink[400],
     },
     secondary: {
-      main: indigo[700],
+      main: pink[700],
     },
   },
 };
@@ -34,10 +34,10 @@ const darkTheme: ThemeOptions = {
   palette: {
     type: "dark",
     primary: {
-      main: blue[500],
+      main: pink[400],
     },
     secondary: {
-      main: indigo[700],
+      main: pink[700],
     },
   },
 };
