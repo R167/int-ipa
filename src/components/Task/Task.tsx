@@ -8,6 +8,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  Fade,
   Grid,
   IconButton,
   ListSubheader,
@@ -35,7 +36,7 @@ interface TaskProps {
 }
 
 enum Op {
-  Reset,
+  FullReset,
   ShowReset,
   CloseReset,
   DismissModal,
@@ -65,7 +66,7 @@ const reducer = (state: State, action: Op): State => {
       return { ...state, resetModal: true };
     case Op.CloseReset:
       return { ...state, resetModal: false };
-    case Op.Reset:
+    case Op.FullReset:
       // Reset back to start
       return {
         modalWord: 0,
@@ -111,7 +112,7 @@ const Task = (props: TaskProps) => {
     dispatch(Op.ShowReset);
   }, []);
   const handleReset = useCallback((reset: boolean) => {
-    dispatch(reset ? Op.Reset : Op.CloseReset);
+    dispatch(reset ? Op.FullReset : Op.CloseReset);
   }, []);
 
   const handleClickMore = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -146,11 +147,15 @@ const Task = (props: TaskProps) => {
         id="simple-menu"
         anchorEl={anchorEl}
         keepMounted
-        open={Boolean(anchorEl)}
+        open={!!anchorEl}
+        TransitionComponent={Fade}
         onClose={handleCloseMore}
         MenuListProps={{ subheader: <ListSubheader>Options</ListSubheader> }}
       >
         <MenuItem onClick={handleShowReset}>Reset assignment</MenuItem>
+        {/* <MenuItem disabled={true} onClick={handleShowReset}>
+          Reset word
+        </MenuItem> */}
       </Menu>
     </>
   );
@@ -202,33 +207,12 @@ const Task = (props: TaskProps) => {
         />
       </Collapse>
 
-      <Dialog
-        open={showModal}
-        onClose={dismissModal}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        disableRestoreFocus={!debug}
+      <NextWord
+        show={showModal}
+        dismiss={dismissModal}
         onExited={handleModalExit}
-      >
-        <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            You did a good job of getting the word correct!
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={dismissModal}
-            variant="contained"
-            color="primary"
-            disabled={!showModal}
-            autoFocus
-            disableFocusRipple
-          >
-            {modalWord < words.length ? "Next word" : "Finish"}
-          </Button>
-        </DialogActions>
-      </Dialog>
+        action={modalWord < words.length ? "Next word" : "Finish"}
+      />
       <ConfirmDialog
         open={resetModal}
         onClose={handleReset}
@@ -238,5 +222,40 @@ const Task = (props: TaskProps) => {
     </div>
   );
 };
+
+interface NextWordProps {
+  show: boolean;
+  dismiss: () => void;
+  onExited: () => void;
+  action: string;
+}
+const NextWord = (props: NextWordProps) => (
+  <Dialog
+    open={props.show}
+    onClose={props.dismiss}
+    aria-labelledby="alert-dialog-title"
+    aria-describedby="alert-dialog-description"
+    onExited={props.onExited}
+  >
+    <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
+    <DialogContent>
+      <DialogContentText id="alert-dialog-description">
+        You did a good job of getting the word correct!
+      </DialogContentText>
+    </DialogContent>
+    <DialogActions>
+      <Button
+        onClick={props.dismiss}
+        variant="contained"
+        color="primary"
+        disabled={!props.show}
+        autoFocus
+        disableFocusRipple
+      >
+        {props.action}
+      </Button>
+    </DialogActions>
+  </Dialog>
+);
 
 export default memo(Task);

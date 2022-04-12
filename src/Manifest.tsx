@@ -19,7 +19,6 @@ const ManifestContext = createContext<AsyncManifest | null>(null);
 const fetchManifest = async () => {
   const req = await fetch(MANIFEST_FILE, { credentials: "same-origin" });
   const body = await req.text();
-  // console.log(YAML.parseDocument(body, { prettyErrors: true }));
   return { manifest: parseManifest(body), raw: body };
 };
 
@@ -42,7 +41,6 @@ const MANIFEST_KEY = "cached_manifest";
 let errorShown = false;
 
 const Manifest = ({ children }: Props) => {
-  // TODO: Setup to use localStorage as the default and fetch asynchronously to check for updates
   const { result, error, loading } = useAsync(fetchManifest, []);
 
   const manifest = {
