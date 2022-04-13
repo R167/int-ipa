@@ -46,7 +46,7 @@ const ValidateSegment = refine(Segment, "Segment", (segment, context) => {
     }
 
     if (Object.values(segment).reduce((run: boolean, curr) => run && curr !== true, true)) {
-      return `There must be at least one valid value in segment`;
+      return `There must be at least one valid value per segment`;
     }
   } else {
     // Last segment
