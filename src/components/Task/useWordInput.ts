@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import React, { useReducer } from "react";
 
 import { Word } from "../../utils/parsers/task";
 
@@ -13,7 +13,7 @@ export enum Op {
   ClearError,
 }
 
-interface State {
+export interface State {
   word: Word;
   segment: number;
   header: string;
@@ -77,3 +77,5 @@ const reducer = (state: State, action: Act): State => {
 export const useWordInput = (word: Word) => {
   return useReducer(reducer, word, reset);
 };
+
+export type Dispatch = React.Dispatch<Act>;

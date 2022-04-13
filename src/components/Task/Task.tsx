@@ -38,6 +38,7 @@ interface TaskProps {
 enum Op {
   FullReset,
   ShowReset,
+  WordReset,
   CloseReset,
   DismissModal,
   Submit,
@@ -66,6 +67,8 @@ const reducer = (state: State, action: Op): State => {
       return { ...state, resetModal: true };
     case Op.CloseReset:
       return { ...state, resetModal: false };
+    case Op.WordReset:
+      return { ...state, inputKey: Math.random().toString(36) };
     case Op.FullReset:
       // Reset back to start
       return {
@@ -107,6 +110,10 @@ const Task = (props: TaskProps) => {
   const handleSubmit = useDispatch(dispatch, Op.Submit);
   const dismissModal = useDispatch(dispatch, Op.DismissModal);
   const handleModalExit = useDispatch(dispatch, Op.ModalExit);
+  const resetWord = useCallback(() => {
+    setAnchorEl(null);
+    dispatch(Op.WordReset);
+  }, []);
   const handleShowReset = useCallback(() => {
     setAnchorEl(null);
     dispatch(Op.ShowReset);
@@ -153,9 +160,7 @@ const Task = (props: TaskProps) => {
         MenuListProps={{ subheader: <ListSubheader>Options</ListSubheader> }}
       >
         <MenuItem onClick={handleShowReset}>Reset assignment</MenuItem>
-        {/* <MenuItem disabled={true} onClick={handleShowReset}>
-          Reset word
-        </MenuItem> */}
+        <MenuItem onClick={resetWord}>Reset transcription</MenuItem>
       </Menu>
     </>
   );
@@ -229,33 +234,35 @@ interface NextWordProps {
   onExited: () => void;
   action: string;
 }
-const NextWord = (props: NextWordProps) => (
-  <Dialog
-    open={props.show}
-    onClose={props.dismiss}
-    aria-labelledby="alert-dialog-title"
-    aria-describedby="alert-dialog-description"
-    onExited={props.onExited}
-  >
-    <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
-    <DialogContent>
-      <DialogContentText id="alert-dialog-description">
-        You did a good job of getting the word correct!
-      </DialogContentText>
-    </DialogContent>
-    <DialogActions>
-      <Button
-        onClick={props.dismiss}
-        variant="contained"
-        color="primary"
-        disabled={!props.show}
-        autoFocus
-        disableFocusRipple
-      >
-        {props.action}
-      </Button>
-    </DialogActions>
-  </Dialog>
-);
+const NextWord = memo(function NextWord(props: NextWordProps) {
+  return (
+    <Dialog
+      open={props.show}
+      onClose={props.dismiss}
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
+      onExited={props.onExited}
+    >
+      <DialogTitle id="alert-dialog-title">Congrats! You got it correct</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-description">
+          You did a good job of getting the word correct!
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button
+          onClick={props.dismiss}
+          variant="contained"
+          color="primary"
+          disabled={!props.show}
+          autoFocus
+          disableFocusRipple
+        >
+          {props.action}
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+});
 
 export default memo(Task);
