@@ -1,0 +1,76 @@
+---
+author: Winston Durand and Will Styler
+title: Simplified Keyboard
+salt: vowelsarecool # This is a value unique to this assignment
+instructions: > # <-- The ">" here indicates a multiline string.
+  For each of the following words, you'll be given both a word in English, and a
+  sound file. Making reference to the sound file, you'll give us each sound in the
+  word, one by one, without slashes or brackets. So, for each word, enter the first complete sound.  This can
+  be a single IPA character, like 's', or, for something more complicated like
+  affricates (e.g. 't͡ʃ') or diphthongs (e.g. 'ej') or other multi-symbol characters,
+  you might enter multiple symbols at one.  When you think you've entered the
+  symbol(s) associated with the first sound completely, press 'Submit IPA Symbol(s) or Word' to
+  check your work. Then, do this for the remaining sounds, and when you feel like
+  you've finished all the sounds in the word, click 'Submit' one last time.
+words:
+  - display: ban
+    audio: ../ban.wav
+    segments:
+      - b: true
+        p: No, this is a voiced sound in English (although it sounds like a voiceless sound in many other languages!)
+        /...: No need to use slashes or brackets here!
+        "[...": No need to use slashes or brackets here!
+      - æ: true
+        ɑ: No, this vowel would sound like 'bahn' or 'bomb'
+        a: This vowel is really only used in diphthongs in English
+        ae: It's important to write this vowel as a digraph, /æ/, otherwise it's a VV sequence and very different
+        ɔ: Open o?  More like NOPE-n o.  Try another vowel.
+      - n: true
+        m: This would be a bilabial nasal, made with the lips, like in 'bam'. That's not what's going on here though!
+        ŋ: This is a velar nasal like in 'bang', but the sound in this word is made more towards the front of the mouth
+      - "": true
+keyboard:
+  symbols: # Just provide a list of all valid characters you want available
+    - b
+    - p
+    - æ
+    - ɑ
+    - a
+    - e
+    - ɔ
+    - n
+    - m
+    - ŋ
+    - t
+    - d
+    - i
+    - o
+    # Note: You can also use the standard array format
+    # symbols:
+    #   [b, p, a, e, ...]
+    # That format also is fine with line breaks
+  additionalSections:
+    # This format is nearly identical to that of ipa_sounds_manifest.yaml
+    - name: Tone
+      columns: 2
+      symbols:
+        - ipa: "e\u030B"
+          description: Extra-high
+        - ipa: "e\u030C"
+          description: Rising
+        - ipa: "e\u0301"
+          description: High
+        - ipa: "e\u0302"
+          description: Falling
+        - ipa: "e\u0304"
+          description: Mid
+        - ipa: "e\u1DC4"
+          description: High-rising
+        - ipa: "e\u0300"
+          description: Low
+        - ipa: "e\u1DC5"
+          description: Low-rising
+        - ipa: "e\u030F"
+          description: Extra-low
+        - ipa: "e\u1DC8"
+          description: Rising-falling

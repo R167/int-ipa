@@ -70,12 +70,13 @@ const Pulmonics = (props: Props) => {
 
   const preventDefault = useCallback((e) => e.preventDefault(), []);
 
-  // TODO: Fix this at some point
+  // Create each of the voiced/voiceless cell pairs
   const Cell = useCallback(
     ({ x, y }: { x: number; y: number }) => {
       const voiceless = PULMONICS[y]?.[x * 2];
       const voiced = PULMONICS[y]?.[x * 2 + 1];
 
+      // Ignore borders around the Dental-Postalveolar column, except for fricatives
       const hasBorders = x < 2 || x > 4 || y === 4;
 
       return (

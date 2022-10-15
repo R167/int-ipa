@@ -77,6 +77,8 @@ export const EJECTIVES = [
   ["sʼ", "Alveolar fricative"],
 ] as const;
 
+export const NON_PULMONICS = [...CLICKS, ...IMPLOSIVES, ...EJECTIVES].map((v) => v[0]);
+
 export const FILLER = "◌";
 
 export const VOWEL_HEIGHTS = ["Close", "Close-mid", "Open-mid", "Open"] as const;

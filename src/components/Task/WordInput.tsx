@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import useKeyboard from "../keyboard/useKeyboard";
 import StickyIPA from "../keyboard/StickyIPA";
 
-import { Word, matchSegment } from "../../utils/parsers/task";
+import { Word, matchSegment, KeyboardDef } from "../../utils/parsers/task";
 import { useDebugContext } from "../../utils/Debug";
 import { Op, useWordInput } from "./useWordInput";
 
@@ -18,13 +18,14 @@ const useStyles = makeStyles((theme) => ({
 interface Props {
   word: Word;
   onSubmit: () => void;
+  keys?: KeyboardDef;
 }
 
 const WordInput = (props: Props) => {
   const classes = useStyles();
   const debug = useDebugContext();
 
-  const { word, onSubmit: handleSubmit } = props;
+  const { word, onSubmit: handleSubmit, keys } = props;
   const { handleKeyboard, handleDelete, handleType, setValue, value, ref } = useKeyboard();
   const [state, dispatch] = useWordInput(word);
 
@@ -79,6 +80,7 @@ const WordInput = (props: Props) => {
       helpText={errorMessage}
       headerTooltip="Correct!"
       handleKeyboard={handleKeyboard}
+      keys={keys}
     />
   );
 };

@@ -2,7 +2,7 @@ import { ReactElement, memo } from "react";
 import { Grid, Paper, Typography, makeStyles } from "@material-ui/core";
 
 import Pulmonics from "./Pulmonics";
-import { ClickableSubset } from "./common";
+import { Clickable, ClickableSubset, colToWidth, subsetFunc } from "./common";
 import NonPulmonics from "./NonPulmonics";
 import Vowels from "./Vowels";
 import Diacritics from "./Diacritics";
@@ -10,6 +10,8 @@ import { CSSProperties } from "@material-ui/core/styles/withStyles";
 import Other from "./Other";
 import Suprasegmentals from "./Suprasegmentals";
 import React from "react";
+import { KeyboardDef } from "../../utils/parsers";
+import GridDisplay from "./GridDisplay";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,7 +34,10 @@ const orderChildren = (...children: number[]) => {
   return styles;
 };
 
-interface Props extends ClickableSubset {}
+interface Props extends ClickableSubset {
+  // Optional set of keys which are allowed. Replaces the subset argument.
+  keys?: KeyboardDef;
+}
 interface BaseProps extends Props {
   children?: ClickableNode;
 }
@@ -82,11 +87,48 @@ const ApplyClickableSubset = (props: ApplyProps) => {
   );
 };
 
+const SubsetKeyboard = (props: Clickable & { keys: KeyboardDef }) => {
+  const { onClick, keys } = props;
+
+  const sections: ClickableElement[] = [];
+  if (keys.nonPulmonics) {
+    sections.push(
+      <Item size="half" header="Consonants (Non-pulmonics)">
+        <NonPulmonics />
+      </Item>
+    );
+  }
+  const ipa = [...keys.symbols];
+  keys.sections?.forEach(({ symbols, columns, name }) => {
+    symbols.forEach(({ ipa: s }) => ipa.push(s));
+    const list = symbols.map(({ ipa, description }) => ({
+      ipa,
+      sym: ipa,
+      description,
+    }));
+
+    const width = colToWidth(columns);
+
+    sections.push(
+      <Item size="half" header={name} key={name}>
+        <GridDisplay content={list} breakpoints={{ xs: width }} />
+      </Item>
+    );
+  });
+  const subset = subsetFunc(ipa);
+  return <BaseKeyboard onClick={onClick} subset={subset} children={sections} />;
+};
+
 /**
  * Accepts an onClick option. This is assumed to be memoized.
+ * If you don't memoize onClick, you WILL have a bad day.
  */
 const Keyboard = (props: Props) => {
-  const { onClick, subset } = props;
+  const { onClick, subset, keys } = props;
+  if (keys && keys.symbols.length > 0) {
+    return <SubsetKeyboard onClick={onClick} keys={keys} />;
+  }
+
   return (
     // 1
     <BaseKeyboard onClick={onClick} subset={subset}>

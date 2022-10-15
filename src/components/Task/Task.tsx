@@ -86,7 +86,7 @@ const useDispatch = <T,>(dispatch: React.Dispatch<T>, op: T) =>
 
 const Task = (props: TaskProps) => {
   const { task, baseUrl, noPersist } = props;
-  const { title, words, instructions } = task;
+  const { title, words, instructions, keyboard } = task;
 
   const persistKey = noPersist ? null : `persist-${baseUrl}`;
 
@@ -198,7 +198,7 @@ const Task = (props: TaskProps) => {
         {wordInstructions}
 
         {/* Setting key here lets us force clear the nested state when we need to */}
-        <WordInput word={word} onSubmit={handleSubmit} key={rest.inputKey} />
+        <WordInput word={word} onSubmit={handleSubmit} key={rest.inputKey} keys={keyboard} />
       </Collapse>
 
       {/* Finish splash screen. The mount/unmount are required for persist to work correctly */}

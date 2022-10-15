@@ -9,6 +9,7 @@ import {
   string,
   union,
 } from "superstruct";
+import { Keyboard } from "./keyboard";
 
 export type TaskFileDef = Infer<typeof TaskFile>;
 export type TaskFileWord = Infer<typeof Word>;
@@ -76,4 +77,5 @@ export const TaskFile = object({
   instructions: optional(string()),
   macros: optional(Macros),
   words: array(Word),
+  keyboard: optional(Keyboard),
 });

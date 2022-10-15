@@ -2,6 +2,7 @@ import { Dialog, DialogContent, DialogTitle, Grid, Typography } from "@material-
 import { useCallback, useMemo, useState } from "react";
 import { MiscList } from "../../utils/ipa";
 import { IpaSoundsParsed, SoundParsed } from "../../utils/parsers";
+import { colToWidth } from "../keyboard/common";
 import GridDisplay from "../keyboard/GridDisplay";
 import { BaseKeyboard, Item } from "../keyboard/Keyboard";
 import NonPulmonics from "../keyboard/NonPulmonics";
@@ -50,7 +51,7 @@ const Listen = ({ sounds, baseUrl, video }: Props) => {
         description,
       }));
 
-      const width = columns === 2 ? 6 : columns === 3 ? 4 : 12;
+      const width = colToWidth(columns);
 
       sections.push(
         <Item size="half" header={name} key={name}>

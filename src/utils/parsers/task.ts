@@ -2,6 +2,8 @@ import escapeStringRegexp from "escape-string-regexp";
 import normalize from "../normalize";
 import { TaskFile, TaskFileMacros, TaskFileSegment } from "../../data/task";
 import { parse } from "./parse";
+import { SectionDef } from "../../data/keyboard";
+import { NON_PULMONICS } from "../ipa";
 
 export interface TaskDef {
   author: string;
@@ -10,6 +12,7 @@ export interface TaskDef {
   salt?: string;
   macros: Macros;
   words: Word[];
+  keyboard?: KeyboardDef;
 }
 
 type Explanations = Map<string, string>;
@@ -31,6 +34,12 @@ export interface Word {
   audio?: string;
   instructions?: string;
   segments: WordSegment[];
+}
+
+export interface KeyboardDef {
+  symbols: string[];
+  nonPulmonics: boolean;
+  sections?: SectionDef[];
 }
 
 interface SegmentMatch {
@@ -178,7 +187,6 @@ const getSegments = (segments: TaskFileSegment[], macros: Macros): WordSegment[]
   return validSegments;
 };
 
-// TODO: Actually do validations and make this type safe
 export const parseTask = (contents: string): TaskDef => {
   const valid = parse(contents, TaskFile);
 
@@ -190,5 +198,18 @@ export const parseTask = (contents: string): TaskDef => {
     return { ...meta, segments };
   });
 
-  return { ...metadata, macros, words };
+  const definition: TaskDef = { ...metadata, macros, words };
+
+  if (valid.keyboard) {
+    const { symbols, additionalSections } = valid.keyboard;
+    const nonPulmonics = NON_PULMONICS.some((char) => symbols.includes(char));
+
+    definition.keyboard = {
+      symbols,
+      nonPulmonics,
+      sections: additionalSections,
+    };
+  }
+
+  return definition;
 };
