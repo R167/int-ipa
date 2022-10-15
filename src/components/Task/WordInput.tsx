@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core";
 import useKeyboard from "../keyboard/useKeyboard";
 import StickyIPA from "../keyboard/StickyIPA";
 
-import { Word, matchSegment, KeyboardDef } from "../../utils/parsers/task";
+import { KeyboardDef, Word, matchSegment } from "../../utils/parsers/task";
 import { useDebugContext } from "../../utils/Debug";
 import { Op, useWordInput } from "./useWordInput";
 
