@@ -26,6 +26,10 @@ tasks:
     description: Test for nested assignments
     file: nested/nested.yaml
 
+  - name: Customized keyboard
+    description: A task with a limited, customized keyboard
+    file: simple-keyboard/simple-keyboard.yaml
+
   - name: Intentionally hidden
     description: This assignment is currently **hidden**
     file: assignment1.yaml

@@ -1,368 +1,445 @@
 ---
 # All files are originally available from Will Styler and are rehosted solely for reasons of convenience
+# and fixing sound levels
 # baseUrl: "https://wstyler.ucsd.edu/talks/ipa/"
+# You can download all the files necessary for this page from https://int-ipa-assets.winstondurand.com/static-assets/ipa.zip
 baseUrl: "https://int-ipa-assets.winstondurand.com/static-assets/ipa/"
 # This is a somewhat "magical" file. Refer to the README.md. If you update this file, make sure you update
 # the version which lives in production
 packFile: "https://int-ipa-assets.winstondurand.com/static-assets/ipa.msgpack"
+footer: |
+  Sound files created and performed by [Marc Garellek](https://pages.ucsd.edu/~mgarellek/) of UCSD
 symbols:
   # Pulmonics
   - ipa: p
     audio: voiceless_bilabial_stop.mp3
-    video: voiceless_bilabial_stop.mp4
+    video: voiceless_bilabial_stop_small.mp4
   - ipa: b
     audio: voiced_bilabial_stop.mp3
-    video: voiced_bilabial_stop.mp4
+    video: voiced_bilabial_stop_small.mp4
   - ipa: t
     audio: voiceless_alveolar_stop.mp3
-    video: voiceless_alveolar_stop.mp4
+    video: voiceless_alveolar_stop_small.mp4
   - ipa: d
     audio: voiced_alveolar_stop.mp3
-    video: voiced_alveolar_stop.mp4
+    video: voiced_alveolar_stop_small.mp4
   - ipa: ʈ
     audio: voiceless_retroflex_stop.mp3
-    video: voiceless_retroflex_stop.mp4
+    video: voiceless_retroflex_stop_small.mp4
   - ipa: ɖ
     audio: voiced_retroflex_stop.mp3
-    video: voiced_retroflex_stop.mp4
+    video: voiced_retroflex_stop_small.mp4
   - ipa: c
     audio: voiceless_palatal_stop.mp3
-    video: voiceless_palatal_stop.mp4
+    video: voiceless_palatal_stop_small.mp4
   - ipa: ɟ
     audio: voiced_palatal_stop.mp3
-    video: voiced_palatal_stop.mp4
+    video: voiced_palatal_stop_small.mp4
   - ipa: k
     audio: voiceless_velar_stop.mp3
-    video: voiceless_velar_stop.mp4
+    video: voiceless_velar_stop_small.mp4
   - ipa: g
     audio: voiced_velar_stop.mp3
-    video: voiced_velar_stop.mp4
+    video: voiced_velar_stop_small.mp4
   - ipa: q
     audio: voiceless_uvular_stop.mp3
-    video: voiceless_uvular_stop.mp4
+    video: voiceless_uvular_stop_small.mp4
   - ipa: ɢ
     audio: voiced_uvular_stop.mp3
-    video: voiced_uvular_stop.mp4
+    video: voiced_uvular_stop_small.mp4
   - ipa: ʔ
     audio: voiceless_glottal_stop.mp3
-    video: voiceless_glottal_stop.mp4
+    video: voiceless_glottal_stop_small.mp4
   - ipa: m
     audio: voiced_bilabial_nasal.mp3
-    video: voiced_bilabial_nasal.mp4
+    video: voiced_bilabial_nasal_small.mp4
   - ipa: ɱ
     audio: voiced_labiodental_nasal.mp3
-    video: voiced_labiodental_nasal.mp4
+    video: voiced_labiodental_nasal_small.mp4
   - ipa: n
     audio: voiced_alveolar_nasal.mp3
-    video: voiced_alveolar_nasal.mp4
+    video: voiced_alveolar_nasal_small.mp4
   - ipa: ɳ
     audio: voiced_retroflex_nasal.mp3
-    video: voiced_retroflex_nasal.mp4
+    video: voiced_retroflex_nasal_small.mp4
   - ipa: ɲ
     audio: voiced_palatal_nasal.mp3
-    video: voiced_palatal_nasal.mp4
+    video: voiced_palatal_nasal_small.mp4
   - ipa: ŋ
     audio: voiced_velar_nasal.mp3
-    video: voiced_velar_nasal.mp4
+    video: voiced_velar_nasal_small.mp4
   - ipa: ɴ
     audio: voiced_uvular_nasal.mp3
-    video: voiced_uvular_nasal.mp4
+    video: voiced_uvular_nasal_small.mp4
   - ipa: ʙ
     audio: voiced_bilabial_trill.mp3
-    video: voiced_bilabial_trill.mp4
+    video: voiced_bilabial_trill_small.mp4
   - ipa: r
     audio: voiced_alveolar_trill.mp3
-    video: voiced_alveolar_trill.mp4
+    video: voiced_alveolar_trill_small.mp4
   - ipa: ʀ
     audio: voiced_uvular_trill.mp3
-    video: voiced_uvular_trill.mp4
+    video: voiced_uvular_trill_small.mp4
   - ipa: ⱱ
     audio: voiced_labiodental_flap.mp3
-    video: voiced_labiodental_flap.mp4
+    video: voiced_labiodental_flap_small.mp4
   - ipa: ɾ
     audio: voiced_alveolar_tap.mp3
-    video: voiced_alveolar_tap.mp4
+    video: voiced_alveolar_tap_small.mp4
   - ipa: ɽ
     audio: voiced_retroflex_flap.mp3
-    video: voiced_retroflex_flap.mp4
+    video: voiced_retroflex_flap_small.mp4
   - ipa: ɸ
     audio: voiceless_bilabial_fricative.mp3
-    video: voiceless_bilabial_fricative.mp4
+    video: voiceless_bilabial_fricative_small.mp4
   - ipa: β
     audio: voiced_bilabial_fricative.mp3
-    video: voiced_bilabial_fricative.mp4
+    video: voiced_bilabial_fricative_small.mp4
   - ipa: f
     audio: voiceless_labiodental_fricative.mp3
-    video: voiceless_labiodental_fricative.mp4
+    video: voiceless_labiodental_fricative_small.mp4
   - ipa: v
     audio: voiced_labiodental_fricative.mp3
-    video: voiced_labiodental_fricative.mp4
+    video: voiced_labiodental_fricative_small.mp4
   - ipa: θ
     audio: voiceless_dental_fricative.mp3
-    video: voiceless_dental_fricative.mp4
+    video: voiceless_dental_fricative_small.mp4
   - ipa: ð
     audio: voiced_dental_fricative.mp3
-    video: voiced_dental_fricative.mp4
+    video: voiced_dental_fricative_small.mp4
   - ipa: s
     audio: voiceless_alveolar_fricative.mp3
-    video: voiceless_alveolar_fricative.mp4
+    video: voiceless_alveolar_fricative_small.mp4
   - ipa: z
     audio: voiced_alveolar_fricative.mp3
-    video: voiced_alveolar_fricative.mp4
+    video: voiced_alveolar_fricative_small.mp4
   - ipa: ʃ
     audio: voiceless_postalveolar_fricative.mp3
-    video: voiceless_postalveolar_fricative.mp4
+    video: voiceless_postalveolar_fricative_small.mp4
   - ipa: ʒ
     audio: voiced_postalveolar_fricative.mp3
-    video: voiced_postalveolar_fricative.mp4
+    video: voiced_postalveolar_fricative_small.mp4
   - ipa: ʂ
     audio: voiceless_retroflex_fricative.mp3
-    video: voiceless_retroflex_fricative.mp4
+    video: voiceless_retroflex_fricative_small.mp4
   - ipa: ʐ
     audio: voiced_retroflex_fricative.mp3
-    video: voiced_retroflex_fricative.mp4
+    video: voiced_retroflex_fricative_small.mp4
   - ipa: ç
     audio: voiceless_palatal_fricative.mp3
-    video: voiceless_palatal_fricative.mp4
+    video: voiceless_palatal_fricative_small.mp4
   - ipa: ʝ
     audio: voiced_palatal_fricative.mp3
-    video: voiced_palatal_fricative.mp4
+    video: voiced_palatal_fricative_small.mp4
   - ipa: x
     audio: voiceless_velar_fricative.mp3
-    video: voiceless_velar_fricative.mp4
+    video: voiceless_velar_fricative_small.mp4
   - ipa: ɣ
     audio: voiced_velar_fricative.mp3
-    video: voiced_velar_fricative.mp4
+    video: voiced_velar_fricative_small.mp4
   - ipa: χ
     audio: voiceless_uvular_fricative.mp3
-    video: voiceless_uvular_fricative.mp4
+    video: voiceless_uvular_fricative_small.mp4
   - ipa: ʁ
     audio: voiced_uvular_fricative.mp3
-    video: voiced_uvular_fricative.mp4
+    video: voiced_uvular_fricative_small.mp4
   - ipa: ħ
     audio: voiceless_pharyngeal_fricative.mp3
-    video: voiceless_pharyngeal_fricative.mp4
+    video: voiceless_pharyngeal_fricative_small.mp4
   - ipa: ʕ
     audio: voiced_pharyngeal_fricative.mp3
-    video: voiced_pharyngeal_fricative.mp4
+    video: voiced_pharyngeal_fricative_small.mp4
   - ipa: h
     audio: voiceless_glottal_fricative.mp3
-    video: voiceless_glottal_fricative.mp4
+    video: voiceless_glottal_fricative_small.mp4
   - ipa: ɦ
     audio: voiced_glottal_fricative.mp3
-    video: voiced_glottal_fricative.mp4
+    video: voiced_glottal_fricative_small.mp4
   - ipa: ɬ
     audio: voiceless_alveolar_lateral_fricative.mp3
-    video: voiceless_alveolar_lateral_fricative.mp4
+    video: voiceless_alveolar_lateral_fricative_small.mp4
   - ipa: ɮ
     audio: voiced_alveolar_lateral_fricative.mp3
-    video: voiced_alveolar_lateral_fricative.mp4
+    video: voiced_alveolar_lateral_fricative_small.mp4
   - ipa: ʋ
     audio: voiced_labiodental_approximant.mp3
-    video: voiced_labiodental_approximant.mp4
+    video: voiced_labiodental_approximant_small.mp4
   - ipa: ɹ
     audio: voiced_alveolar_approximant.mp3
-    video: voiced_alveolar_approximant.mp4
+    video: voiced_alveolar_approximant_small.mp4
   - ipa: ɻ
     audio: voiced_retroflex_approximant.mp3
-    video: voiced_retroflex_approximant.mp4
+    video: voiced_retroflex_approximant_small.mp4
   - ipa: j
     audio: voiced_palatal_approximant.mp3
-    video: voiced_palatal_approximant.mp4
+    video: voiced_palatal_approximant_small.mp4
   - ipa: ɰ
     audio: voiced_velar_approximant.mp3
-    video: voiced_velar_approximant.mp4
+    video: voiced_velar_approximant_small.mp4
   - ipa: l
     audio: voiced_lateral_approximant.mp3
-    video: voiced_lateral_approximant.mp4
+    video: voiced_lateral_approximant_small.mp4
   - ipa: ɭ
     audio: voiced_retroflex_lateral.mp3
-    video: voiced_retroflex_lateral.mp4
+    video: voiced_retroflex_lateral_small.mp4
   - ipa: ʎ
     audio: voiced_palatal_lateral.mp3
-    video: voiced_palatal_lateral.mp4
+    video: voiced_palatal_lateral_small.mp4
   - ipa: ʟ
     audio: voiced_velar_lateral.mp3
-    video: voiced_velar_lateral.mp4
+    video: voiced_velar_lateral_small.mp4
   # Vowels
   - ipa: i
     audio: high_front_unrounded_vowel.mp3
-    video: high_front_unrounded_vowel.mp4
+    video: high_front_unrounded_vowel_small.mp4
   - ipa: y
     audio: high_front_rounded_vowel.mp3
-    video: high_front_rounded_vowel.mp4
+    video: high_front_rounded_vowel_small.mp4
   - ipa: ɨ
     audio: high_central_unrounded_vowel.mp3
-    video: high_central_unrounded_vowel.mp4
+    video: high_central_unrounded_vowel_small.mp4
   - ipa: ʉ
     audio: high_central_rounded_vowel.mp3
-    video: high_central_rounded_vowel.mp4
+    video: high_central_rounded_vowel_small.mp4
   - ipa: ɯ
     audio: high_back_unrounded_vowel.mp3
-    video: high_back_unrounded_vowel.mp4
+    video: high_back_unrounded_vowel_small.mp4
   - ipa: u
     audio: high_back_rounded_vowel.mp3
-    video: high_back_rounded_vowel.mp4
+    video: high_back_rounded_vowel_small.mp4
   - ipa: ɪ
     audio: higher-mid_front_unrounded_vowel.mp3
-    video: higher-mid_front_unrounded_vowel.mp4
+    video: higher-mid_front_unrounded_vowel_small.mp4
   - ipa: ʏ
     audio: higher-mid_front_rounded_vowel.mp3
-    video: higher-mid_front_rounded_vowel.mp4
+    video: higher-mid_front_rounded_vowel_small.mp4
   - ipa: ʊ
     audio: higher-mid_back_rounded_vowel.mp3
-    video: higher-mid_back_rounded_vowel.mp4
+    video: higher-mid_back_rounded_vowel_small.mp4
   - ipa: e
     audio: mid-high_front_unrounded_vowel.mp3
-    video: mid-high_front_unrounded_vowel.mp4
+    video: mid-high_front_unrounded_vowel_small.mp4
   - ipa: ø
     audio: mid-high_front_rounded_vowel.mp3
-    video: mid-high_front_rounded_vowel.mp4
+    video: mid-high_front_rounded_vowel_small.mp4
   - ipa: ɘ
     audio: mid-high_central_unrounded_vowel.mp3
-    video: mid-high_central_unrounded_vowel.mp4
+    video: mid-high_central_unrounded_vowel_small.mp4
   - ipa: ɵ
     audio: mid-high_central_rounded_vowel.mp3
-    video: mid-high_central_rounded_vowel.mp4
+    video: mid-high_central_rounded_vowel_small.mp4
   - ipa: ɤ
     audio: mid-high_back_unrounded_vowel.mp3
-    video: mid-high_back_unrounded_vowel.mp4
+    video: mid-high_back_unrounded_vowel_small.mp4
   - ipa: o
     audio: mid-high_back_rounded_vowel.mp3
-    video: mid-high_back_rounded_vowel.mp4
+    video: mid-high_back_rounded_vowel_small.mp4
   - ipa: ə
     audio: mid_central_unrounded_vowel.mp3
-    video: mid_central_unrounded_vowel.mp4
+    video: mid_central_unrounded_vowel_small.mp4
   - ipa: ɛ
     audio: mid-low_front_unrounded_vowel.mp3
-    video: mid-low_front_unrounded_vowel.mp4
+    video: mid-low_front_unrounded_vowel_small.mp4
   - ipa: œ
     audio: mid-low_front_rounded_vowel.mp3
-    video: mid-low_front_rounded_vowel.mp4
+    video: mid-low_front_rounded_vowel_small.mp4
   - ipa: ɜ
     audio: mid-low_central_unrounded_vowel.mp3
-    video: mid-low_central_unrounded_vowel.mp4
+    video: mid-low_central_unrounded_vowel_small.mp4
   - ipa: ɞ
     audio: mid-low_central_rounded_vowel.mp3
-    video: mid-low_central_rounded_vowel.mp4
+    video: mid-low_central_rounded_vowel_small.mp4
   - ipa: ʌ
     audio: mid-low_back_unrounded_vowel.mp3
-    video: mid-low_back_unrounded_vowel.mp4
+    video: mid-low_back_unrounded_vowel_small.mp4
   - ipa: ɔ
     audio: mid-low_back_rounded_vowel.mp3
-    video: mid-low_back_rounded_vowel.mp4
+    video: mid-low_back_rounded_vowel_small.mp4
   - ipa: æ
     audio: higher-low_front_unrounded_vowel.mp3
-    video: higher-low_front_unrounded_vowel.mp4
+    video: higher-low_front_unrounded_vowel_small.mp4
   - ipa: ɐ
     audio: higher-low_central_unrounded_vowel.mp3
-    video: higher-low_central_unrounded_vowel.mp4
+    video: higher-low_central_unrounded_vowel_small.mp4
   - ipa: a
     audio: low_front_unrounded_vowel.mp3
-    video: low_front_unrounded_vowel.mp4
+    video: low_front_unrounded_vowel_small.mp4
   - ipa: ɶ
     audio: low_front_rounded_vowel.mp3
-    video: low_front_rounded_vowel.mp4
+    video: low_front_rounded_vowel_small.mp4
   - ipa: ɑ
     audio: low_back_unrounded_vowel.mp3
-    video: low_back_unrounded_vowel.mp4
+    video: low_back_unrounded_vowel_small.mp4
   - ipa: ɒ
     audio: low_back_rounded_vowel.mp3
-    video: low_back_rounded_vowel.mp4
+    video: low_back_rounded_vowel_small.mp4
   # non-pulmonics
   # clicks
   - ipa: ʘ
     audio: bilabial_click.mp3
-    video: bilabial_click.mp4
+    video: bilabial_click_small.mp4
   - ipa: ǀ
     audio: dental_click.mp3
-    video: dental_click.mp4
+    video: dental_click_small.mp4
   - ipa: ǃ
     audio: alveolar_click.mp3
-    video: alveolar_click.mp4
+    video: alveolar_click_small.mp4
   - ipa: ǂ
     audio: palatoalveolar_click.mp3
-    video: palatoalveolar_click.mp4
+    video: palatoalveolar_click_small.mp4
   - ipa: ǁ
     audio: alveolar_lateral_click.mp3
-    video: alveolar_lateral_click.mp4
+    video: alveolar_lateral_click_small.mp4
   # Implosives
   - ipa: ɓ
     audio: voiced bilabial_implosive.mp3
-    video: voiced bilabial_implosive.mp4
+    video: voiced bilabial_implosive_small.mp4
   - ipa: ɗ
     audio: voiced_alveolar_implosive.mp3
-    video: voiced_alveolar_implosive.mp4
+    video: voiced_alveolar_implosive_small.mp4
   - ipa: ʄ
     audio: voiced_palatal_implosive.mp3
-    video: voiced_palatal_implosive.mp4
+    video: voiced_palatal_implosive_small.mp4
   - ipa: ɠ
     audio: voiced_velar_implosive.mp3
-    video: voiced_velar_implosive.mp4
+    video: voiced_velar_implosive_small.mp4
   - ipa: ʛ
     audio: voiced_uvular_implosive.mp3
-    video: voiced_uvular_implosive.mp4
+    video: voiced_uvular_implosive_small.mp4
   # Ejectives
   - ipa: pʼ
     audio: bilabial_ejective_stop.mp3
-    video: bilabial_ejective_stop.mp4
+    video: bilabial_ejective_stop_small.mp4
   - ipa: tʼ
     audio: alveolar_ejective_stop.mp3
-    video: alveolar_ejective_stop.mp4
+    video: alveolar_ejective_stop_small.mp4
   - ipa: kʼ
     audio: velar_ejective_stop.mp3
-    video: velar_ejective_stop.mp4
+    video: velar_ejective_stop_small.mp4
   - ipa: sʼ
     audio: alveolar_ejective_fricative.mp3
-    video: alveolar_ejective_fricative.mp4
+    video: alveolar_ejective_fricative_small.mp4
   # Other symbols
   - ipa: w
     audio: voiced_labial-velar_approximant.mp3
-    video: voiced_labial-velar_approximant.mp4
+    video: voiced_labial-velar_approximant_small.mp4
   - ipa: ʍ
     audio: voiceless_labial-velar_fricative.mp3
-    video: voiceless_labial-velar_fricative.mp4
+    video: voiceless_labial-velar_fricative_small.mp4
   - ipa: ɥ
     audio: voiced_labial-palatal_approximant.mp3
-    video: voiced_labial-palatal_approximant.mp4
+    video: voiced_labial-palatal_approximant_small.mp4
   - ipa: ʜ
     audio: voiceless_epiglottal_fricative.mp3
-    video: voiceless_epiglottal_fricative.mp4
+    video: voiceless_epiglottal_fricative_small.mp4
   - ipa: ʢ
     audio: voiced_epiglottal_fricative.mp3
-    video: voiced_epiglottal_fricative.mp4
+    video: voiced_epiglottal_fricative_small.mp4
   - ipa: ʡ
     audio: voiceless_epiglottal_stop.mp3
-    video: voiceless_epiglottal_stop.mp4
+    video: voiceless_epiglottal_stop_small.mp4
   - ipa: ɺ
     audio: voiced_alveolar_lateral_flap.mp3
-    video: voiced_alveolar_lateral_flap.mp4
+    video: voiced_alveolar_lateral_flap_small.mp4
   - ipa: ɕ
     audio: voiceless_alveolo-palatal_fricative.mp3
-    video: voiceless_alveolo-palatal_fricative.mp4
+    video: voiceless_alveolo-palatal_fricative_small.mp4
   - ipa: ʑ
     audio: voiced_alveolo-palatal_fricative.mp3
-    video: voiced_alveolo-palatal_fricative.mp4
+    video: voiced_alveolo-palatal_fricative_small.mp4
   - ipa: ɧ
     audio: voiceless_postalveolar-velar_fricative.mp3
-    video: voiceless_postalveolar-velar_fricative.mp4
+    video: voiceless_postalveolar-velar_fricative_small.mp4
 
 additionalSections:
-  - name: Other examples
+  - name: Diacritics
     symbols:
-      - ipa: "p\u02B0"
-        audio: voiceless_aspirated_bilabial_stop.mp3
-        video: voiceless_aspirated_bilabial_stop.mp4
+      - ipa: "pʰa"
         description: Voiceless aspirated bilabial stop
-      - ipa: "ə\u02DE"
+        audio: voiceless_aspirated_bilabial_stop.mp3
+        video: voiceless_aspirated_bilabial_stop_small.mp4
+      - ipa: "t͡s"
+        description: Voiceles alveolar affricate
+        audio: voiceless_alveolar_affricate.mp3
+        video: voiceless_alveolar_affricate_small.mp4
+      - ipa: "k͡p"
+        description: Voiceless labial-velar stop
+        audio: voiceless_labial-velar_stop.mp3
+        video: voiceless_labial-velar_stop_small.mp4
+      - ipa: "ə˞"
+        description: Mid central unrounded rhotacized vowel
         audio: mid_central_unrounded_rhotacized_vowel.mp3
-        video: mid_central_unrounded_rhotacized_vowel.mp4
-        description: Rhotacized vowel
-      - ipa: "a\u0324"
-        audio: breathy_voice.mp3
-        video: breathy_voice.mp4
+        video: mid_central_unrounded_rhotacized_vowel_small.mp4
+      - ipa: "a̤"
         description: Breathy voice
-      - ipa: "a\u0330"
-        audio: creaky_voice.mp3
-        video: creaky_voice.mp4
+        audio: breathy_voice.mp3
+        video: breathy_voice_small.mp4
+      - ipa: "a̰"
         description: Creaky voice
+        audio: creaky_voice.mp3
+        video: creaky_voice_small.mp4
+  - name: Contrasts
+    symbols:
+      - ipa: "pa pʼa k͡ʘa ba ɓa"
+        description: Airstrem mechanisms
+        audio: airstream_mechanisms.mp3
+        video: airstream_mechanisms_small.mp4
+      - ipa: "k͡ǂʰa k͡ǂa g͡ǂa ŋ͡ǂa"
+        description: Click accompaniments
+        audio: click_accompaniments.mp3
+        video: click_accompaniments_small.mp4
+      - ipa: "ħa ʜa ʕa ʢa"
+        description: Pharyngeal epiglottal
+        audio: pharyngeal_epiglottal.mp3
+        video: pharyngeal_epiglottal_small.mp4
+      - ipa: "ta tʷa tʲa tˠa tˤa"
+        description: Secondary articulations
+        audio: secondary articulations.mp3
+        video: secondary articulations_small.mp4
+      - ipa: "pʰa pa ba"
+        description: Stop voicing contrasts
+        audio: stop voicing contrasts.mp3
+        video: stop voicing contrasts_small.mp4
+  - name: Tone
+    columns: 2
+    symbols:
+      - ipa: "e\u030B"
+        audio: extra-high_tone.mp3
+        video: extra-high_tone_small.mp4
+        description: Extra-high
+      - ipa: "e\u030C"
+        audio: rising_tone.mp3
+        video: rising_tone_small.mp4
+        description: Rising
+      - ipa: "e\u0301"
+        audio: high_tone.mp3
+        video: high_tone_small.mp4
+        description: High
+      - ipa: "e\u0302"
+        audio: falling_tone.mp3
+        video: falling_tone_small.mp4
+        description: Falling
+      - ipa: "e\u0304"
+        audio: mid_tone.mp3
+        video: mid_tone_small.mp4
+        description: Mid
+      - ipa: "e\u1DC4"
+        audio: high-rising_tone.mp3
+        video: high-rising_tone_small.mp4
+        description: High-rising
+      - ipa: "e\u0300"
+        audio: low_tone.mp3
+        video: low_tone_small.mp4
+        description: Low
+      - ipa: "e\u1DC5"
+        audio: low-rising_tone.mp3
+        video: low-rising_tone_small.mp4
+        description: Low-rising
+      - ipa: "e\u030F"
+        audio: extra-low_tone.mp3
+        video: extra-low_tone_small.mp4
+        description: Extra-low
+      - ipa: "e\u1DC8"
+        audio: rising-falling_tone.mp3
+        video: rising-falling_tone_small.mp4
+        description: Rising-falling
