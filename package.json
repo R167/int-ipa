@@ -35,7 +35,7 @@
     "react-meta-tags": "^1.0.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "5.0.0",
+    "react-scripts": "5.0.1",
     "smoothscroll-polyfill": "^0.4.4",
     "superstruct": "^0.15.2",
     "typescript": "^5.3.3",
