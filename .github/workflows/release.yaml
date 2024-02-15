@@ -13,11 +13,11 @@ jobs:
     outputs:
       upload_url: ${{ steps.create_release.outputs.upload_url }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "20"
           cache: yarn
       - run: yarn install --immutable
       - name: Linting sanity check
@@ -56,11 +56,11 @@ jobs:
           - url: "/"
             name: absolute
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Setup Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: "16"
+          node-version: "20"
           cache: yarn
       - run: yarn install --immutable
       - run: yarn build
