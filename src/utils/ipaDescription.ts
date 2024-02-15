@@ -1,6 +1,6 @@
 import { IMPOSSIBLE, MANNERS, NOT_USED, PLACES, PULMONICS } from "./ipa";
 
-type Pulmonics = Exclude<typeof PULMONICS[number][number], typeof NOT_USED | typeof IMPOSSIBLE>;
+type Pulmonics = Exclude<(typeof PULMONICS)[number][number], typeof NOT_USED | typeof IMPOSSIBLE>;
 
 const describePulmonics = (): Map<Pulmonics, string> => {
   const defs = new Map<Pulmonics, string>();
