@@ -29,8 +29,8 @@ export const MANNERS = [
   "Lateral approximant",
 ] as const;
 
-export type PlaceOfArt = typeof PLACES[number];
-export type MannerOfArt = typeof MANNERS[number];
+export type PlaceOfArt = (typeof PLACES)[number];
+export type MannerOfArt = (typeof MANNERS)[number];
 
 // The sounds that are either impossible or not used
 export const IMPOSSIBLE = "_";
