@@ -44,7 +44,6 @@ let errorShown = false;
 const Manifest = ({ children }: Props) => {
   const { result, error, loading } = useAsync(fetchManifest, []);
   const [cachedManifest, setCachedManifest] = useState<ManifestDef | undefined>(undefined);
-  const [cacheLoaded, setCacheLoaded] = useState(false);
 
   // Load cached manifest on mount
   useEffect(() => {
@@ -55,10 +54,8 @@ const Manifest = ({ children }: Props) => {
           const parsed = parseManifest(cached);
           setCachedManifest(parsed);
         }
-      } catch (error) {
-        console.warn("Failed to load cached manifest:", error);
-      } finally {
-        setCacheLoaded(true);
+      } catch (err) {
+        console.warn("Failed to load cached manifest:", err);
       }
     };
 
@@ -71,8 +68,8 @@ const Manifest = ({ children }: Props) => {
       if (result?.raw) {
         try {
           await secureSetItem(MANIFEST_KEY, result.raw);
-        } catch (error) {
-          console.warn("Failed to cache manifest:", error);
+        } catch (err) {
+          console.warn("Failed to cache manifest:", err);
         }
       }
     };
