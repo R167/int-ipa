@@ -1,9 +1,10 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { useAsync } from "react-async-hook";
 import { YAMLError } from "yaml/util";
 
 import { MANIFEST_FILE } from "./constants";
 import { ValidateError } from "./utils/error";
+import { secureGetItem, secureSetItem } from "./utils/secureStorage";
 
 import { ManifestDef, parseManifest } from "./utils/parsers";
 
@@ -42,44 +43,66 @@ let errorShown = false;
 
 const Manifest = ({ children }: Props) => {
   const { result, error, loading } = useAsync(fetchManifest, []);
+  const [cachedManifest, setCachedManifest] = useState<ManifestDef | undefined>(undefined);
+  const [cacheLoaded, setCacheLoaded] = useState(false);
+
+  // Load cached manifest on mount
+  useEffect(() => {
+    const loadCache = async () => {
+      try {
+        const cached = await secureGetItem<string>(MANIFEST_KEY);
+        if (cached) {
+          const parsed = parseManifest(cached);
+          setCachedManifest(parsed);
+        }
+      } catch (error) {
+        console.warn("Failed to load cached manifest:", error);
+      } finally {
+        setCacheLoaded(true);
+      }
+    };
+
+    loadCache();
+  }, []);
+
+  // Save manifest to cache when loaded
+  useEffect(() => {
+    const saveCache = async () => {
+      if (result?.raw) {
+        try {
+          await secureSetItem(MANIFEST_KEY, result.raw);
+        } catch (error) {
+          console.warn("Failed to cache manifest:", error);
+        }
+      }
+    };
+
+    saveCache();
+  }, [result]);
+
+  // Handle errors
+  useEffect(() => {
+    if (error && !errorShown) {
+      errorShown = true;
+      console.error(error);
+      if (error instanceof YAMLError) {
+        alert(
+          `Error: Your manifest.yaml contains invalid syntax. Please check the console for more info.`
+        );
+      } else if (error instanceof ValidateError) {
+        alert(`Issue parsing manifest.yaml: ${error.message}`);
+      } else {
+        alert("There was an error loading your manifest.yaml");
+      }
+    }
+  }, [error]);
 
   const manifest = {
-    loading,
+    loading: loading && !cachedManifest,
     error,
-    fetched: true,
-    result: result?.manifest,
+    fetched: !loading || !!result,
+    result: result?.manifest || cachedManifest,
   };
-
-  if (loading && !error) {
-    // Cache load logic
-    try {
-      const cachedBody = localStorage.getItem(MANIFEST_KEY);
-      if (cachedBody) {
-        manifest.result = parseManifest(cachedBody);
-        manifest.fetched = false;
-        manifest.loading = false;
-      }
-    } catch {
-      // Silently ignore a failed cache load and fallback to manifest loading
-    }
-  } else if (error && !errorShown) {
-    // Error handling logic
-    errorShown = true;
-    console.error(error);
-    if (error instanceof YAMLError) {
-      // This is a YAML error
-      alert(
-        `Error: Your manifest.yaml contains invalid syntax. Please check the console for more info.`
-      );
-    } else if (error instanceof ValidateError) {
-      alert(`Issue parsing manifest.yaml: ${error.message}`);
-    } else {
-      alert("There was an error loading your manifest.yaml");
-    }
-  } else if (result?.raw) {
-    // Cache save logic
-    localStorage.setItem(MANIFEST_KEY, result.raw);
-  }
 
   return <ManifestContext.Provider value={manifest}>{children}</ManifestContext.Provider>;
 };
