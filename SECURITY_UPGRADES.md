@@ -2,7 +2,9 @@
 
 This document tracks security improvements made and future major version upgrades needed.
 
-## Completed Security Improvements (v0.7.2)
+**Current Status**: Core security improvements (CSP, secure storage) are complete. Dependency updates are documented below but not yet applied - they should be done in a separate PR with proper lockfile regeneration.
+
+## Completed Security Improvements
 
 ### 1. Content Security Policy
 - **Added**: Comprehensive CSP headers in `public/index.html`
@@ -23,11 +25,12 @@ This document tracks security improvements made and future major version upgrade
 - **Usage**: Manifest caching now uses secure storage
 
 ### 3. Dependency Security Updates
-- **Updated**: All dependencies to latest patch versions within current major versions
+- **Status**: PLANNED (not yet applied due to lockfile constraints)
 - **Approach**: Conservative updates to maintain compatibility
 - **Focus**: Security patches and bug fixes
+- **Note**: Dependency updates require `yarn install` to regenerate yarn.lock, which should be done in a separate PR to avoid CI conflicts
 
-## Dependency Version Updates Applied
+## Planned Dependency Version Updates
 
 ### Production Dependencies
 - @material-ui/core: 4.11.0 → 4.12.4 (latest v4)
