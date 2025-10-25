@@ -4,9 +4,8 @@ import { YAMLError } from "yaml/util";
 
 import { MANIFEST_FILE } from "./constants";
 import { ValidateError } from "./utils/error";
-import { secureGetItem, secureSetItem } from "./utils/secureStorage";
-
 import { ManifestDef, parseManifest } from "./utils/parsers";
+import { secureGetItem, secureSetItem } from "./utils/secureStorage";
 
 interface AsyncManifest {
   error: Error | undefined;
